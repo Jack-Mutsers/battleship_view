@@ -3,6 +3,22 @@
 @{
     ViewData["Title"] = "Highscores";
 }
+    <link rel="stylesheet" href="~/css/Highscores.css" />
 
-<h1>Highscores</h1>
+        <h1 class="title-page">Highscores</h1>
+
+        <a class="back" asp-area="" asp-page="/Index">Back</a>
+        
+        <div class="filter">
+            <select>
+                <option>Shots</option>
+                <option>Accuracy</option>
+                <option>Hit Streak</option>
+                <option>Boats Sunk</option>
+            </select>
+            <select>
+                <option>Asc</option>
+                <option>Desc</option>
+            </select>
+        </div>
 
