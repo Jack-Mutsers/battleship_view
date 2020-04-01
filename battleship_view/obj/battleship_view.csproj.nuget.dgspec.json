@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\battleship_view\\battleship_view.csproj": {}
+    "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj": {}
   },
   "projects": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\battleship_view\\battleship_view.csproj": {
+    "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\battleship_view\\battleship_view.csproj",
+        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj",
         "projectName": "battleship_view",
-        "projectPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\battleship_view\\battleship_view.csproj",
+        "projectPath": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj",
         "packagesPath": "C:\\Users\\jack\\.nuget\\packages\\",
-        "outputPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\battleship_view\\obj\\",
+        "outputPath": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
