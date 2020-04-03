@@ -47,12 +47,6 @@ input {
 }
 
 .leave {
-    width: 50%;
-    background-color: #eaeae9;
-    border-color: #808080;
-    border-bottom-style: solid;
-    border-right-style: solid;
-    border-radius: 5px;
     display: inline-block;
 }
 
