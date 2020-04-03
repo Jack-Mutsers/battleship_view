@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<head>
+
+    <style>
+
+        /*Style voor de buttons*/
+        .button {
+            width: 350px;
+            max-width: 350px;
+            height: 140px;
+            max-height: 140px;
+            background-color: #DDDDDD;
+            border: solid;
+            border-color: #000000;
+            color: #000000;
+            padding: 20px;
+            text-align: center;
+            font-size: 36px;
+            border-radius: 8px;
+            transition-duration: 0.35s;
+            margin: 0px 55px;
+        }
+
+            .button:hover {
+                background-color: #AAAAAA;
+            }
+
+            .button:focus{
+                outline: 0;
+            }
+
+        .buttonTop {
+            margin-top: 70px
+        }
+
+        .buttonBottom {
+            margin-top: 80px
+        }
+
+        /*Style voor de afbeeldingen*/
+        .figure {
+            width: 150px;
+            max-width: 150px;
+            height: 600px;
+            max-height: 600px;
+            position: fixed;
+        }
+
+        .figureLeft {
+            top: auto;
+            left: 0px;
+        }
+
+        .figureRight {
+            top: auto;
+            right: 0px;
+        }
+    </style>
+
+</head>
+
+<div class="text-center">
+
+    <img scr="https://www.spellenrijk.nl/resize/B0995_16895009459525.jpg/0/1100/True/zeeslag-reisspel.jpg" class="figure figureLeft">
+    <img scr="https://www.spellenrijk.nl/resize/B0995_16895009459525.jpg/0/1100/True/zeeslag-reisspel.jpg" class="figure figureRight">
+
+    <h1 class="display-4">Online zeeslag</h1>
+
+    <a asp-area="" asp-page="/JoinSession"><input type="button" class="button buttonTop" value="Lobby joinen"></a>
+    <a asp-area="" asp-page="/CreateSession"><input type="button" class="button buttonTop" value="Lobby aanmaken"></a>
+
+    <a asp-area="" asp-page="/Highscores"><input type="button" class="button buttonBottom" value="Highscores"></a>
+    <a asp-area="" asp-page="/tutorial"><input type="button" class="button buttonBottom" value="Tutorial"></a>
+
+</div>
