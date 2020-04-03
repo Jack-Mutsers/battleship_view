@@ -1,0 +1,95 @@
+﻿body {
+}
+
+button {
+    border-radius: 5px;
+    background-color: #DDDDDD;
+    transition-duration: 0.35s;
+}
+
+    button:hover {
+        background-color: #AAAAAA;
+    }
+
+    button:focus {
+        outline: 0;
+    }
+
+input {
+    width: 40%;
+}
+
+.content {
+    text-align: center;
+}
+
+.box {
+    border-style: solid;
+    border-color: black;
+    border-width: 1.3px;
+    background-color: #f5f5f5;
+    width: 40%;
+    display: inline-block;
+}
+
+.join-container {
+    margin-top: 4%;
+    margin-bottom: 2%
+}
+
+.leave-container {
+    margin-top: 4%;
+    margin-bottom: 2%
+}
+
+.join {
+    width: 50%;
+}
+
+.leave {
+    display: inline-block;
+}
+
+.field {
+    margin-top: 2%;
+}
+
+.back {
+    margin-left: 75%;
+    margin-bottom: 5%;
+    width: 10%;
+}
+
+.left-side {
+    border-style: solid;
+    border-color: black;
+    border-width: 1.3px;
+    background-color: #f5f5f5;
+    width: 40%;
+    float: left;
+}
+
+.right-side {
+    border-style: solid;
+    border-color: black;
+    border-width: 1.3px;
+    background-color: #f5f5f5;
+    width: 40%;
+    float: right;
+}
+
+#join {
+    display: inline-block;
+}
+
+#lobby {
+    display: none;
+}
+
+#back {
+    display: inline-block;
+}
+
+#players {
+    display: none;
+}
