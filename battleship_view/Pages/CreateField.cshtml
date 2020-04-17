@@ -17,6 +17,7 @@
             display: grid;
             grid-template-columns: repeat(10, 40px);
             grid-template-rows: repeat(10, 40px);
+            background-color:#00b7ed;
         }
 
             .field-grid > div {
@@ -28,21 +29,23 @@
         }
 
         .selection-grid {
+            position:relative;
             display: grid;
             grid-row: 1;
             grid-column: 2;
             grid-template-columns: repeat(6, 40px);
             grid-template-rows: repeat(10, 40px);
+            background-color:#00b7ed;
             z-index: -1;
         }
 
         .selection-grid-layer {
+            position: relative;
             display: grid;
             grid-row: 1;
             grid-column: 2;
             grid-template-columns: repeat(6, 40px);
             grid-template-rows: repeat(10, 40px);
-            z-index: 0;
         }
 
         .button-container1 {
@@ -78,11 +81,56 @@
             border-radius: 12px
         }
 
-        .item {
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
+        #boat {
+            position: relative;
+            background-color: #012758;
+            height: 200px;
+            width: 40px;
             border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
         }
+
+        #boat2 {
+            position: relative;
+            background-color: #012758;
+            height: 160px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: left center;
+        }
+
+        #boat3 {
+            position: relative;
+            background-color: #012758;
+            height: 120px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
+        }
+
+        #boat4 {
+            position: relative;
+            background-color: #012758;
+            height: 120px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
+        }
+
+        #boat5 {
+            position: relative;
+            background-color: #012758;
+            height: 80px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: left center;
+        }
+
     </style>
 </head>
 
@@ -90,106 +138,106 @@
 <body>
     <div class="wrapper">
         <div class="field-grid">
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
+            <div id ="topleft" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
         </div>
         <div class="selection-grid">
             <div> </div>
@@ -254,72 +302,136 @@
             <div> </div>
         </div>
         <div class="selection-grid-layer">
-            <div class="item"> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat" onclick="selectElement(this.id)"></div>
+            </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat2" onclick="selectElement(this.id)"></div>
+            </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat3" onclick="selectElement(this.id)"></div>
+            </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat4" onclick="selectElement(this.id)"></div>
+            </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat5" onclick="selectElement(this.id)"></div>
+            </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
         </div>
         <div class="button-container1">
             <button class="button button1"> Ready</button>
         </div>
         <div class="button-container2">
-            <button class="button button2"> Rotate</button>
+            <button class="button button2" onclick="rotateElement()"> Rotate</button>
         </div>
     </div>
+
+    <script>
+        var id;
+
+
+        function dragStart(event) {  
+            event.dataTransfer.setData("Text", event.target.id);
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("Text");
+            var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+            var right = document.getElementById("topleft").offsetLeft + 10 * 40;
+            var elHeight = document.getElementById(data).offsetHeight;
+            var elWidth = document.getElementById(data).offsetWidth;
+            var eventVertical = event.target.offsetTop;
+            var eventHorizontal = event.target.offsetLeft;
+
+            if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right)) {
+            event.target.appendChild(document.getElementById(data));
+            }
+        }
+
+        function selectElement(clicked_id) {
+            if (id != null) {
+                document.getElementById(id).style.border = "#000 1px solid"
+            }
+            id = clicked_id;
+            document.getElementById(id).style.border = "#000 3px solid"
+        }
+
+        function rotateElement() {
+            if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                var width = document.getElementById(id).offsetWidth + 'px';
+                var height = document.getElementById(id).offsetHeight + 'px';
+                document.getElementById(id).style.width = height;
+                document.getElementById(id).style.height = width;
+            } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                var width = document.getElementById(id).offsetWidth + 'px';
+                var height = document.getElementById(id).offsetHeight + 'px';
+                document.getElementById(id).style.width = height;
+                document.getElementById(id).style.height = width;
+            }
+        
+        }
+
+
+    </script>
+
 </body>

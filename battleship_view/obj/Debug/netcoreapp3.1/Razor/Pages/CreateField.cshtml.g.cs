@@ -71,6 +71,7 @@ using battleship_view;
             display: grid;
             grid-template-columns: repeat(10, 40px);
             grid-template-rows: repeat(10, 40px);
+            background-color:#00b7ed;
         }
 
             .field-grid > div {
@@ -82,17 +83,21 @@ using battleship_view;
         }
 
         .selection-grid {
+            position:relative;
             display: grid;
             grid-row: 1;
             grid-column: 2;
             grid-template-columns: repeat(6, 40px);
             grid-template-rows: repeat(10, 40px);
+            background-color:#00b7ed;
             z-index: -1;
         }
 
         .selection-grid-layer {
+            position: relative;
             display: grid;
-            grid-row: 1;
+            grid-row: ");
+                WriteLiteral(@"1;
             grid-column: 2;
             grid-template-columns: repeat(6, 40px);
             grid-template-rows: repeat(10, 40px);
@@ -133,13 +138,52 @@ using battleship_view;
             border-radius: 12px
         }
 
-        .item {
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
-            border: #000 1px solid;
+        #boat {
+            position: relative;
+            background-color: #012758;
+            height: 200px;
+            width: 40px;
+            bor");
+                WriteLiteral(@"der: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
         }
-    </style>
-");
+
+        #boat2 {
+            position: relative;
+            background-color: #012758;
+            height: 160px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: left center;
+        }
+
+        #boat3 {
+            position: relative;
+            background-color: #012758;
+            height: 120px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
+        }
+
+        #boat4 {
+            position: relative;
+            background-color: #012758;
+            height: 120px;
+            width: 40px;
+            border: #000 1px solid;
+            border-radius: 50%;
+            transform-origin: center;
+        }
+
+        #boat5 {
+            position: relative;
+            background-color: #012758;
+            height: ");
+                WriteLiteral("80px;\r\n            width: 40px;\r\n            border: #000 1px solid;\r\n            border-radius: 50%;\r\n            transform-origin: left center;\r\n        }\r\n\r\n    </style>\r\n");
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_HeadTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.HeadTagHelper>();
@@ -393,6 +437,37 @@ using battleship_view;
             <button class=""button button2""> Rotate</button>
         </div>
     </div>
+");
+            }
+        }
+
+        function selectElement(clicked_id) {
+            if (id != null) {
+                document.getElementById(id).style.border = ""#000 1px solid""
+            }
+            id = clicked_id;
+            document.getElementById(id).style.border = ""#000 3px solid""
+        }
+
+        function rotateElement() {
+            if (document.getElementById");
+                WriteLiteral(@"(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                var width = document.getElementById(id).offsetWidth + 'px';
+                var height = document.getElementById(id).offsetHeight + 'px';
+                document.getElementById(id).style.width = height;
+                document.getElementById(id).style.height = width;
+            } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                var width = document.getElementById(id).offsetWidth + 'px';
+                var height = document.getElementById(id).offsetHeight + 'px';
+                document.getElementById(id).style.width = height;
+                document.getElementById(id).style.height = width;
+            }
+        
+        }
+
+
+    </script>
+
 ");
             }
             );

@@ -1,0 +1,55 @@
+﻿@page
+@model battleship_view.JoinSessionModel
+@{
+    ViewData["Title"] = "JoinSession";
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/JoinSession.css">
+<script type="text/javascript" src="~/js/JoinSession.js"></script>
+
+<h1>JoinSession</h1>
+
+<div class="content">
+    <a id="back" class="back" asp-area="" asp-page="/Index"><button>Back</button></a>
+    <div id="join" class="box">
+        <div class="field">
+            <p>
+                Username:
+            </p>
+
+            <input id="username-input" type="text" />
+        </div>
+        <div class="field">
+            <p>
+                Lobbycode:
+            </p>
+
+            <input id="lobbycode-input" type="text" />
+        </div>
+        <div class="join-container">
+            <button onclick="JoinLobby()" class="join">Join lobby</button>
+        </div>
+    </div>
+
+
+    <div id="lobby" class="left-side">
+        <div id="username" class="field">
+            <p>
+                Username:
+            </p>
+        </div>
+        <div id="lobbycode" class="field">
+            <p>
+                Lobbycode:
+            </p>
+        </div>
+        <div class="leave-container">
+            <a class="leave" asp-area="" asp-page="/JoinSession"><button>Leave lobby</button></a>
+        </div>
+    </div>
+
+    <div id="players" class="right-side">
+
+    </div>
+
+</div>
