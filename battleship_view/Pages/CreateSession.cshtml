@@ -1,70 +1,97 @@
-﻿@model battleship_view.CreateSessionModel
+﻿@page
+@model battleship_view.CreateSessionModel
 @{
     ViewData["Title"] = "CreateSession";
 
 }
 
-<head>
-    <style>
+    <head>
+        <style>
 
-        input[type=text], select {
-            width: 40%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            resize: none;
-        }
+            input[type=text], select {
+                width: 40%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                resize: none;
+            }
 
-        input[type=Back] {
-            width: 10%;
-            background-color: gray;
-            border: 1px solid #1e1c1c;
-            resize: none;
-            border-radius: 4px;
-        }
+            input[type=Back] {
+                width: 10%;
+                background-color: gray;
+                border: 1px solid #1e1c1c;
+                resize: none;
+                border-radius: 4px;
+            }
 
-        input[type=log] {
-            width: 40%;
-            margin: 8px 0;
-            color: white;
-            padding: 12px 20px;
-            border: 1px solid #808080;
-            border-radius: 4px;
-            height: 200px;
-        }
+            .listbox {
+                position:fixed;
+                right:2px;
+                width: 350px;
+                height: 300px;
+                font-size: 24px;
+            }
 
-        input[type=submit] {
-            width: 45%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+           
+
+            input[type=submit] {
+                width: 45%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
 
             input[type=submit]:hover {
                 background-color: #45a049;
             }
-    </style>
+
+            .hidden{
+                display: none;
+            }
+        </style>
+    </head>
     <body>
 
-        <h1>CreateSession</h1>
+        <h1>Create Session</h1>
 
         <form action="/action_page.php">
-            <input type="Back" value="Back"><br />
+            <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
             <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
-            <input type="log" value="Players"><br />
-
+            <textarea style="        height: 200px;
+        max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
+            <br /><br />
             <label>Lobby code:</label> <label></label><br />
-
-            <input type="submit" value="Create lobby" onclick="SessionCode();"> <input type="submit" value="Start game">
+            <br /><br /><br />
         </form>
+        <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
+        <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton" />
 
+        <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
+        <script>
+            function toggleView() {
+                // check if the LobbyButton has the hidden class
+
+                if (!$("#LobbyButton").hasClass('hidden')) {
+                    // LobbyButton does not have the hidden class
+
+                    // give the LobbyButton the hidden class
+                    $("#LobbyButton").addClass('hidden');
+
+                    // remove hidden class from the StartButton
+                    $("#StartButton").removeClass('hidden');
+                }
+            }
+
+            function StartedSession() {
+                location.replace("https://localhost:44344/CreateField")
+            }
+        </script>
 
     </body>
-</head>

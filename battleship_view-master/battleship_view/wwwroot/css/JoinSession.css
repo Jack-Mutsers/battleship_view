@@ -20,6 +20,7 @@ input {
 }
 
 .content {
+    margin-top:5%;
     text-align: center;
 }
 
@@ -57,7 +58,7 @@ input {
 .back {
     margin-left: 75%;
     margin-bottom: 5%;
-    width: 10%;
+    width: 7%;
 }
 
 .left-side {
@@ -78,18 +79,10 @@ input {
     float: right;
 }
 
-#join {
-    display: inline-block;
+.visibile{
+    display:inline-block;
 }
 
-#lobby {
-    display: none;
-}
-
-#back {
-    display: inline-block;
-}
-
-#players {
-    display: none;
+.invisible{
+    display:none;
 }
