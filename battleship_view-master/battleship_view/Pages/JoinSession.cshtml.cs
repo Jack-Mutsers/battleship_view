@@ -10,12 +10,12 @@ namespace battleship_view
     public class JoinSessionModel : PageModel
     {
         [BindProperty]
-        public string Username { get; set; }
-        public string Lobbycode { get; set; }
-        public string Visibility = "visible";
-        public string InverseVisibility = "invisible";
+        public string Username { get; private set; }
+        public string Lobbycode { get; private set; }
+        public string Visibility { get; private set; } = "visible";
+        public string InverseVisibility { get; private set; } = "invisible";
 
-        public List<string> Players = new List<string>();
+        public List<string> Players { get; private set; } = new List<string>();
 
         public void OnGet()
         {
