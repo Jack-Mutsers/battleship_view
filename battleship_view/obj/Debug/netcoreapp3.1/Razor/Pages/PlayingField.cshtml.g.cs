@@ -252,7 +252,8 @@ using battleship_view;
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
                 <div class=""grid-item"">4</div>
-                <div class=""grid-item"">5</div>
+                <div cl");
+            WriteLiteral(@"ass=""grid-item"">5</div>
                 <div class=""grid-item"">6</div>
                 <div class=""grid-item"">7</div>
                 <div class=""grid-item"">8</div>
@@ -276,7 +277,8 @@ using battleship_view;
                 <div class=""grid-item"">1</div>
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
-                <div class=""grid-item"">4</div>
+      ");
+            WriteLiteral(@"          <div class=""grid-item"">4</div>
                 <div class=""grid-item"">5</div>
                 <div class=""grid-item"">6</div>
                 <di");
@@ -299,7 +301,8 @@ using battleship_view;
             </div>
             <div class=""grid-item-row-space-divider"">
                 <div class=""grid-item"">1</div>
-                <div class=""grid-item"">2</div>
+                <div class=""grid-ite");
+            WriteLiteral(@"m"">2</div>
                 <div class=""grid-item"">3</div>
                 <div class=""grid-item"">4</div>
                 <div class=");
@@ -326,7 +329,8 @@ using battleship_view;
 
 
         <div class=""grid-container"">
-            <div class=""grid-item-row-space-divider"">
+            <div clas");
+            WriteLiteral(@"s=""grid-item-row-space-divider"">
                 <div class=""grid-item"">1</div>
                 <div clas");
                 WriteLiteral(@"s=""grid-item"">2</div>
@@ -349,7 +353,8 @@ using battleship_view;
                 <div class=""grid-item"">7</div>
                 <div class=""grid-item"">8</div>
                 <div class=""grid-item"">9</div>
-                <div class=""grid-item"">10</div>
+                <div cla");
+            WriteLiteral(@"ss=""grid-item"">10</div>
             </div>
             <div class=""grid-item-row-sp");
                 WriteLiteral(@"ace-divider"">
@@ -496,7 +501,8 @@ using battleship_view;
                 <div class=""grid-item"">10</d");
                 WriteLiteral(@"iv>
             </div>
-            <div class=""grid-item-row-space-divider"">
+            <div class=""grid-ite");
+            WriteLiteral(@"m-row-space-divider"">
                 <div class=""grid-item"">1</div>
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
@@ -543,7 +549,8 @@ using battleship_view;
             ");
                 WriteLiteral(@"    <div class=""grid-item"">7</div>
                 <div class=""grid-item"">8</div>
-                <div class=""grid-item"">9</div>
+                <d");
+            WriteLiteral(@"iv class=""grid-item"">9</div>
                 <div class=""grid-item"">10</div>
             </div>
             <div class=""grid-item-row-space-divider"">
@@ -567,7 +574,8 @@ using battleship_view;
                 WriteLiteral(@" class=""grid-item"">5</div>
                 <div class=""grid-item"">6</div>
                 <div class=""grid-item"">7</div>
-                <div class=""grid-item"">8</div>
+ ");
+            WriteLiteral(@"               <div class=""grid-item"">8</div>
                 <div class=""grid-item"">9</div>
                 <div class=""grid-item"">10</div>
             </div>
@@ -593,7 +601,8 @@ using battleship_view;
                 WriteLiteral(@"iv class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
                 <div class=""grid-item"">4</div>
-                <div class=""grid-item"">5</div>
+                <div class");
+            WriteLiteral(@"=""grid-item"">5</div>
                 <div class=""grid-item"">6</div>
                 <div class=""grid-item"">7</div>
                 <div class=""grid-item"">8</div>
@@ -617,7 +626,8 @@ using battleship_view;
                 <div class=""grid-item"">1</div>
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
-                <div class=""grid-item"">4</div>
+         ");
+            WriteLiteral(@"       <div class=""grid-item"">4</div>
                 <div class=""grid-item"">5</div>
                 <div class=""grid-item"">6</div>
                 <div class=""grid-item"">7</div>
@@ -640,7 +650,8 @@ using battleship_view;
             </div>
             <div class=""grid-item-row-space-divider"">
                 <div class=""grid-item"">1</div>
-                <div class=""grid-item"">2</div>
+                <div class=""grid-item"">");
+            WriteLiteral(@"2</div>
                 <div class=""grid-item"">3</div>
                 <div class=""grid-item"">4</div>
                 <div class=""grid-item"">5</div>
@@ -664,7 +675,8 @@ using battleship_view;
                 <div class=""grid-item"">10</div>
             </div>
             <div class=""grid-item-row-space-divider"">
-                <div class=""grid-item"">1</div>
+                <div c");
+            WriteLiteral(@"lass=""grid-item"">1</div>
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
                 <div class=""grid-item"">4</div>
@@ -688,7 +700,8 @@ using battleship_view;
                 <div class=""grid-item"">9</div>
                 <div class=""grid-item"">10</div>
             </div>
-            <div class=""grid-item-row-space-divider"">
+            ");
+            WriteLiteral(@"<div class=""grid-item-row-space-divider"">
                 <div class=""grid-item"">1</div>
                 <div class=""grid-item"">2</div>
                 <div class=""grid-item"">3</div>
