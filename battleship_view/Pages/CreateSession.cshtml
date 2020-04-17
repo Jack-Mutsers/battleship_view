@@ -48,9 +48,13 @@
                 cursor: pointer;
             }
 
-                input[type=submit]:hover {
-                    background-color: #45a049;
-                }
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+
+            .hidden{
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -60,18 +64,31 @@
         <form action="/action_page.php">
             <input type="button" value="Back" onclick="history.back()"><br /><br />
             <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
-            <textarea style="height:200px; max-height:200px;" name="message" class="listbox">Player list</textarea><br />
+            <textarea style="        height: 200px;
+        max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
             <br /><br />
             <label>Lobby code:</label> <label></label><br />
             <br /><br /><br />
         </form>
-        <input type="button" value="Create lobby" onclick="SessionCode()"  id="MyButton">
+        <input type="submit" value="Create lobby" onclick="toggleView()"  id="LobbyButton">
+        <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton"/>
         <script>
-            function myFunction() {
-                var x = document.getElementById("MyButton");
-                if (x.innerHTML === "Create lobby") {
-                    x.innerHTML = "Start Session";
-                } 
+            function toggleView() {
+                // check if the LobbyButton has the hidden class
+                
+                if (!$("#LobbyButton").hasClass('hidden')) {
+                    // LobbyButton does not have the hidden class
+
+                    // give the LobbyButton the hidden class
+                    $("#LobbyButton").addClass('hidden');
+
+                    // remove hidden class from the StartButton
+                    $("#StartButton").removeClass('hidden');
+                }
+            }
+
+            function StartedSession() {
+                location.replace("https://localhost:44344/CreateField")
             }
         </script>
 
