@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj": {}
+    "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\battleship_view\\battleship_view.csproj": {}
   },
   "projects": {
-    "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj": {
+    "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\battleship_view\\battleship_view.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj",
+        "projectUniqueName": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\battleship_view\\battleship_view.csproj",
         "projectName": "battleship_view",
-        "projectPath": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\battleship_view.csproj",
-        "packagesPath": "C:\\Users\\jack\\.nuget\\packages\\",
-        "outputPath": "D:\\programeren\\semester 2\\proftaak\\Nieuwe map\\battleship_view\\battleship_view\\obj\\",
+        "projectPath": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\battleship_view\\battleship_view.csproj",
+        "packagesPath": "C:\\Users\\Lean Meegdes\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\battleship_view\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jack\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Lean Meegdes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -48,7 +44,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.0-preview2.19553.1, )"
+              "version": "[3.1.2, )"
             }
           },
           "imports": [
@@ -69,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
