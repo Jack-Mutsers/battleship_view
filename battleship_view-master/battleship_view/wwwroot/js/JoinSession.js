@@ -12,4 +12,6 @@
     //document.getElementById('lobbycode').innerHTML = "<p>Lobbycode: " + lobbycode + "</p>";
 }
 
+// DEZE JAVASCRIPT WORDT NIET MEER GEBRUIKT :)
+
 
