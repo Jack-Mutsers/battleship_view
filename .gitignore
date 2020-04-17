@@ -1,8 +1,6 @@
 
-battleship_view/obj/Debug/netcoreapp3.1/battleship_view.csprojAssemblyReference.cache
+.vs/
 
-.vs/battleship_view/DesignTimeBuild/.dtbcache
+battleship_view/obj/
 
-.vs/battleship_view/v16/.suo
-
-.vs/battleship_view/v16/Server/sqlite3/storage.ide
+battleship_view/bin/
