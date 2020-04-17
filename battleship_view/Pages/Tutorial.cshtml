@@ -25,7 +25,7 @@
         <button id="BtnNext" onclick="NextImg()">Next</button>
     </div>
     <div class="right-side">
-        <a class="nav-link text-dark back" asp-area="" asp-page="/Index">Back</a>
+        <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
         <div id="explanation" class="explanation">
             <p>
                 "This is the main menu, from here you can go to the highscores page, create lobby page, join lobby page and the tutorial page."

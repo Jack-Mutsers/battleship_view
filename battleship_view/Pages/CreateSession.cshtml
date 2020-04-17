@@ -62,7 +62,7 @@
         <h1>Create Session</h1>
 
         <form action="/action_page.php">
-            <input type="button" value="Back" onclick="history.back()"><br /><br />
+            <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
             <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
             <textarea style="        height: 200px;
         max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
@@ -70,12 +70,14 @@
             <label>Lobby code:</label> <label></label><br />
             <br /><br /><br />
         </form>
-        <input type="submit" value="Create lobby" onclick="toggleView()"  id="LobbyButton">
-        <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton"/>
+        <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
+        <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton" />
+
+        <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
         <script>
             function toggleView() {
                 // check if the LobbyButton has the hidden class
-                
+
                 if (!$("#LobbyButton").hasClass('hidden')) {
                     // LobbyButton does not have the hidden class
 

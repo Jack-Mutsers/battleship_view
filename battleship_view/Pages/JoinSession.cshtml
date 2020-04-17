@@ -10,7 +10,7 @@
 <h1>JoinSession</h1>
 
 <div class="content">
-    <a id="back" class="nav-link text-dark back" asp-area="" asp-page="/Index">Back</a>
+    <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
     <div id="join" class="box">
         <div class="field">
             <p>
@@ -52,4 +52,5 @@
 
     </div>
 
+    <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
 </div>
