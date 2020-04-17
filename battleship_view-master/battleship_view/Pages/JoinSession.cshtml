@@ -4,52 +4,59 @@
     ViewData["Title"] = "JoinSession";
 }
 
+<h1>JoinSession</h1>
+<form method="post">
+
+    <button class="back @Model.Visibility" id="back" asp-area="" asp-page="/Index">Back</button>
+    <div class="content">
+        <div id="join" class="box @Model.Visibility">
+            <div class="field">
+                <p>
+                    Username:
+                </p>
+
+                <input id="username-input" type="text" name="Username" />
+            </div>
+            <div class="field">
+                <p>
+                    Lobbycode:
+                </p>
+
+                <input id="lobbycode-input" type="text" name="Lobbycode" />
+            </div>
+            <div class="join-container">
+                <button asp-page-handler="JoinLobby" onclick="JoinLobby()" class="join">Join lobby</button>
+            </div>
+        </div>
+
+
+        <div id="lobby" class="left-side @Model.InverseVisibility">
+            <div id="username" class="field">
+                <p>
+                    Username: @Model.Username
+                </p>
+            </div>
+            <div id="lobbycode" class="field">
+                <p>
+                    Lobbycode: @Model.Lobbycode
+                </p>
+            </div>
+            <div class="leave-container">
+                <button class="leave" asp-area="" asp-page-handler="LeaveLobby">Leave lobby</button>
+            </div>
+            <p>
+                Wait for the host to start the game...
+            </p>
+        </div>
+
+        <div id="players" class="right-side @Model.InverseVisibility">
+            @foreach (var i in Model.Players)
+            {
+                <ul><li> @i </li></ul>
+            }
+        </div>
+
+    </div>
+</form>
 <link rel="stylesheet" type="text/css" href="~/css/JoinSession.css">
 <script type="text/javascript" src="~/js/JoinSession.js"></script>
-
-<h1>JoinSession</h1>
-
-<div class="content">
-    <a id="back" class="back" asp-area="" asp-page="/Index"><button>Back</button></a>
-    <div id="join" class="box">
-        <div class="field">
-            <p>
-                Username:
-            </p>
-
-            <input id="username-input" type="text" />
-        </div>
-        <div class="field">
-            <p>
-                Lobbycode:
-            </p>
-
-            <input id="lobbycode-input" type="text" />
-        </div>
-        <div class="join-container">
-            <button onclick="JoinLobby()" class="join">Join lobby</button>
-        </div>
-    </div>
-
-
-    <div id="lobby" class="left-side">
-        <div id="username" class="field">
-            <p>
-                Username:
-            </p>
-        </div>
-        <div id="lobbycode" class="field">
-            <p>
-                Lobbycode:
-            </p>
-        </div>
-        <div class="leave-container">
-            <a class="leave" asp-area="" asp-page="/JoinSession"><button>Leave lobby</button></a>
-        </div>
-    </div>
-
-    <div id="players" class="right-side">
-
-    </div>
-
-</div>
