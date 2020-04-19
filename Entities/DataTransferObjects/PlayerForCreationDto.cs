@@ -9,6 +9,5 @@ namespace Entities.DataTransferObjects
     {
         [Required(ErrorMessage = "player name is required")]
         public string name { get; set; }
-        public int orderNumber { get; set; }
     }
 }

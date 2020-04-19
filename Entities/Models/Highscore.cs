@@ -22,7 +22,7 @@ namespace Entities.Models
         public int boats_sunk { get; set; }
         
         [ForeignKey(nameof(Player))]
-        public Guid PlayerId { get; set; }
+        public int PlayerId { get; set; }
 
         public Player Player { get; set; }
     }

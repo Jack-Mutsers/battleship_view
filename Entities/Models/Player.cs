@@ -10,11 +10,10 @@ namespace Entities.Models
     public class Player
     {
         [Column("PlayerId")]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public int id { get; set; }
 
         [Required(ErrorMessage = "player name is required")]
         public string name { get; set; }
-        public int order_number { get; set; } = 0;
         public ICollection<Highscore> highscores { get; set; }
     }
 }

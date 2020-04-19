@@ -16,6 +16,7 @@ namespace Database.Controllers
     {
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
+        List<Highscore> highscores = new List<Highscore>();
 
         public HighscoreController()
         {
@@ -31,10 +32,67 @@ namespace Database.Controllers
 
         public List<Highscore> GetAll()
         {
-            var highscores = _repository.highscore.GetAllHighscores();
+            var result = _repository.highscore.GetAllHighscores();
 
-            return _mapper.Map<List<Highscore>>(highscores);
+            highscores = _mapper.Map<List<Highscore>>(result);
+            return highscores;
         }
+
+        public List<Highscore> GetByField(string field, string direction)
+        {
+            List<Highscore> result = new List<Highscore>();
+
+            if (direction == "asc")
+            {
+                switch (field)
+                {
+                    case "shots":
+                        result = highscores.OrderBy(pl => pl.shots).ToList();
+                        break;
+                    case "accuracy":
+                        result = highscores.OrderBy(pl => pl.accuracy).ToList();
+                        break;
+                    case "hit_streak":
+                        result = highscores.OrderBy(pl => pl.hit_streak).ToList();
+                        break;
+                    case "boats_sunk":
+                        result = highscores.OrderBy(pl => pl.boats_sunk).ToList();
+                        break;
+                }
+            }
+            else
+            {
+                switch (field)
+                {
+                    case "shots":
+                        result = highscores.OrderByDescending(pl => pl.shots).ToList();
+                        break;
+                    case "accuracy":
+                        result = highscores.OrderByDescending(pl => pl.accuracy).ToList();
+                        break;
+                    case "hit_streak":
+                        result = highscores.OrderByDescending(pl => pl.hit_streak).ToList();
+                        break;
+                    case "boats_sunk":
+                        result = highscores.OrderByDescending(pl => pl.boats_sunk).ToList();
+                        break;
+                }
+            }
+
+            return result;
+        }
+
+        public List<Highscore> GetByName(string name)
+        {
+            var result = _repository.highscore.GetByName(name);
+
+            highscores = _mapper.Map<List<Highscore>>(result);
+            return highscores;
+        }
+
+
+
+
 
         public void Post(Highscore highscore) 
         {
