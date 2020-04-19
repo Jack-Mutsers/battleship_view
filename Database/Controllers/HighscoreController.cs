@@ -16,7 +16,6 @@ namespace Database.Controllers
     {
         private IRepositoryWrapper _repository;
         private IMapper _mapper;
-        List<Highscore> highscores = new List<Highscore>();
 
         public HighscoreController()
         {
@@ -34,11 +33,11 @@ namespace Database.Controllers
         {
             var result = _repository.highscore.GetAllHighscores();
 
-            highscores = _mapper.Map<List<Highscore>>(result);
+            List<Highscore> highscores = _mapper.Map<List<Highscore>>(result);
             return highscores;
         }
 
-        public List<Highscore> GetByField(string field, string direction)
+        public List<Highscore> GetByField(string field, string direction, List<Highscore> highscores)
         {
             List<Highscore> result = new List<Highscore>();
 
@@ -86,7 +85,7 @@ namespace Database.Controllers
         {
             var result = _repository.highscore.GetByName(name);
 
-            highscores = _mapper.Map<List<Highscore>>(result);
+            List<Highscore> highscores = _mapper.Map<List<Highscore>>(result);
             return highscores;
         }
 

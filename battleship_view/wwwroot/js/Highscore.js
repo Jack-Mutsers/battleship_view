@@ -1,4 +1,6 @@
 ﻿$(function () {
+    var List = "";
+
     GetHighScores();
     function GetHighScores(filterData = "") {
         //
@@ -16,6 +18,7 @@
                 alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             success: function (result) {
+                List = result;
                 SetHighscores(result);
             }
         });
@@ -38,13 +41,10 @@
     }
 
     $(document).on("click", "#FilterButton", function () {
-
         var selected_field = $("#FilterField").children("option:selected").val();
         var selected_direction = $("#FilterDirection").children("option:selected").val();
 
-        //alert(selected_field);
-        //alert(selected_direction);
-        var filterData = { field: selected_field, direction: selected_direction };
+        var filterData = { field: selected_field, direction: selected_direction, highscores: List };
 
         GetHighScores(filterData);
     });

@@ -25,12 +25,6 @@ namespace battleship_view
 
         }
 
-        public JsonResult OnGetHighscores()
-        {
-            var test = highscoreController.GetAll();
-            return new JsonResult(test);
-        }
-
         public void OnPost()
         {
 
@@ -48,7 +42,7 @@ namespace battleship_view
                 }
                 else if (filter.field != null)
                 {
-                    result = highscoreController.GetByField(filter.field, filter.direction);
+                    result = highscoreController.GetByField(filter.field, filter.direction, filter.highscores);
                 }
             }
             else
