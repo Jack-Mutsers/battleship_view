@@ -40,6 +40,8 @@
         $("#HighscoresBody").html(html);
     }
 
+   
+
     $(document).on("click", "#FilterButton", function () {
         var selected_field = $("#FilterField").children("option:selected").val();
         var selected_direction = $("#FilterDirection").children("option:selected").val();
@@ -47,6 +49,11 @@
         var filterData = { field: selected_field, direction: selected_direction, highscores: List };
 
         GetHighScores(filterData);
+    });
+
+    $(document).on("click", "#ResetButton", function () {
+        $("#searchBox").val("");
+        GetHighScores();
     });
 
     $(document).on("keyup", "#searchBox", function () {
