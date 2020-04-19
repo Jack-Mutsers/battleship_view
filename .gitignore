@@ -4,3 +4,27 @@
 battleship_view/obj/
 
 battleship_view/bin/
+
+Repository/obj/
+
+Repository/bin/Debug/netcoreapp3.0/
+
+LoggerService/obj/
+
+LoggerService/bin/Debug/netcoreapp3.0/
+
+Entities/obj/
+
+Entities/bin/Debug/netcoreapp3.0/
+
+Database/obj/
+
+Database/bin/Debug/netstandard2.0/
+
+Database/bin/Debug/netcoreapp3.0/
+
+Contracts/obj/Debug/netcoreapp3.0/
+
+Contracts/obj/
+
+Contracts/bin/Debug/netcoreapp3.0/
