@@ -420,8 +420,17 @@
             if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
                 var width = document.getElementById(id).offsetWidth + 'px';
                 var height = document.getElementById(id).offsetHeight + 'px';
-                document.getElementById(id).style.width = height;
-                document.getElementById(id).style.height = width;
+                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+                var right = document.getElementById("topleft").offsetLeft + 10 * 40;
+                var elTop = document.getElementById(id).offsetTop;
+                var elLeft = document.getElementById(id).offsetLeft;
+                var elWidthRotated = document.getElementById(id).offsetHeight;
+                var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right)) {
+                    document.getElementById(id).style.width = height;
+                    document.getElementById(id).style.height = width;
+                }
             } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
                 var width = document.getElementById(id).offsetWidth + 'px';
                 var height = document.getElementById(id).offsetHeight + 'px';
