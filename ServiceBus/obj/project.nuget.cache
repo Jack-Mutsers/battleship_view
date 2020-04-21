@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "uP60XNvlKD91SSRNZq5y4gw98pfZ3g4ZSnqKzJJ/WvfF121RcIzNKLhYKM2fJi4Z1Syy2T8rTYGiJrwq11teAA==",
+  "dgSpecHash": "LJLVGNSvBBzHRla8WFTsAedZhw4AdUpCK0aBLa8aws4A/vG/nYsMKqzufnrhbR3QNadhI9E7cxJVDBFSotDq2g==",
   "success": true,
-  "projectFilePath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj",
+  "projectFilePath": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\ServiceBus.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jack\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\jack\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\Lean Meegdes\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Lean Meegdes\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

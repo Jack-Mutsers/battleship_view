@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj": {}
+    "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\ServiceBus.csproj": {}
   },
   "projects": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj": {
+    "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\ServiceBus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj",
+        "projectUniqueName": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\ServiceBus.csproj",
         "projectName": "ServiceBus",
-        "projectPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj",
-        "packagesPath": "C:\\Users\\jack\\.nuget\\packages\\",
-        "outputPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\obj\\",
+        "projectPath": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\ServiceBus.csproj",
+        "packagesPath": "C:\\Users\\Lean Meegdes\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lean Meegdes\\Documents\\Zeeslag repo 2\\battleship_view\\ServiceBus\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jack\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Lean Meegdes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
