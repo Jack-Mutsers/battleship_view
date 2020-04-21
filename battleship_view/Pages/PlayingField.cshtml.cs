@@ -9,8 +9,8 @@ namespace battleship_view
 {
     public class PlayingFieldModel : PageModel
     {
-
-        public string Coördinate { get; private set; }
+        public static int shotid { get; private set; }
+        public static string Coördinate { get; private set; }
         public string Test { get; private set; }
         
         
@@ -27,9 +27,9 @@ namespace battleship_view
 
         }
 
-        public static void GetCoordinates(string Id)
+        public static void GetCoordinates(int Id)
         {
-
+            shotid = Id;
         }
             
     }

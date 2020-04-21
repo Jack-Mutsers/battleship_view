@@ -125,9 +125,9 @@
                 <button type="submit" id="Coordinate-button" name="button" class="grid-item" value="3">3</button>
                 <button type="submit" id="Coordinate-button" name="button" class="grid-item" value="4">4</button>
                 <button type="submit" id="Coordinate-button" name="button" class="grid-item" value="5">5</button>
-                <div class="grid-item">6</div>
-                <div class="grid-item">7</div>
-                <div class="grid-item">8</div>
+                <div class="grid-item" id="6" onclick="SelectId(this.id)">6</div>
+                <div type="button" id="Coordinate-button" name="button" class="grid-item" value="7">7</div>
+                <div id="demo" onclick="myFunction()" class="grid-item">8</div>
                 <div class="grid-item">9</div>
                 <div class="grid-item">10</div>
             </div>
@@ -620,3 +620,29 @@
 
 
 </form>
+
+<div>
+<p id="testtest" onclick="myFunction()">click me</p>
+    </div>
+
+<div>
+<p id="test" onclick="SelectId(this.id)">click me 2</p>
+    </div>
+
+<script>
+
+    var Id;
+
+    function SelectId(_Id) {
+
+        Id = _Id;
+        document.getElementById(_Id).style.fontSize = '24px';
+        
+
+    }
+
+    function myFunction() {
+        document.getElementById("testtest").style.color = "red";
+    }
+
+</script>
