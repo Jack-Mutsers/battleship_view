@@ -4,6 +4,7 @@
     ViewData["Title"] = "PlayingField";
 }
 
+<script type="text/javascript" src="~/js/PlayingField.js"></script>
 
 <head>
     <style>
@@ -124,7 +125,7 @@
                 <div class='grid-item-row-space-divider'>
                     @for (int j = 0; j < 10; j++)
                     {
-                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' onclick='GetCoordinates(this, 1)' class='grid-item'>@{Write(i + "." + j);}</div>
+                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='1' onclick='GetCoordinates(this)' class='grid-item'>@{Write(i + "." + j);}</div>
                     }
                 </div>
             }
@@ -137,7 +138,7 @@
                 <div class='grid-item-row-space-divider'>
                     @for (int j = 0; j < 10; j++)
                     {
-                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' onclick='GetCoordinates(this, 2)' class='grid-item'>@{Write(i + "." + j);}</div>
+                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='2' onclick='GetCoordinates(this)' class='grid-item'>@{Write(i + "." + j);}</div>
                     }
                 </div>
             }
@@ -152,7 +153,7 @@
                 <div class='grid-item-row-space-divider'>
                     @for (int j = 0; j < 10; j++)
                     {
-                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' onclick='GetCoordinates(this, 3)' class='grid-item'>@{Write(i + "." + j);}</div>
+                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='3' onclick='GetCoordinates(this)' class='grid-item'>@{Write(i + "." + j);}</div>
                     }
                 </div>
             }
@@ -165,7 +166,7 @@
                 <div class='grid-item-row-space-divider'>
                     @for (int j = 0; j < 10; j++)
                     {
-                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' onclick='GetCoordinates(this, 4)' class='grid-item'>@{Write(i + "." + j);}</div>
+                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='4' onclick='GetCoordinates(this)' class='grid-item'>@{Write(i + "." + j);}</div>
                     }
                 </div>
             }
@@ -184,28 +185,3 @@
 <div>
     <p id="test" onclick="SelectId(this.id)">click me 2</p>
 </div>
-
-<script>
-
-    var Id;
-
-    function SelectId(_Id) {
-
-        Id = _Id;
-        document.getElementById(_Id).style.fontSize = '24px';
-
-
-    }
-
-    function myFunction() {
-        document.getElementById("testtest").style.color = "red";
-    }
-
-    function GetCoordinates(element, fieldnr) {
-        var col = $(element).data("col");
-        var row = $(element).data("row");
-        alert("field: " + fieldnr + " -- col: " + col + " -- row: " + row);
-    }
-
-
-</script>
