@@ -81,7 +81,7 @@
             border-radius: 12px
         }
 
-        #boat {
+        #boat1 {
             position: relative;
             background-color: #012758;
             height: 200px;
@@ -135,7 +135,7 @@
 </head>
 
 <h1>CreateField</h1>
-<body>
+<body onload="boatPositions()">
     <div class="wrapper">
         <div class="field-grid">
             <div id ="topleft" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
@@ -302,8 +302,8 @@
             <div> </div>
         </div>
         <div class="selection-grid-layer">
-            <div ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat" onclick="selectElement(this.id)"></div>
+            <div id="topleftselect" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div ondragstart="dragStart(event)" draggable="true" id="boat1" onclick="selectElement(this.id)"></div>
             </div>
             <div ondrop="drop(event)" ondragover="allowDrop(event)">
                 <div ondragstart="dragStart(event)" draggable="true" id="boat2" onclick="selectElement(this.id)"></div>
@@ -383,7 +383,21 @@
 
     <script>
         var id;
+        var boats = new Array(5);
 
+        function boatPositions() {
+            for (var i = 1; i < 6; i++) {
+                var boatId = i;
+                var horizontalBegin = document.getElementById("boat" + i).offsetLeft;
+                var horizontalEnd = horizontalBegin + document.getElementById("boat" + i).offsetWidth;
+                var verticalBegin = document.getElementById("boat" + i).offsetTop;
+                var verticalEnd = verticalBegin + document.getElementById("boat" + i).offsetHeight;
+
+                var boat = [boatId, horizontalBegin, horizontalEnd, verticalBegin, verticalEnd];
+
+                boats[i - 1] = boat;
+            }
+        }
 
         function dragStart(event) {  
             event.dataTransfer.setData("Text", event.target.id);
@@ -403,10 +417,36 @@
             var eventVertical = event.target.offsetTop;
             var eventHorizontal = event.target.offsetLeft;
 
+            //var overlap = checkOverlap(boatId,eventHorizontal, elWidth, eventVertical, elHeight);
+
             if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right)) {
-            event.target.appendChild(document.getElementById(data));
+                event.target.appendChild(document.getElementById(data));
+
+                boatId = parseInt(data[4]) - 1;
+
+                boats[boatId][1] = eventHorizontal;
+                boats[boatId][2] = boats[boatId][1] + elWidth;
+                boats[boatId][3] = eventVertical;
+                boats[boatId][4] = boats[boatId][3] + elHeight;
             }
         }
+
+        /*function checkOverlap(id, evHorizontal, elW, evVertical, elH) {
+
+            for (var i = 0; i < boats.length; i++) {
+                if (i != id) {
+                    if (evHorizontal >= (boats[i][1] + boats[i][2]) || boats[i][1] >= (evHorizontal + elW)) {
+
+                    } else if (evVertical >= (boats[i][3] + boats[i][4]) || boats[i][3] >= (evVertical + el)) {
+
+                    } else {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }*/
 
         function selectElement(clicked_id) {
             if (id != null) {
@@ -420,8 +460,8 @@
             if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
                 var width = document.getElementById(id).offsetWidth + 'px';
                 var height = document.getElementById(id).offsetHeight + 'px';
-                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
-                var right = document.getElementById("topleft").offsetLeft + 10 * 40;
+                var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
                 var elTop = document.getElementById(id).offsetTop;
                 var elLeft = document.getElementById(id).offsetLeft;
                 var elWidthRotated = document.getElementById(id).offsetHeight;
@@ -430,12 +470,35 @@
                 if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right)) {
                     document.getElementById(id).style.width = height;
                     document.getElementById(id).style.height = width;
+
+                    boatId = parseInt(id[4]) - 1;
+
+                    window.alert(boats[boatId]);
+
+                    boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                    boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+
+                    window.alert(boats[boatId]);
                 }
             } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
                 var width = document.getElementById(id).offsetWidth + 'px';
                 var height = document.getElementById(id).offsetHeight + 'px';
-                document.getElementById(id).style.width = height;
-                document.getElementById(id).style.height = width;
+                var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
+                var elTop = document.getElementById(id).offsetTop;
+                var elLeft = document.getElementById(id).offsetLeft;
+                var elWidthRotated = document.getElementById(id).offsetHeight;
+                var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right)) {
+                    document.getElementById(id).style.width = height;
+                    document.getElementById(id).style.height = width;
+
+                    boatId = parseInt(id[4]) - 1;
+
+                    boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                    boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                }
             }
         
         }
