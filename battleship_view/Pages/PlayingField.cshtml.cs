@@ -18,11 +18,45 @@ namespace battleship_view
         public string Test { get; private set; }
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
+        public List<Player> players { get; set; }
+        MyField field { get; set; }
+        int myFieldNr { get; set; }
 
         public void OnGet()
         {
-            HandleHitResponse();
+            myFieldNr = GetDummyPlayer().orderNumber;
+            players = GetDummyPlayerList();
         }
+
+        public ActionResult OnGetPlayerList()
+        {
+            players = GetDummyPlayerList();
+            return new JsonResult(players);
+        }
+
+        public ActionResult OnGetPlayerData()
+        {
+            Player player = GetDummyPlayer();
+            return new JsonResult(player);
+        }
+
+        public ActionResult OnGetBoatCoordinates()
+        {
+            field = GetMyDummyField();
+            List<Coordinates> coordinates = new List<Coordinates>();
+
+            foreach(Boat boat in field.boats)
+            {
+                foreach(Coordinates coordinate in boat.coordinates)
+                {
+                    coordinates.Add(coordinate);
+                }
+            }
+
+            return new JsonResult(coordinates);
+        }
+
+
 
         public void OnPostShoot()
         {
@@ -102,31 +136,31 @@ namespace battleship_view
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 1, col = 1 }, new Coordinates() { row = 1, col = 2 }, new Coordinates() { row = 1, col = 3 }
+                            new Coordinates() { field = 1, row = 1, col = 1 }, new Coordinates() { field = 1, row = 1, col = 2 }, new Coordinates() { field = 1, row = 1, col = 3 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 5, col = 9 }, new Coordinates() { row = 6, col = 9 }, new Coordinates() { row = 7, col = 9 }
+                            new Coordinates() { field = 1, row = 4, col = 9 }, new Coordinates() { field = 1, row = 5, col = 9 }, new Coordinates() { field = 1, row = 6, col = 9 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 7, col = 7 }, new Coordinates() { row = 7, col = 8 }
+                            new Coordinates() { field = 1, row = 7, col = 7 }, new Coordinates() { field = 1, row = 7, col = 8 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 3, col = 4 }, new Coordinates() { row = 4, col = 4 }
+                            new Coordinates() { field = 1, row = 3, col = 4 }, new Coordinates() { field = 1, row = 4, col = 4 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 9, col = 7 }, new Coordinates() { row = 9, col = 8 }, new Coordinates() { row = 9, col = 9 }
+                            new Coordinates() { field = 1, row = 9, col = 7 }, new Coordinates() { field = 1, row = 9, col = 8 }, new Coordinates() { field = 1, row = 9, col = 9 }
                         }
                     },
                 }

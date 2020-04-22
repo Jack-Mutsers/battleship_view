@@ -10,19 +10,31 @@
 <head>
 </head>
 
-<div>
 
-    <input style="top: 110px" type="button" class="button button-midden" value="Surrender">
-    <input style="top: 110px" class="timer button-left" value="Stopwatch PH">
+<input style="top: 110px" type="button" class="button button-midden" value="Surrender">
+<input style="top: 110px" class="timer button-left" value="Stopwatch PH">
 
 
-    <textarea style="height:200px; max-height:200px;" name="message" class="listbox">
-            Player list
-        </textarea>
-    <textarea style="height:400px; max-height:400px;" name="message" class="listbox listbox-bottom">
-            Log
-        </textarea>
+<table id="tbl_players" name="message" class="listbox">
+    <thead>
+        <tr>
+            <th>Player List</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in Model.players)
+        {
+            <tr>
+                <td>@player.name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="log" class="listbox">
+    <div id="log_header" class="row">Log</div>
+    <div class="row" id="log_content">
 
+    </div>
 </div>
 
 <form asp-page-handler="Shoot" method="post" class="playing_field">
@@ -37,7 +49,7 @@
                         <div class='grid-item-row-space-divider'>
                             @for (int j = 0; j < 10; j++)
                             {
-                                <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a+b);}' onclick='GetCoordinates(this)' class='grid-item'>@{Write(i + "." + j);}</div>
+                                <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a+b);}' onclick='GetCoordinates(this)' class='grid-item grid_coordinate'>@{Write(i + "." + j);}</div>
                             }
                         </div>
                     }
