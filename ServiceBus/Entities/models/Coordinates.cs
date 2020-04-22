@@ -8,6 +8,7 @@ namespace ServiceBus.Entities.models
 {
     public class Coordinates
     {
+        public int field { get; set; }
         public int row { get; set; }
         public int col { get; set; }
     }
