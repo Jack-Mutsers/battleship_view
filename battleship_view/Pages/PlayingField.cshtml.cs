@@ -29,6 +29,13 @@ namespace battleship_view
             Coördinate = Request.Form["button"];
             Test = Request.Form["Test"];
 
+            MyField myField = GetMyDummyField();
+            Coordinates firedCoordinate = new Coordinates();
+            firedCoordinate.row = 1;
+            firedCoordinate.col = 5;
+            //Shot shot = new Shot(firedCoordinate, myField);
+            //Hit = shot.CheckForHit();
+
         }
 
         public static void GetCoordinates(int Id)
@@ -112,6 +119,13 @@ namespace battleship_view
 
             return myField;
         }
-            
+
+        public Player GetDummyPlayer()
+        {
+            Player player = new Player() { userId = Guid.Parse("{9e0a721a-1725-40b2-bbf7-8f85ed55f6ca}"), name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host };
+
+            return player;
+        }
+
     }
 }
