@@ -58,6 +58,7 @@
         </style>
     </head>
     <body>
+        @Html.AntiForgeryToken()
 
         <h1>Create Session</h1>
 
@@ -67,7 +68,7 @@
             <textarea style="        height: 200px;
         max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
             <br /><br />
-            <label>Lobby code:</label> <label></label><br />
+            <label>Lobby code:</label> <label id="sessionContainer"></label><br />
             <br /><br /><br />
         </form>
         <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
@@ -81,12 +82,30 @@
                 if (!$("#LobbyButton").hasClass('hidden')) {
                     // LobbyButton does not have the hidden class
 
+                    GetSessionCode();
+
                     // give the LobbyButton the hidden class
                     $("#LobbyButton").addClass('hidden');
 
                     // remove hidden class from the StartButton
                     $("#StartButton").removeClass('hidden');
                 }
+            }
+
+            function GetSessionCode() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "CreateSession?handler=SessionCode",
+                    contentType: 'application/json; charset=utf-8',
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        $("#sessionContainer").html(result);
+                    }
+                });
             }
 
             function StartedSession() {

@@ -6,7 +6,7 @@
         //
 
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "Highscores?handler=ajax",
             headers: {
                 "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()

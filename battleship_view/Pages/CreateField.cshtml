@@ -473,12 +473,10 @@
 
                     boatId = parseInt(id[4]) - 1;
 
-                    window.alert(boats[boatId]);
 
                     boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
                     boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
 
-                    window.alert(boats[boatId]);
                 }
             } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
                 var width = document.getElementById(id).offsetWidth + 'px';

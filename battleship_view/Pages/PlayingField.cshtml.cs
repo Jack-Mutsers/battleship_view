@@ -16,11 +16,12 @@ namespace battleship_view
         public static int shotid { get; private set; }
         public static string Coördinate { get; private set; }
         public string Test { get; private set; }
-        
-        
+        string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
+
+
         public void OnGet()
         {
-
+            HandleHitResponse();
         }
 
         public void OnPostShoot()
@@ -43,6 +44,20 @@ namespace battleship_view
             shotid = Id;
         }
 
+        public void HandleHitResponse()
+        {
+            GameResponse response = GetHitResponseDummyData();
+            List<Player> players = GetDummyPlayerList();
+            
+            Player player = players.Where(p => p.userId == response.playerId).FirstOrDefault();
+
+            string newstring = _placeholderShotReponse.Replace("{player}", player.name)
+                .Replace("{field}", response.coordinates.field.ToString())
+                .Replace("{row}", response.coordinates.row.ToString())
+                .Replace("{col}", response.coordinates.col.ToString())
+                .Replace("{hit}", "landed an hit");
+        }
+
         //used to check if your field is under attack + to deremain who did what for the log
         public GameAction GetActionMessageDummyData()
         {
@@ -59,7 +74,7 @@ namespace battleship_view
             {
                 playerId = players[1].userId,
                 fieldNumber = 2,
-                coordinates = new Coordinates() { col = 2, row = 4 },
+                coordinates = new Coordinates() { field = 2, col = 2, row = 4 },
                 hit = true
             };
 
