@@ -40,7 +40,13 @@ namespace battleship_view
                 bool writerCreated = await ServiceBusHandler.program.CreateQueueWriter(PlayerType.Guest);
 
                 ServiceBusHandler.program.QueueListner.MessageReceived += OnQueueMessageReceived;
+
+                string message = JsonConvert.SerializeObject(StaticResources.user);
+
+                ServiceBusHandler.program.QueueWriter.SendQueueMessage(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
             }
+
+
 
             sessionCode = StaticResources.sessionCode;
             players = StaticResources.PlayerList;
