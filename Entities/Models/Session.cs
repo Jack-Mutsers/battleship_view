@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Database.Entities.Models
+namespace Entities.Models
 {
     public class Session
     {

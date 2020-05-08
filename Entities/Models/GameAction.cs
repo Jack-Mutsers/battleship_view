@@ -1,11 +1,11 @@
-﻿using Database.Entities.Enums;
+﻿using Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceBus.Entities.models
+namespace Entities.models
 {
     public class GameAction
     {

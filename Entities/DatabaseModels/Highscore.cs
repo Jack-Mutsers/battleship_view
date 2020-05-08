@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Entities.Models
+namespace Entities.DatabaseModels
 {
     [Table("highscore")]
     public class Highscore

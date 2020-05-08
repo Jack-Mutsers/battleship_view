@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using battleship_view.Models;
-using Database.Entities.Enums;
+using Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using ServiceBus.Entities.models;
+using Entities.models;
 
 namespace battleship_view
 {

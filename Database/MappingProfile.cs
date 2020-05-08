@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
-using Entities.Models;
+using Entities.DatabaseModels;
 
 namespace Database
 {

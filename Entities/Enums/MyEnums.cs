@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Database.Entities.Enums
+namespace Entities.Enums
 {
     public enum PlayerAction
     {
@@ -22,10 +22,10 @@ namespace Database.Entities.Enums
     {
         JoinRequest, // only valid for the host
         Response, // only valid for guests
-        gameResponse,
         Log,
         Action,
-        ReadyUp
+        ReadyUp,
+        NewPlayer
     }
 
     // define alle availible subscriptions

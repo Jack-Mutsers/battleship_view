@@ -1,15 +1,15 @@
-﻿using Database.Entities.Enums;
+﻿using Entities.DataModels;
+using Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceBus.Entities.models
+namespace Entities.models
 {
     public class SessionResponse
     {
-        public List<Player> playerList { get; set; }
         public Player Player { get; set; }
-        public Subscriptions subscription { get; set; }
+        public TopicData topicData { get; set; }
         public bool accepted { get; set; } // status if you got in
     }
 }

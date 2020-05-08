@@ -1,4 +1,4 @@
-﻿using ServiceBus.Entities.models;
+﻿using Entities.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

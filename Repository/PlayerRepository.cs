@@ -1,6 +1,6 @@
 ﻿using Contracts;
 using Entities;
-using Entities.Models;
+using Entities.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace Repository
 
         public Player GetPlayerById(Guid player_id)
         {
-            return FindByCondition(player => player.id.Equals(player_id)).FirstOrDefault();
+            return FindByCondition(player => player.UserId.Equals(player_id)).FirstOrDefault();
         }
 
         public void UpdatePlayer(Player player)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ServiceBus.Entities.models;
-using battleship_view.Models;
+﻿using battleship_view.Models;
+using Entities.models;
 
 namespace battleship_view.classes
 {

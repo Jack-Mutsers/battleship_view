@@ -9,7 +9,7 @@ using Database;
 //using System.Web.Mvc;
 using Database.Controllers;
 using Entities.DataTransferObjects;
-using Entities.Models;
+using Entities.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
