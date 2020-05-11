@@ -20,9 +20,9 @@
             background-color:#00b7ed;
         }
 
-            .field-grid > div {
+        .field-grid > div {
                 border: #000 1px solid;
-            }
+        }
 
         .selection-grid > div {
             border: #000 1px solid;
@@ -135,10 +135,10 @@
 </head>
 
 <h1>CreateField</h1>
-<body onload="boatPositions()">
+<body onload="boatPositions(); createField();">
     <div class="wrapper">
         <div class="field-grid">
-            <div id ="topleft" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+            <div id="topleft" class="field" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
             <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
             <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
             <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
@@ -385,6 +385,17 @@
         var id;
         var boats = new Array(5);
 
+        //function createField() {
+        //    for (var i = 0; i < 99; i++) {
+        //        var div = document.createElement("div");
+        //        alert("drop(event)");
+        //        div.addEventListener("drop", "drop(event)");
+        //        div.addEventListener("dragover", "allowDrop(event)");
+        //        var containerElement = document.getElementsByClassName("field-grid");
+        //        containerElement[0].appendChild(div);
+        //    }
+        //}
+
         function boatPositions() {
             for (var i = 1; i < 6; i++) {
                 var boatId = i;
@@ -410,94 +421,188 @@
         function drop(event) {
             event.preventDefault();
             var data = event.dataTransfer.getData("Text");
-            var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
-            var right = document.getElementById("topleft").offsetLeft + 10 * 40;
-            var elHeight = document.getElementById(data).offsetHeight;
-            var elWidth = document.getElementById(data).offsetWidth;
-            var eventVertical = event.target.offsetTop;
-            var eventHorizontal = event.target.offsetLeft;
 
-            //var overlap = checkOverlap(boatId,eventHorizontal, elWidth, eventVertical, elHeight);
-
-            if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right)) {
-                event.target.appendChild(document.getElementById(data));
+            if (event.target.parentElement.className == "field-grid") {
+                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+                var right = document.getElementById("topleft").offsetLeft + 10 * 40;
+                var elHeight = document.getElementById(data).offsetHeight;
+                var elWidth = document.getElementById(data).offsetWidth;
+                var eventVertical = event.target.offsetTop;
+                var eventHorizontal = event.target.offsetLeft;
 
                 boatId = parseInt(data[4]) - 1;
+                var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
+                alert(overlap);
 
-                boats[boatId][1] = eventHorizontal;
-                boats[boatId][2] = boats[boatId][1] + elWidth;
-                boats[boatId][3] = eventVertical;
-                boats[boatId][4] = boats[boatId][3] + elHeight;
+                if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right) && !overlap) {
+                    event.target.appendChild(document.getElementById(data));
+                    //alert(document.getElementById(data).parentElement.parentElement.className);
+
+                    boats[boatId][1] = eventHorizontal;
+                    boats[boatId][2] = boats[boatId][1] + elWidth;
+                    boats[boatId][3] = eventVertical;
+                    boats[boatId][4] = boats[boatId][3] + elHeight;
+                }
+            } else if (event.target.parentElement.className == "selection-grid-layer") {
+                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+                var right = document.getElementById("topleft").offsetLeft + 6 * 40;
+                var elHeight = document.getElementById(data).offsetHeight;
+                var elWidth = document.getElementById(data).offsetWidth;
+                var eventVertical = event.target.offsetTop;
+                var eventHorizontal = event.target.offsetLeft;
+
+                boatId = parseInt(data[4]) - 1;
+                var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
+
+                if (((document.getElementById("topleft").offsetTop + eventVertical + elHeight) <= bottom) && ((document.getElementById("topleft").offsetLeft + eventHorizontal + elWidth) <= right) && !overlap) {
+                    event.target.appendChild(document.getElementById(data));
+                    //alert(document.getElementById(data).parentElement.parentElement.className);
+
+                    boats[boatId][1] = eventHorizontal;
+                    boats[boatId][2] = boats[boatId][1] + elWidth;
+                    boats[boatId][3] = eventVertical;
+                    boats[boatId][4] = boats[boatId][3] + elHeight;
+                }
             }
         }
 
-        /*function checkOverlap(id, evHorizontal, elW, evVertical, elH) {
+        function checkOverlap(evHorizontal, elW, evVertical, elH, boatId) {
+            var boat;
 
             for (var i = 0; i < boats.length; i++) {
-                if (i != id) {
-                    if (evHorizontal >= (boats[i][1] + boats[i][2]) || boats[i][1] >= (evHorizontal + elW)) {
-
-                    } else if (evVertical >= (boats[i][3] + boats[i][4]) || boats[i][3] >= (evVertical + el)) {
-
-                    } else {
-                        return true;
+                if (boatId == -1) {
+                    boat = parseInt(id[4]) - 1;
+                } else {
+                    boat = boatId;
+                }
+                if (i != boatId) {
+                    //alert(boats[i][2]);
+                    //alert(evHorizontal);
+                    //alert(boats[i][2] >= evHorizontal + elW);
+                    //alert(evHorizontal >= boats[i][2]);
+                    //alert(evVertical >= boats[i][4]);
+                    //alert(boats[i][3] >= evVertical + elH);
+                    //alert(boats[i][2] + "-" + (evHorizontal + elW));
+                    if (evHorizontal >= boats[i][2] || boats[i][1] >= evHorizontal + elW) {
+                        //alert("test 1");
+                        continue;
+                        //return false;
+                    } else if (evVertical >= boats[i][4] || boats[i][3] >= evVertical + elH) {
+                        //alert("test 2");
+                        continue;
+                        //return false;
                     }
+                    //alert(evVertical);
+                    //alert(i);
+                    //alert(boatId);
+                    //alert(boats[i][4]);
+                    //alert("test 3");
+                    return true;
                 }
             }
-
             return false;
-        }*/
+        }
 
         function selectElement(clicked_id) {
             if (id != null) {
                 document.getElementById(id).style.border = "#000 1px solid"
             }
             id = clicked_id;
-            document.getElementById(id).style.border = "#000 3px solid"
+            document.getElementById(id).style.border = "#F00 3px solid"
         }
 
         function rotateElement() {
-            if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
-                var width = document.getElementById(id).offsetWidth + 'px';
-                var height = document.getElementById(id).offsetHeight + 'px';
-                var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
-                var elTop = document.getElementById(id).offsetTop;
-                var elLeft = document.getElementById(id).offsetLeft;
-                var elWidthRotated = document.getElementById(id).offsetHeight;
-                var elHeightRotated = document.getElementById(id).offsetWidth;
+            var className = document.getElementById(id).parentElement.parentElement.className
 
-                if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right)) {
-                    document.getElementById(id).style.width = height;
-                    document.getElementById(id).style.height = width;
+            if (className == "field-grid") {
+                if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                    var width = document.getElementById(id).offsetWidth + 'px';
+                    var height = document.getElementById(id).offsetHeight + 'px';
+                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                    var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
+                    var elTop = document.getElementById(id).offsetTop;
+                    var elLeft = document.getElementById(id).offsetLeft;
+                    var elWidthRotated = document.getElementById(id).offsetHeight;
+                    var elHeightRotated = document.getElementById(id).offsetWidth;
 
-                    boatId = parseInt(id[4]) - 1;
+                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                    alert(overlap);
 
-                    window.alert(boats[boatId]);
+                    if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                        document.getElementById(id).style.width = height;
+                        document.getElementById(id).style.height = width;
 
-                    boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
-                    boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                        boatId = parseInt(id[4]) - 1;
 
-                    window.alert(boats[boatId]);
+                        boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                        boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                    }
+                } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                    var width = document.getElementById(id).offsetWidth + 'px';
+                    var height = document.getElementById(id).offsetHeight + 'px';
+                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                    var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
+                    var elTop = document.getElementById(id).offsetTop;
+                    var elLeft = document.getElementById(id).offsetLeft;
+                    var elWidthRotated = document.getElementById(id).offsetHeight;
+                    var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+
+                    if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                        document.getElementById(id).style.width = height;
+                        document.getElementById(id).style.height = width;
+
+                        boatId = parseInt(id[4]) - 1;
+
+                        boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                        boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                    }
                 }
-            } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
-                var width = document.getElementById(id).offsetWidth + 'px';
-                var height = document.getElementById(id).offsetHeight + 'px';
-                var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
-                var elTop = document.getElementById(id).offsetTop;
-                var elLeft = document.getElementById(id).offsetLeft;
-                var elWidthRotated = document.getElementById(id).offsetHeight;
-                var elHeightRotated = document.getElementById(id).offsetWidth;
+            } else if (className == "selection-grid-layer") {
+                if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                    var width = document.getElementById(id).offsetWidth + 'px';
+                    var height = document.getElementById(id).offsetHeight + 'px';
+                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                    var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
+                    var elTop = document.getElementById(id).offsetTop;
+                    var elLeft = document.getElementById(id).offsetLeft;
+                    var elWidthRotated = document.getElementById(id).offsetHeight;
+                    var elHeightRotated = document.getElementById(id).offsetWidth;
+                   
+                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                    alert(overlap);
 
-                if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right)) {
-                    document.getElementById(id).style.width = height;
-                    document.getElementById(id).style.height = width;
+                    if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
+                        document.getElementById(id).style.width = height;
+                        document.getElementById(id).style.height = width;
 
-                    boatId = parseInt(id[4]) - 1;
+                        boatId = parseInt(id[4]) - 1;
 
-                    boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
-                    boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                        boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                        boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                    }
+                } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                    var width = document.getElementById(id).offsetWidth + 'px';
+                    var height = document.getElementById(id).offsetHeight + 'px';
+                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                    var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
+                    var elTop = document.getElementById(id).offsetTop;
+                    var elLeft = document.getElementById(id).offsetLeft;
+                    var elWidthRotated = document.getElementById(id).offsetHeight;
+                    var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+
+                    if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
+                        document.getElementById(id).style.width = height;
+                        document.getElementById(id).style.height = width;
+
+                        boatId = parseInt(id[4]) - 1;
+
+                        boats[boatId][2] = boats[boatId][1] + parseInt(height, 10);
+                        boats[boatId][4] = boats[boatId][3] + parseInt(width, 10);
+                    }
                 }
             }
         
