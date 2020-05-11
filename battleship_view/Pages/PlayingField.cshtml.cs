@@ -165,15 +165,6 @@ namespace battleship_view
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Action);
         }
 
-
-
-
-
-
-
-
-
-
         public ActionResult OnGetPlayerList()
         {
             return new JsonResult(StaticResources.PlayerList);
@@ -229,16 +220,15 @@ namespace battleship_view
         *                                                               Start of dummy data                                                                 *
         /***************************************************************************************************************************************************/
 
-        private void SetDummyData()
+        private async void SetDummyData()
         {
-            StaticResources.field = GetMyDummyField();
-            StaticResources.user = GetDummyPlayer();
-            StaticResources.PlayerList = GetDummyPlayerList();
-
+            StaticResources.field = StaticResources.field == null ? GetMyDummyField() : StaticResources.field;
+            StaticResources.user = StaticResources.user == null ? GetDummyPlayer() : StaticResources.user;
+            StaticResources.PlayerList = StaticResources.PlayerList == null ? GetDummyPlayerList() : StaticResources.PlayerList;
 
             if(ServiceBusHandler.program == null)
             {
-                ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
+                await ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
             }
 
         }
