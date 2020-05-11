@@ -16,12 +16,47 @@ namespace battleship_view
         public static int shotid { get; private set; }
         public static string Coördinate { get; private set; }
         public string Test { get; private set; }
-        
-        
+        string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
+
+        public List<Player> players { get; set; }
+        MyField field { get; set; }
+        int myFieldNr { get; set; }
+
         public void OnGet()
         {
-
+            myFieldNr = GetDummyPlayer().orderNumber;
+            players = GetDummyPlayerList();
         }
+
+        public ActionResult OnGetPlayerList()
+        {
+            players = GetDummyPlayerList();
+            return new JsonResult(players);
+        }
+
+        public ActionResult OnGetPlayerData()
+        {
+            Player player = GetDummyPlayer();
+            return new JsonResult(player);
+        }
+
+        public ActionResult OnGetBoatCoordinates()
+        {
+            field = GetMyDummyField();
+            List<Coordinates> coordinates = new List<Coordinates>();
+
+            foreach(Boat boat in field.boats)
+            {
+                foreach(Coordinates coordinate in boat.coordinates)
+                {
+                    coordinates.Add(coordinate);
+                }
+            }
+
+            return new JsonResult(coordinates);
+        }
+
+
 
         public void OnPostShoot()
         {
@@ -43,6 +78,20 @@ namespace battleship_view
             shotid = Id;
         }
 
+        public void HandleHitResponse()
+        {
+            GameResponse response = GetHitResponseDummyData();
+            List<Player> players = GetDummyPlayerList();
+            
+            Player player = players.Where(p => p.userId == response.playerId).FirstOrDefault();
+
+            string newstring = _placeholderShotReponse.Replace("{player}", player.name)
+                .Replace("{field}", response.coordinates.field.ToString())
+                .Replace("{row}", response.coordinates.row.ToString())
+                .Replace("{col}", response.coordinates.col.ToString())
+                .Replace("{hit}", "landed an hit");
+        }
+
         //used to check if your field is under attack + to deremain who did what for the log
         public GameAction GetActionMessageDummyData()
         {
@@ -59,7 +108,7 @@ namespace battleship_view
             {
                 playerId = players[1].userId,
                 fieldNumber = 2,
-                coordinates = new Coordinates() { col = 2, row = 4 },
+                coordinates = new Coordinates() { field = 2, col = 2, row = 4 },
                 hit = true
             };
 
@@ -87,31 +136,31 @@ namespace battleship_view
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 1, col = 1 }, new Coordinates() { row = 1, col = 2 }, new Coordinates() { row = 1, col = 3 }
+                            new Coordinates() { field = 1, row = 1, col = 1 }, new Coordinates() { field = 1, row = 1, col = 2 }, new Coordinates() { field = 1, row = 1, col = 3 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 5, col = 9 }, new Coordinates() { row = 6, col = 9 }, new Coordinates() { row = 7, col = 9 }
+                            new Coordinates() { field = 1, row = 4, col = 9 }, new Coordinates() { field = 1, row = 5, col = 9 }, new Coordinates() { field = 1, row = 6, col = 9 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 7, col = 7 }, new Coordinates() { row = 7, col = 8 }
+                            new Coordinates() { field = 1, row = 7, col = 7 }, new Coordinates() { field = 1, row = 7, col = 8 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 3, col = 4 }, new Coordinates() { row = 4, col = 4 }
+                            new Coordinates() { field = 1, row = 3, col = 4 }, new Coordinates() { field = 1, row = 4, col = 4 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { row = 9, col = 7 }, new Coordinates() { row = 9, col = 8 }, new Coordinates() { row = 9, col = 9 }
+                            new Coordinates() { field = 1, row = 9, col = 7 }, new Coordinates() { field = 1, row = 9, col = 8 }, new Coordinates() { field = 1, row = 9, col = 9 }
                         }
                     },
                 }

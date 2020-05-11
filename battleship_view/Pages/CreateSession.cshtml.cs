@@ -10,13 +10,19 @@ namespace battleship_view
 {
     public class CreateSessionModel : PageModel
     {
+        public string sessionCode { get; set; } = "";
+
         public void OnGet()
         {
-        SessionCode();
 
         }
 
-        public void SessionCode()
+        public ActionResult OnGetSessionCode()
+        {
+            return new JsonResult(SessionCode());
+        }
+
+        public string SessionCode()
         {
             int length = 5;
 
@@ -43,7 +49,8 @@ namespace battleship_view
                 }
                 
             }
-            
+
+            return str_build.ToString();
         }
 
     }

@@ -1,4 +1,6 @@
 ﻿var Id;
+var boatCoordinates = "";
+var player = "";
 
 function SelectId(_Id) {
 
@@ -28,40 +30,57 @@ function ColorCoordinate(col, row, hit) {
     }
 }
 
-GetBoats();
-function GetBoats(filterData = Boat) {
+StartUp();
+function StartUp() {
+    GetPlayerData();
+}
 
+function GetPlayerData() {
     $.ajax({
-        type: "POST",
-        url: "PlayingField?handler=ajax&name=Zoë",
-        headers: {
-            "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
-        },
+        type: "GET",
+        url: "PlayingField?handler=PlayerData",
         contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify(filterData),
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-            List = result;
-            SetBoats(result);
+            player = result;
+            GetBoats();
         }
     });
 }
 
-function SetBoats(Coördinates) {
-    //console.log(Coördinates);
-    var html = Highscores.length > 0 ? "" : '<td colspan="6" class="table_center">No highscores found</td>';
-    $.each(Highscores, function (key, val) {
-        html += '<tr><td class="table_center">' + val.id +
-            '</td><td class="table_center">' + val.player.name +
-            '</td><td class="table_center">' + val.shots +
-            '</td><td class="table_center">' + val.accuracy +
-            '%</td><td class="table_center">' + val.hit_streak +
-            '</td><td class="table_center">' + val.boats_sunk +
-            '</td></tr>';
+function GetBoats() {
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=BoatCoordinates",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            boatCoordinates = result;
+            SetBoats();
+        }
+    });
+}
+
+function SetBoats() {
+    var grids = $(".grid_coordinate[data-field="+player.orderNumber+"]");
+
+    $.each(boatCoordinates, function (key, val) {
+
+        $.each(grids, function (gridKey, gridVal) {
+            var condition1 = $(gridVal).data("field") == val.field;
+            var condition2 = $(gridVal).data("row") == val.row;
+            var condition3 = $(gridVal).data("col") == val.col;
+
+            if (condition1 && condition2 && condition3) {
+                console.log("key: " + key + " -- val: " + val);
+                $(gridVal).addClass("MyBoat");
+            }
+        });
+
     });
 
-    $("#PlayingFieldBody").html(html);
 }
