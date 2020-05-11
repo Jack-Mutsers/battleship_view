@@ -124,8 +124,7 @@
     height: 50px;
     max-height: 50px;
     background-color: #FFFFFF;
-    border-bottom-style: solid;
-    border-right-style: solid;
+    border-style: solid;
     border-color: #000000;
     color: #000000;
     text-align: center;

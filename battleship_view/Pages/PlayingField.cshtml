@@ -12,7 +12,7 @@
 
 
 <input style="top: 110px" type="button" class="button button-midden" value="Surrender">
-<input style="top: 110px" class="timer button-left" value="Stopwatch PH">
+
 
 
 <table id="tbl_players" name="message" class="listbox">
@@ -49,7 +49,7 @@
                         <div class='grid-item-row-space-divider'>
                             @for (int j = 0; j < 10; j++)
                             {
-                                <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a+b);}' onclick='GetCoordinates(this)' class='grid-item grid_coordinate'>@{Write(i + "." + j);}</div>
+                                <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' onclick='GetCoordinates(this); CompareShots()' class='grid-item grid_coordinate'>@{Write(i + "." + j);}</div>
                             }
                         </div>
                     }
@@ -59,6 +59,14 @@
     }
 
     <input asp-page-handler="Shoot" style="top: 550px" type="submit" onclick='ColorCoordinate(model.firedCoordinate.col, model.firedCoordinate.row, model.hit)' class="button button-midden" value="Shoot">
+    
+    
+    <div>
+        <div style="top: 110px" class="timer button-left">Seconds: <span id="time"></span></div>
+        <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br />
+        <input type="button" id="stopTimer" value="Stop Timer" onclick="stop();"><br />
+        <input type="button" id="resetTimer" value="Reset Timer" onclick="reset();"><br />
+    </div>
 
 
 </form>

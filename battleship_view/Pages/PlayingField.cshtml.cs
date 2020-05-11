@@ -13,6 +13,8 @@ using Entities.Resources;
 
 namespace battleship_view
 {
+
+
     public class PlayingFieldModel : PageModel
     {
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
@@ -263,7 +265,7 @@ namespace battleship_view
 
             return response;
         }
-
+                
         public List<Player> GetDummyPlayerList()
         {
             List<Player> players = new List<Player>(){
