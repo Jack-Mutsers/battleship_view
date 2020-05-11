@@ -1,6 +1,6 @@
 ﻿using Entities.DataModels;
 using Entities.Enums;
-using Entities.models;
+using Entities.Models;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
 using ServiceBus.ServiceBusHandlers;

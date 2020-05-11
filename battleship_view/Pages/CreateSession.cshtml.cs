@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
-using Entities.models;
+using Entities.Models;
 using Entities.Resources;
 using battleship_view.Logic;
 using Newtonsoft.Json;
@@ -78,10 +78,10 @@ namespace battleship_view
             }
         }
 
-        public ActionResult OnGetSessionCode()
-        {
-            return null; //new JsonResult(SessionCode());
-        }
+        //public ActionResult OnGetSessionCode()
+        //{
+        //    return null; //new JsonResult(SessionCode());
+        //}
 
         //public string SessionCode()
         //{

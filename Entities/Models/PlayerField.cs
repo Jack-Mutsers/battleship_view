@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace battleship_view.Models
+namespace Entities.Models
 {
-    public class MyField
+    public class PlayerField
     {
         public List<Boat> boats { get; set; }
         public int fieldNumber { get; set; }

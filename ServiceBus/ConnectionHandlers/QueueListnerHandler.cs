@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Entities.models;
+using Entities.Models;
 using Entities.DataModels;
 using System.Collections.Generic;
 using System;

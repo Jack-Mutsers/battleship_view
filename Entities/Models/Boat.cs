@@ -1,10 +1,10 @@
-﻿using Entities.models;
+﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace battleship_view.Models
+namespace Entities.Models
 {
     public class Boat
     {

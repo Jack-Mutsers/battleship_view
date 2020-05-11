@@ -1,6 +1,6 @@
 ﻿using Entities.DataModels;
 using Entities.Enums;
-using Entities.models;
+using Entities.Models;
 using Newtonsoft.Json;
 using ServiceBus.ServiceBusHandlers;
 using System.Threading;

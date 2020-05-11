@@ -6,8 +6,7 @@ namespace Entities.Enums
 {
     public enum PlayerAction
     {
-        shoot,
-        surender
+        shoot
     }
 
     // define Player type to know what to do with the message
@@ -22,10 +21,11 @@ namespace Entities.Enums
     {
         JoinRequest, // only valid for the host
         Response, // only valid for guests
-        Log,
+        GameResponse,
         Action,
         ReadyUp,
-        NewPlayer
+        NewPlayer,
+        Surender
     }
 
     // define alle availible subscriptions

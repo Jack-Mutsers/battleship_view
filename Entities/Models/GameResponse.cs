@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.models
+namespace Entities.Models
 {
     public class GameResponse
     {
@@ -13,6 +13,7 @@ namespace Entities.models
         public int fieldNumber { get; set; }
         public Coordinates coordinates { get; set; }
         public bool hit { get; set; }
+        public bool gameOver { get; set; }
 
     }
 

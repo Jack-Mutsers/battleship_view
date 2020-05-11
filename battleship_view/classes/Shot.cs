@@ -1,14 +1,14 @@
 ﻿using battleship_view.Models;
-using Entities.models;
+using Entities.Models;
 
 namespace battleship_view.classes
 {
     public class Shot
     {
         public Coordinates FiredCoordinate;
-        public MyField DummyField { get; private set; }
+        public PlayerField DummyField { get; private set; }
 
-        public Shot(Coordinates coordinate, MyField dummyField)
+        public Shot(Coordinates coordinate, PlayerField dummyField)
         {
             FiredCoordinate = coordinate;
             DummyField = dummyField;

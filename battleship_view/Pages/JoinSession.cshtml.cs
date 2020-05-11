@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using battleship_view.Logic;
 using Entities.Enums;
-using Entities.models;
+using Entities.Models;
 using Entities.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

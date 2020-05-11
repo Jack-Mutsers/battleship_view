@@ -7,45 +7,186 @@ using Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using Entities.models;
+using Entities.Models;
+using battleship_view.Logic;
+using Entities.Resources;
 
 namespace battleship_view
 {
     public class PlayingFieldModel : PageModel
     {
-        public static int shotid { get; private set; }
-        public static string Coördinate { get; private set; }
-        public string Test { get; private set; }
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
-        public List<Player> players { get; set; }
-        MyField field { get; set; }
-        int myFieldNr { get; set; }
+        public List<Player> players { get; set; } = StaticResources.PlayerList;
 
         public void OnGet()
         {
-            myFieldNr = GetDummyPlayer().orderNumber;
-            players = GetDummyPlayerList();
+            ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+
+            StaticResources.field.fieldNumber = GetDummyPlayer().orderNumber;
+
+            SetDummyData();
         }
+        
+        public void OnTopicMessageReceived(string message)
+        {
+            Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
+
+            if (transfer.type == MessageType.Action)
+            {
+                GameAction action = JsonConvert.DeserializeObject<GameAction>(transfer.message);
+                Player player = StaticResources.PlayerList.Where(player => player.userId == action.playerId).First();
+
+                if (action.action == PlayerAction.shoot)
+                {
+                    // enter code here to display action message in log
+                    string logEntry = "{player} shot at field: {field} row: {row} col: {col}, and has {hit/missed}";
+                    WriteMessageToLog(logEntry);
+
+                    if (action.coordinates.field == StaticResources.user.orderNumber)
+                    {
+                        // shot is directed at my field
+
+                        bool hit = true; // implement function to check if the shot hit anything
+
+                        bool gameOver = false; // implement function to check if you still have ships alive
+
+                        SendHitResponseMessage(action.coordinates, hit, gameOver);
+                    }
+                }
+
+            }
+
+            if (transfer.type == MessageType.Surender)
+            {
+                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message);
+                Player player = StaticResources.PlayerList.Where(player => player.userId == response.playerId).First();
+
+                // enter code here to display surrender message in log
+                string logEntry = "{player} had surrendered";
+                WriteMessageToLog(logEntry);
+
+                // start gameover function
+                HandleGameOver(response.playerId, response.field);
+            }
+
+            if (transfer.type == MessageType.GameResponse)
+            {
+                GameResponse response = JsonConvert.DeserializeObject<GameResponse>(transfer.message);
+                //Player player = StaticResources.PlayerList.Where(player => player.userId == response.playerId).First();
+
+                // write the game response to the log + modify playing field to show what happenend
+                string logEntry = response.hit ? 
+                    "The shot at {field}, {row}, {col} has landed a hit":
+                    "The shot at {field}, {row}, {col} has missed its target";
+                WriteMessageToLog(logEntry);
+
+
+                // start gameover function if player is gameover
+                if (response.gameOver)
+                {
+                    HandleGameOver(response.playerId);
+                }
+            }
+        }
+
+        private void HandleGameOver(Guid playerId, PlayerField field = null)
+        {
+            Player player = StaticResources.PlayerList.Where(player => player.userId == playerId).First();
+            // player.orderNumber == fieldnumber
+
+            // enter code here to display the gameover message in the log
+            string logEntry = "All boats of {player} have been destroyed";
+            WriteMessageToLog(logEntry);
+
+            if (field != null)
+            {
+                // display all boats in field as sunk
+            }
+
+            // change player field color to indicate the game over
+        }
+
+        public void WriteMessageToLog(string logEntry)
+        {
+            // implement function to write the message to the log
+        }
+
+        public void SendHitResponseMessage(Coordinates shot, bool hit, bool gameOver)
+        {
+            // col = 0 - 9
+            // row = 0 - 9
+
+            GameResponse response = new GameResponse()
+            {
+                fieldNumber = StaticResources.user.orderNumber,
+                coordinates = shot,
+                hit = hit,
+                gameOver = gameOver,
+                playerId = StaticResources.user.userId
+            };
+
+            string line = JsonConvert.SerializeObject(response);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.GameResponse);
+        }
+
+        public void SendSurrenderMessage()
+        {
+            SurrenderResponse response = new SurrenderResponse()
+            {
+                playerId = StaticResources.user.userId,
+                field = StaticResources.field
+            };
+
+            string line = JsonConvert.SerializeObject(response);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.GameResponse);
+        }
+
+        public void SendShootMessage(Coordinates coordinates)
+        {
+            GameAction action = new GameAction()
+            {
+                action = PlayerAction.shoot,
+                coordinates = new Coordinates()
+                {
+                    field = coordinates.field,
+                    row = coordinates.row,
+                    col = coordinates.col
+                },
+                playerId = StaticResources.user.userId,
+            };
+
+            string line = JsonConvert.SerializeObject(action);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Action);
+        }
+
+
+
+
+
+
+
+
+
 
         public ActionResult OnGetPlayerList()
         {
-            players = GetDummyPlayerList();
-            return new JsonResult(players);
+            return new JsonResult(StaticResources.PlayerList);
         }
 
         public ActionResult OnGetPlayerData()
         {
-            Player player = GetDummyPlayer();
-            return new JsonResult(player);
+            return new JsonResult(StaticResources.user);
         }
 
         public ActionResult OnGetBoatCoordinates()
         {
-            field = GetMyDummyField();
             List<Coordinates> coordinates = new List<Coordinates>();
 
-            foreach(Boat boat in field.boats)
+            foreach(Boat boat in StaticResources.field.boats)
             {
                 foreach(Coordinates coordinate in boat.coordinates)
                 {
@@ -56,26 +197,14 @@ namespace battleship_view
             return new JsonResult(coordinates);
         }
 
-
-
-        public void OnPostShoot()
+        public void OnGetSerender()
         {
-
-            Coördinate = Request.Form["button"];
-            Test = Request.Form["Test"];
-
-            MyField myField = GetMyDummyField();
-            Coordinates firedCoordinate = new Coordinates();
-            firedCoordinate.row = 1;
-            firedCoordinate.col = 5;
-            //Shot shot = new Shot(firedCoordinate, myField);
-            //Hit = shot.CheckForHit();
-
+            SendSurrenderMessage();
         }
 
-        public static void GetCoordinates(int Id)
+        public void OnPostShoot([FromBody] Coordinates coordinates)
         {
-            shotid = Id;
+            SendShootMessage(coordinates);
         }
 
         public void HandleHitResponse()
@@ -90,6 +219,26 @@ namespace battleship_view
                 .Replace("{row}", response.coordinates.row.ToString())
                 .Replace("{col}", response.coordinates.col.ToString())
                 .Replace("{hit}", "landed an hit");
+        }
+
+
+
+        /****************************************************************************************************************************************************
+        *                                                               Start of dummy data                                                                 *
+        /***************************************************************************************************************************************************/
+
+        private void SetDummyData()
+        {
+            StaticResources.field = GetMyDummyField();
+            StaticResources.user = GetDummyPlayer();
+            StaticResources.PlayerList = GetDummyPlayerList();
+
+
+            if(ServiceBusHandler.program == null)
+            {
+                ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
+            }
+
         }
 
         //used to check if your field is under attack + to deremain who did what for the log
@@ -127,9 +276,9 @@ namespace battleship_view
             return players;
         }
 
-        public MyField GetMyDummyField()
+        public PlayerField GetMyDummyField()
         {
-            MyField myField = new MyField() {
+            PlayerField myField = new PlayerField() {
                 fieldNumber = 1,
                 boats = new List<Boat>()
                 {
@@ -176,5 +325,8 @@ namespace battleship_view
             return player;
         }
 
+        /****************************************************************************************************************************************************
+        *                                                               end of dummy data                                                                 *
+        /***************************************************************************************************************************************************/
     }
 }

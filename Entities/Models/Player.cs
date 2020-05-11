@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.models
+namespace Entities.Models
 {
     public class Player
     {
