@@ -11,16 +11,20 @@ using ServiceBus.Entities.models;
 
 namespace battleship_view
 {
+
+
     public class PlayingFieldModel : PageModel
     {
         public static int shotid { get; private set; }
         public static string Coördinate { get; private set; }
-        public string Test { get; private set; }
+
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
         public List<Player> players { get; set; }
         MyField field { get; set; }
         int myFieldNr { get; set; }
+        bool Hit { get; set; }
+        string test { get; set; } = "true";
 
         public void OnGet()
         {
@@ -56,27 +60,30 @@ namespace battleship_view
             return new JsonResult(coordinates);
         }
 
+        //testen
+        public ActionResult OnGetCompareShot()
+        {
+            
+
+            return new JsonResult(test);
+        }
+
 
 
         public void OnPostShoot()
         {
 
             Coördinate = Request.Form["button"];
-            Test = Request.Form["Test"];
-
+            
             MyField myField = GetMyDummyField();
             Coordinates firedCoordinate = new Coordinates();
             firedCoordinate.row = 1;
             firedCoordinate.col = 5;
-            //Shot shot = new Shot(firedCoordinate, myField);
-            //Hit = shot.CheckForHit();
+            classes.Shot shot = new classes.Shot(firedCoordinate, myField);
+            Hit = shot.CheckForHit();
 
         }
 
-        public static void GetCoordinates(int Id)
-        {
-            shotid = Id;
-        }
 
         public void HandleHitResponse()
         {
@@ -114,7 +121,7 @@ namespace battleship_view
 
             return response;
         }
-
+                
         public List<Player> GetDummyPlayerList()
         {
             List<Player> players = new List<Player>(){

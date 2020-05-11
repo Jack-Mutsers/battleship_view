@@ -1,29 +1,21 @@
-﻿var Id;
-var boatCoordinates = "";
+﻿var boatCoordinates = "";
 var player = "";
+var Comparison;
+var fieldnr;
+var col;
+var row;
 
-function SelectId(_Id) {
 
-    Id = _Id;
-    document.getElementById(_Id).style.fontSize = '24px';
-
-
-}
-
-function myFunction() {
-    document.getElementById("testtest").style.color = "red";
-}
 
 function GetCoordinates(element) {
-    var fieldnr = $(element).data("field");
-    var col = $(element).data("col");
-    var row = $(element).data("row");
+    fieldnr = $(element).data("field");
+    col = $(element).data("col");
+    row = $(element).data("row");
     alert("field: " + fieldnr + " -- col: " + col + " -- row: " + row);
-
 }
 
 function ColorCoordinate(col, row, hit) {
-    if (hit) {
+    if (hit == true) {
         document.getElementById("square" + col + "." + row).style.backgroundColor = "red";
     } else {
         document.getElementById("square" + col + "." + row).style.backgroundColor = "#1f4a44";
@@ -83,4 +75,51 @@ function SetBoats() {
 
     });
 
+}
+
+
+//timer functies + variabele
+var timeElapsed = 10;
+var myTimer = 0;
+
+function start() {
+    myTimer = setInterval(function () {
+
+        if (timeElapsed == 0) {
+            clearInterval(myTimer);
+        } else {
+            timeElapsed -= 1;
+            document.getElementById("time").innerText = timeElapsed;
+        }
+        
+    }, 1000);
+
+}
+function stop() {
+    clearInterval(myTimer);
+}
+function reset() {
+    timeElapsed = 10;
+    clearInterval(myTimer);
+    document.getElementById("time").innerHTML = timeElapsed;
+}
+
+//testen
+function CompareShots() {
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=CompareShot",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            Comparison = result;
+            alertCompareShots();
+        }
+    });
+}
+
+function alertCompareShots() {
+    alert("test: " + Comparison);
 }
