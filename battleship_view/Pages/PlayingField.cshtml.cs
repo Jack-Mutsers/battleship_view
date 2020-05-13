@@ -21,13 +21,17 @@ namespace battleship_view
 
         public List<Player> players { get; set; } = StaticResources.PlayerList;
 
-        public void OnGet()
+        public async void OnGet()
         {
-            ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
-
             StaticResources.field.fieldNumber = GetDummyPlayer().orderNumber;
 
             SetDummyData();
+
+            if (ServiceBusHandler.program == null)
+            {
+                await ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
+                ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+            }
         }
         
         public void OnTopicMessageReceived(string message)
@@ -222,14 +226,11 @@ namespace battleship_view
 
         private async void SetDummyData()
         {
-            StaticResources.field = StaticResources.field == null ? GetMyDummyField() : StaticResources.field;
+            StaticResources.field = StaticResources.field.boats == null ? GetMyDummyField() : StaticResources.field;
             StaticResources.user = StaticResources.user == null ? GetDummyPlayer() : StaticResources.user;
             StaticResources.PlayerList = StaticResources.PlayerList == null ? GetDummyPlayerList() : StaticResources.PlayerList;
 
-            if(ServiceBusHandler.program == null)
-            {
-                await ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
-            }
+            
 
         }
 
