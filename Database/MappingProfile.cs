@@ -15,6 +15,10 @@ namespace Database
             CreateMap<Player, PlayerDto>();
             CreateMap<PlayerForCreationDto, Player>();
             CreateMap<PlayerForUpdateDto, Player>();
+
+            CreateMap<Session, SessionDto>();
+            CreateMap<SessionForCreationDto, Session>();
+            CreateMap<SessionForUpdateDto, Session>();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Contracts
     {
         public IHighscoreRepository highscore { get; }
         public IPlayerRepository player { get; }
+        public ISessionRepository session { get; }
         void Save();
     }
 }

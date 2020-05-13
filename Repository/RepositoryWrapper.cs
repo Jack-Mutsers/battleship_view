@@ -11,6 +11,7 @@ namespace Repository
         private RepositoryContext _repoContext;
         private IHighscoreRepository _highscore;
         private IPlayerRepository _player;
+        private ISessionRepository _session;
 
         public IHighscoreRepository highscore
         {
@@ -35,6 +36,20 @@ namespace Repository
                 }
 
                 return _player;
+            }
+        }
+
+
+        public ISessionRepository session
+        {
+            get
+            {
+                if (_session == null)
+                {
+                    _session = new SessionRepository(_repoContext);
+                }
+
+                return _session;
             }
         }
 

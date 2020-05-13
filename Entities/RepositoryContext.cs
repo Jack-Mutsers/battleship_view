@@ -9,5 +9,6 @@ namespace Entities
 
         public DbSet<Highscore> Highscores { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Session> sessions { get; set; }
     }
 }

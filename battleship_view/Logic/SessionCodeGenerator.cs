@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace battleship_view.Logic
             int length = 5;
 
             // uncomment all commented lines below when implementing it in a asp net applicatie
-            //SessionController sessionController = new SessionController();
+            SessionController sessionController = new SessionController();
 
             StringBuilder str_build = new StringBuilder();
             Random random = new Random();
