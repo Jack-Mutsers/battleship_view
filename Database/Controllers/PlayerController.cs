@@ -8,6 +8,7 @@ using Entities;
 using Entities.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Repository;
 
 namespace Database.Controllers
@@ -24,15 +25,30 @@ namespace Database.Controllers
 
             var optionsBuilder = new DbContextOptionsBuilder<RepositoryContext>();
             SqlData sqlData = new SqlData();
-            optionsBuilder.UseMySql(sqlData.connectionString);
+            optionsBuilder.UseSqlServer(sqlData.connectionString);
+
+            
+
 
             _repository = new RepositoryWrapper(new RepositoryContext(optionsBuilder.Options));
         }
 
-        public Player GetById(Guid player_id)
+        public Player GetById(int player_id)
         {
             return _repository.player.GetPlayerById(player_id);
         }
 
+        public int CreateNewPlayer(string playerName)
+        {
+            Player playerData = new Player()
+            {
+                name = playerName
+            };
+
+            _repository.player.CreatePlayer(playerData);
+            _repository.Save();
+
+            return playerData.PlayerId;
+        }
     }
 }

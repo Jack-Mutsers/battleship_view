@@ -47,7 +47,7 @@ namespace battleship_view
             if (transfer.type == MessageType.Action)
             {
                 GameAction action = JsonConvert.DeserializeObject<GameAction>(transfer.message);
-                Player player = StaticResources.PlayerList.Where(Speler => Speler.userId == action.playerId).First();
+                Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == action.playerId).First();
 
                 if (action.action == PlayerAction.shoot)
                 {
@@ -72,7 +72,7 @@ namespace battleship_view
             if (transfer.type == MessageType.Surender)
             {
                 SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message);
-                Player player = StaticResources.PlayerList.Where(Speler => Speler.userId == response.playerId).First();
+                Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == response.playerId).First();
 
                 // enter code here to display surrender message in log
                 string logEntry = "{player} had surrendered";
@@ -102,9 +102,9 @@ namespace battleship_view
             }
         }
 
-        private void HandleGameOver(Guid playerId, PlayerField field = null)
+        private void HandleGameOver(int playerId, PlayerField field = null)
         {
-            Player player = StaticResources.PlayerList.Where(Speler => Speler.userId == playerId).First();
+            Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == playerId).First();
             // player.orderNumber == fieldnumber
 
             // enter code here to display the gameover message in the log
@@ -135,7 +135,7 @@ namespace battleship_view
                 coordinates = shot,
                 hit = hit,
                 gameOver = gameOver,
-                playerId = StaticResources.user.userId
+                playerId = StaticResources.user.PlayerId
             };
 
             string line = JsonConvert.SerializeObject(response);
@@ -147,7 +147,7 @@ namespace battleship_view
         {
             SurrenderResponse response = new SurrenderResponse()
             {
-                playerId = StaticResources.user.userId,
+                playerId = StaticResources.user.PlayerId,
                 field = StaticResources.field
             };
 
@@ -167,7 +167,7 @@ namespace battleship_view
                     row = coordinates.row,
                     col = coordinates.col
                 },
-                playerId = StaticResources.user.userId,
+                playerId = StaticResources.user.PlayerId,
             };
 
             string line = JsonConvert.SerializeObject(action);
@@ -215,7 +215,7 @@ namespace battleship_view
             GameResponse response = GetHitResponseDummyData();
             List<Player> players = GetDummyPlayerList();
             
-            Player player = players.Where(p => p.userId == response.playerId).FirstOrDefault();
+            Player player = players.Where(p => p.PlayerId == response.playerId).FirstOrDefault();
 
             string newstring = _placeholderShotReponse.Replace("{player}", player.name)
                 .Replace("{field}", response.coordinates.field.ToString())
@@ -251,7 +251,7 @@ namespace battleship_view
             List<Player> players = GetDummyPlayerList();
             GameResponse response = new GameResponse()
             {
-                playerId = players[1].userId,
+                playerId = players[1].PlayerId,
                 fieldNumber = 2,
                 coordinates = new Coordinates() { field = 2, col = 2, row = 4 },
                 hit = true
@@ -263,10 +263,10 @@ namespace battleship_view
         public List<Player> GetDummyPlayerList()
         {
             List<Player> players = new List<Player>(){
-                new Player() { userId = Guid.Parse("{9e0a721a-1725-40b2-bbf7-8f85ed55f6ca}"), name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },
-                new Player() { userId = Guid.Parse("{cebfcc68-19ad-42ac-8a01-bddeae6520ce}"), name = "Lean", ready = true, orderNumber = 2, type = PlayerType.Guest },
-                new Player() { userId = Guid.Parse("{08bf7d61-21b0-4277-8f47-41dc5e0e009a}"), name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
-                new Player() { userId = Guid.Parse("{89aa512a-e854-4bf1-89cf-d6b59bf30d18}"), name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
+                new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },
+                new Player() { PlayerId = 2, name = "Lean", ready = true, orderNumber = 2, type = PlayerType.Guest },
+                new Player() { PlayerId = 3, name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
+                new Player() { PlayerId = 4, name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
             };
 
             return players;
@@ -316,7 +316,7 @@ namespace battleship_view
 
         public Player GetDummyPlayer()
         {
-            Player player = new Player() { userId = Guid.Parse("{9e0a721a-1725-40b2-bbf7-8f85ed55f6ca}"), name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host };
+            Player player = new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host };
 
             return player;
         }

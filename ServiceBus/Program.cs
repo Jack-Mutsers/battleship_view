@@ -25,7 +25,7 @@ namespace ServiceBus
 
             string queueName = playerType == PlayerType.Host ?
                 "Join-" + StaticResources.sessionCode :
-                "response-" + StaticResources.sessionCode + StaticResources.user.userId.ToString();
+                "response-" + StaticResources.sessionCode + StaticResources.user.PlayerId.ToString();
 
             QueueData listnerData = await QueueManipulator.validateExistance(queueName);
 

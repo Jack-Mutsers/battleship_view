@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
 using Entities.DatabaseModels;
+using System;
 
 namespace Database
 {
@@ -19,6 +20,7 @@ namespace Database
             CreateMap<Session, SessionDto>();
             CreateMap<SessionForCreationDto, Session>();
             CreateMap<SessionForUpdateDto, Session>();
+
         }
     }
 }

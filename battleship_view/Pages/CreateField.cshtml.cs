@@ -58,7 +58,7 @@ namespace battleship_view
                 int count = 0;
                 for (int i = 0; i < StaticResources.PlayerList.Count(); i++)
                 {
-                    if (StaticResources.PlayerList[i].userId == player.userId)
+                    if (StaticResources.PlayerList[i].PlayerId == player.PlayerId)
                     {
                         StaticResources.PlayerList[i] = player;
                     }

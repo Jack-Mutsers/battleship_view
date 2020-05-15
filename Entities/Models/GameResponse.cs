@@ -9,7 +9,7 @@ namespace Entities.Models
 {
     public class GameResponse
     {
-        public Guid playerId { get; set; }
+        public int playerId { get; set; }
         public int fieldNumber { get; set; }
         public Coordinates coordinates { get; set; }
         public bool hit { get; set; }

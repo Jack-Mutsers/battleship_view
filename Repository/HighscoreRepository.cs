@@ -68,7 +68,7 @@ namespace Repository
 
         public IEnumerable<Highscore> GetByName(string name)
         {
-            return FindAll().Include(pl => pl.Player).Where(pl => pl.Player.name.IndexOf(name, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+            return FindAll().Include(hs => hs.Player).Where(hs => hs.Player.name.Contains(name)).ToList();
         }
 
         public void UpdateHighscore(Highscore highscore)

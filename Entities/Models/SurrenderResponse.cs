@@ -7,7 +7,7 @@ namespace Entities.Models
 {
     public class SurrenderResponse
     {
-        public Guid playerId { get; set; }
+        public int playerId { get; set; }
         public PlayerField field { get; set; }
     }
 }

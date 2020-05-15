@@ -10,6 +10,7 @@ using Entities.Resources;
 using battleship_view.Logic;
 using Newtonsoft.Json;
 using Entities.Enums;
+using Database.Controllers;
 
 namespace battleship_view
 {
@@ -32,12 +33,13 @@ namespace battleship_view
                 SessionCodeGenerator generator = new SessionCodeGenerator();
 
                 // Generade sessionCode
-                string sessionCode = generator.GenerateSessionCode();
+                StaticResources.sessionCode = generator.GenerateSessionCode();
 
-                StaticResources.sessionCode = sessionCode;
+                PlayerController playerController = new PlayerController();
 
                 // Set player data
                 Player player = new Player();
+                player.PlayerId = playerController.CreateNewPlayer(name);
                 player.name = name;
                 player.type = PlayerType.Host;
                 player.orderNumber = 1;

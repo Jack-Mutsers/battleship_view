@@ -61,7 +61,7 @@ namespace battleship_view.Logic
                         int playerCount = StaticResources.PlayerList.Count();
 
                         // check if the player is already in the game
-                        int exists = StaticResources.PlayerList.Where(p => p.userId == source.userId).Count();
+                        int exists = StaticResources.PlayerList.Where(p => p.PlayerId == source.PlayerId).Count();
 
                         // check if there are less than 4 people in the game and the new request is from a new player
                         if (playerCount < 4 && exists == 0)
@@ -121,7 +121,7 @@ namespace battleship_view.Logic
                     Player player = response.Player;
 
                     // check if the response is meant for me
-                    if (player.userId == StaticResources.user.userId && player.name == StaticResources.user.name && player.type == StaticResources.user.type)
+                    if (player.PlayerId == StaticResources.user.PlayerId && player.name == StaticResources.user.name && player.type == StaticResources.user.type)
                     {
                         // the response is for me
                         // update player data

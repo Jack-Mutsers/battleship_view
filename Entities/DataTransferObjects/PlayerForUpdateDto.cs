@@ -7,7 +7,7 @@ namespace Entities.DataTransferObjects
 {
     public class PlayerForUpdateDto
     {
-        public int userId { get; set; }
+        public int PlayerId { get; set; }
 
         [Required(ErrorMessage = "player name is required")]
         public string name { get; set; }

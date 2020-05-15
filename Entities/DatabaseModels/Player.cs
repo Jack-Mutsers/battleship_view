@@ -9,8 +9,8 @@ namespace Entities.DatabaseModels
     [Table("player")]
     public class Player
     {
-        [Column("PlayerId")]
-        public Guid UserId { get; set; }
+        [Key]
+        public int PlayerId { get; set; }
 
         [Required(ErrorMessage = "player name is required")]
         public string name { get; set; }

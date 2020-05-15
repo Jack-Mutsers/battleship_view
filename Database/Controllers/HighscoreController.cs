@@ -24,7 +24,7 @@ namespace Database.Controllers
 
             var optionsBuilder = new DbContextOptionsBuilder<RepositoryContext>();
             SqlData sqlData = new SqlData();
-            optionsBuilder.UseMySql(sqlData.connectionString);
+            optionsBuilder.UseSqlServer(sqlData.connectionString);
 
             _repository = new RepositoryWrapper(new RepositoryContext(optionsBuilder.Options));
         }

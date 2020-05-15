@@ -45,10 +45,10 @@ namespace battleship_view.Logic
 
                 sessionCode = str_build.ToString();
 
-                inUse = false; //sessionController.CheckIfSessionExists(sessionCode);
+                inUse = sessionController.CheckIfSessionExists(sessionCode);
             }
 
-            //sessionController.CreateSession(sessionCode);
+            sessionController.CreateSession(sessionCode);
 
             return sessionCode;
         }

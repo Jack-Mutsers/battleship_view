@@ -7,7 +7,10 @@ namespace Database
 {
     public class SqlData
     {
-        private string _connectionString { get; } = "server={server};userid={user};password={password};database={database};";
+        //private string _connectionString { get; } = "server={server};userid={user};password={password};database={database};";
+        private string _connectionString { get; } = "Server={server},1433;User ID={user};Password={password};database={database};Trusted_Connection=False;Encrypt=True;";
+
+
         public string connectionString 
         {
             get 
@@ -21,10 +24,15 @@ namespace Database
             } 
         }
 
-        private string server = @"localhost";
-        private string user = "root";
-        private string password = "";
-        private string database = "proftaak";
+        private string server = @"S2-battleships.database.windows.net";
+        private string user = "StiptonShip";
+        private string password = "y3gH1Za32Qdrc84";
+        private string database = "ArcadeScores";
+
+        //private string server = @"localhost";
+        //private string user = "root";
+        //private string password = "";
+        //private string database = "proftaak";
         
         
         

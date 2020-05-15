@@ -22,9 +22,9 @@ namespace Repository
             Update(player);
         }
 
-        public Player GetPlayerById(Guid player_id)
+        public Player GetPlayerById(int player_id)
         {
-            return FindByCondition(player => player.UserId.Equals(player_id)).FirstOrDefault();
+            return FindByCondition(player => player.PlayerId.Equals(player_id)).FirstOrDefault();
         }
 
         public void UpdatePlayer(Player player)

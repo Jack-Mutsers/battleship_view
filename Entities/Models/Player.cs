@@ -9,7 +9,7 @@ namespace Entities.Models
 {
     public class Player
     {
-        public Guid userId { get; set; } = Guid.NewGuid();
+        public int PlayerId { get; set; }
         public string name { get; set; }
         public int orderNumber { get; set; } = 0;
         public bool ready { get; set; } = false;

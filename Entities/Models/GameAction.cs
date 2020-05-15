@@ -9,7 +9,7 @@ namespace Entities.Models
 {
     public class GameAction
     {
-        public Guid playerId { get; set; }
+        public int playerId { get; set; }
         public string sessionCode { get; set; }
         public Coordinates coordinates { get; set; }
         public PlayerAction action { get; set; }

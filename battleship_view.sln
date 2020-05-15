@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{BDFD2630-4652-4315-93F9-74405B4950F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus", "ServiceBus\ServiceBus.csproj", "{786488FE-6055-44CC-B7D1-DC89FC065823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBus", "ServiceBus\ServiceBus.csproj", "{786488FE-6055-44CC-B7D1-DC89FC065823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1B0406D0-4779-4FFC-AA51-40F250D3DA8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{786488FE-6055-44CC-B7D1-DC89FC065823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{786488FE-6055-44CC-B7D1-DC89FC065823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{786488FE-6055-44CC-B7D1-DC89FC065823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B0406D0-4779-4FFC-AA51-40F250D3DA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B0406D0-4779-4FFC-AA51-40F250D3DA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B0406D0-4779-4FFC-AA51-40F250D3DA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B0406D0-4779-4FFC-AA51-40F250D3DA8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

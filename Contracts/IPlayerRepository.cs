@@ -7,7 +7,7 @@ namespace Contracts
 {
     public interface IPlayerRepository
     {
-        Player GetPlayerById(Guid player_Id);
+        Player GetPlayerById(int player_Id);
         //Player GetUserWithDetails(string username, string password);
         void CreatePlayer(Player player);
         void UpdatePlayer(Player player);

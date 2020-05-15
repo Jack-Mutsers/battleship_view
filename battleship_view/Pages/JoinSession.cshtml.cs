@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using battleship_view.Logic;
+using Database.Controllers;
 using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
@@ -28,9 +29,13 @@ namespace battleship_view
             // check if handler is empty, if so create an instance of it
             if (ServiceBusHandler.program == null)
             {
+                PlayerController playerController = new PlayerController();
+                
                 Player player = new Player();
+                player.PlayerId = playerController.CreateNewPlayer(name);
                 player.name = name;
                 player.type = PlayerType.Guest;
+
 
                 StaticResources.sessionCode = sessionCode;
 
