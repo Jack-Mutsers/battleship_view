@@ -11,7 +11,7 @@
 </head>
 
 
-<input style="top: 110px" type="button" class="button button-midden" value="Surrender">
+<input style="top: 110px" type="button" onclick="SendSurrender()" class="button button-midden" value="Surrender">
 
 
 
@@ -58,7 +58,7 @@
         </div>
     }
 
-    <input asp-page-handler="Shoot" style="top: 550px" type="submit" onclick='ColorCoordinate(model.firedCoordinate.col, model.firedCoordinate.row, model.hit)' class="button button-midden" value="Shoot">
+    <input style="top: 550px" type="submit" onclick='ColorCoordinate(model.firedCoordinate.col, model.firedCoordinate.row, model.hit)' class="button button-midden" value="Shoot">
     
     
     <div>
