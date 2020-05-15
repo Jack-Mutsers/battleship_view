@@ -29,11 +29,17 @@ namespace battleship_view
 
             if (ServiceBusHandler.program == null)
             {
+                // initialise SessionCodeGenerator
+                SessionCodeGenerator generator = new SessionCodeGenerator();
+
+                // Generade sessionCode
+                StaticResources.sessionCode = generator.GenerateSessionCode();
+
                 await ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
             }
         }
-        
+
         public void OnTopicMessageReceived(string message)
         {
             Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
@@ -41,7 +47,7 @@ namespace battleship_view
             if (transfer.type == MessageType.Action)
             {
                 GameAction action = JsonConvert.DeserializeObject<GameAction>(transfer.message);
-                Player player = StaticResources.PlayerList.Where(player => player.userId == action.playerId).First();
+                Player player = StaticResources.PlayerList.Where(p => p.userId == action.playerId).First();
 
                 if (action.action == PlayerAction.shoot)
                 {
@@ -66,7 +72,7 @@ namespace battleship_view
             if (transfer.type == MessageType.Surender)
             {
                 SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message);
-                Player player = StaticResources.PlayerList.Where(player => player.userId == response.playerId).First();
+                Player player = StaticResources.PlayerList.Where(p => p.userId == response.playerId).First();
 
                 // enter code here to display surrender message in log
                 string logEntry = "{player} had surrendered";
@@ -82,7 +88,7 @@ namespace battleship_view
                 //Player player = StaticResources.PlayerList.Where(player => player.userId == response.playerId).First();
 
                 // write the game response to the log + modify playing field to show what happenend
-                string logEntry = response.hit ? 
+                string logEntry = response.hit ?
                     "The shot at {field}, {row}, {col} has landed a hit":
                     "The shot at {field}, {row}, {col} has missed its target";
                 WriteMessageToLog(logEntry);
@@ -98,7 +104,7 @@ namespace battleship_view
 
         private void HandleGameOver(Guid playerId, PlayerField field = null)
         {
-            Player player = StaticResources.PlayerList.Where(player => player.userId == playerId).First();
+            Player player = StaticResources.PlayerList.Where(p => p.userId == playerId).First();
             // player.orderNumber == fieldnumber
 
             // enter code here to display the gameover message in the log
@@ -183,9 +189,9 @@ namespace battleship_view
         {
             List<Coordinates> coordinates = new List<Coordinates>();
 
-            foreach(Boat boat in StaticResources.field.boats)
+            foreach (Boat boat in StaticResources.field.boats)
             {
-                foreach(Coordinates coordinate in boat.coordinates)
+                foreach (Coordinates coordinate in boat.coordinates)
                 {
                     coordinates.Add(coordinate);
                 }
@@ -208,7 +214,7 @@ namespace battleship_view
         {
             GameResponse response = GetHitResponseDummyData();
             List<Player> players = GetDummyPlayerList();
-            
+
             Player player = players.Where(p => p.userId == response.playerId).FirstOrDefault();
 
             string newstring = _placeholderShotReponse.Replace("{player}", player.name)
@@ -224,14 +230,11 @@ namespace battleship_view
         *                                                               Start of dummy data                                                                 *
         /***************************************************************************************************************************************************/
 
-        private async void SetDummyData()
+        private void SetDummyData()
         {
             StaticResources.field = StaticResources.field.boats == null ? GetMyDummyField() : StaticResources.field;
             StaticResources.user = StaticResources.user == null ? GetDummyPlayer() : StaticResources.user;
             StaticResources.PlayerList = StaticResources.PlayerList == null ? GetDummyPlayerList() : StaticResources.PlayerList;
-
-            
-
         }
 
         //used to check if your field is under attack + to deremain who did what for the log
@@ -256,7 +259,7 @@ namespace battleship_view
 
             return response;
         }
-                
+
         public List<Player> GetDummyPlayerList()
         {
             List<Player> players = new List<Player>(){
@@ -271,7 +274,8 @@ namespace battleship_view
 
         public PlayerField GetMyDummyField()
         {
-            PlayerField myField = new PlayerField() {
+            PlayerField myField = new PlayerField()
+            {
                 fieldNumber = 1,
                 boats = new List<Boat>()
                 {

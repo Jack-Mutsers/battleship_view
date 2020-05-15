@@ -1,4 +1,6 @@
-﻿function JoinLobby() {
+﻿var players = "";
+
+function JoinLobby() {
     //var username = document.getElementById('username-input').value;
     //var lobbycode = document.getElementById('lobbycode-input').value;
 
@@ -31,6 +33,26 @@
             SetHighscores(result);
         }
     });
+
+    setInterval(function () {
+        $.ajax({
+            type: "GET",
+            url: "JoinSession?handler=Players",
+            contentType: 'application/json; charset=utf-8',
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            success: function (result) {
+                players = result;
+                UpdatePlayers();
+            }
+        });
+    }, 3000);
+    
+}
+
+function UpdatePlayers() {
+    $("#players").html("<p>" + players + "</p>")
 }
 
 

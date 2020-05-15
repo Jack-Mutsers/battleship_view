@@ -76,5 +76,14 @@ namespace battleship_view
             }
         }
 
+        public void OnPostTest()
+        {
+            ViewData["players"] = players;
+        }
+
+        public ActionResult OnGetPlayers()
+        {
+            return new JsonResult(players);
+        }
     }
 }
