@@ -41,7 +41,7 @@ namespace battleship_view
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
             }
         }
-        
+
         public void OnTopicMessageReceived(string message)
         {
             Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
@@ -90,7 +90,7 @@ namespace battleship_view
                 //Player player = StaticResources.PlayerList.Where(Speler => Speler.userId == response.playerId).First();
 
                 // write the game response to the log + modify playing field to show what happenend
-                string logEntry = response.hit ? 
+                string logEntry = response.hit ?
                     "The shot at {field}, {row}, {col} has landed a hit":
                     "The shot at {field}, {row}, {col} has missed its target";
                 WriteMessageToLog(logEntry);
@@ -191,9 +191,9 @@ namespace battleship_view
         {
             List<Coordinates> coordinates = new List<Coordinates>();
 
-            foreach(Boat boat in StaticResources.field.boats)
+            foreach (Boat boat in StaticResources.field.boats)
             {
-                foreach(Coordinates coordinate in boat.coordinates)
+                foreach (Coordinates coordinate in boat.coordinates)
                 {
                     coordinates.Add(coordinate);
                 }
@@ -261,7 +261,7 @@ namespace battleship_view
 
             return response;
         }
-                
+
         public List<Player> GetDummyPlayerList()
         {
             List<Player> players = new List<Player>(){
@@ -276,7 +276,8 @@ namespace battleship_view
 
         public PlayerField GetMyDummyField()
         {
-            PlayerField myField = new PlayerField() {
+            PlayerField myField = new PlayerField()
+            {
                 fieldNumber = 1,
                 boats = new List<Boat>()
                 {

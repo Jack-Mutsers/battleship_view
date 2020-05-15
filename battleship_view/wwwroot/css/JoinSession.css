@@ -77,6 +77,7 @@ input {
     background-color: #f5f5f5;
     width: 40%;
     float: right;
+    display:inline-block;
 }
 
 #join {
@@ -89,8 +90,4 @@ input {
 
 #back {
     display: inline-block;
-}
-
-#players {
-    display: none;
 }
