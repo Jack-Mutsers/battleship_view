@@ -22,6 +22,21 @@ function ColorCoordinate(col, row, hit) {
     }
 }
 
+function SendSurrender() {
+    alert("test"); 
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=Serender",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            
+        }
+    });
+}
+
 StartUp();
 function StartUp() {
     GetPlayerData();

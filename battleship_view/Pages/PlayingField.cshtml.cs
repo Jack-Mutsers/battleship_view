@@ -23,6 +23,8 @@ namespace battleship_view
 
         public async void OnGet()
         {
+            ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+
             StaticResources.field.fieldNumber = GetDummyPlayer().orderNumber;
 
             SetDummyData();
