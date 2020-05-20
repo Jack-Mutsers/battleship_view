@@ -107,6 +107,18 @@
     background-color: red;
 }
 
+.field_view{
+    min-width: 583px;
+}
+
+.button_view{
+    flex-wrap: wrap;
+}
+
+.button_view input {
+    display: flex;
+}
+
 /*Style voor de timer*/
 .timer {
     width: 130px;

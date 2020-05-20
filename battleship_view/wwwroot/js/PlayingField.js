@@ -38,28 +38,24 @@ function SendSurrender() {
     });
 }
 
-//GetPlayerData();
-//function GetPlayerData() {
-//    $.ajax({
-//        type: "GET",
-//        url: "PlayingField?handler=PlayerData",
-//        contentType: 'application/json; charset=utf-8',
-//        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-//        },
-//        success: function (result) {
-//            player = result;
-//            GetBoats();
-//        }
-//    });
-//}
+// get current player data to build field
+GetPlayerData();
+function GetPlayerData() {
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=PlayerData",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            player = result;
+            GetBoats();
+        }
+    });
+}
 
-//function SetPlayers() {
-//    $.each(players, function (key, player) {
-
-//    });
-//}
-
+// get player boat coordinates to place on field
 function GetBoats() {
     $.ajax({
         type: "GET",
@@ -69,14 +65,17 @@ function GetBoats() {
             alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
+            console.log(result);
             boatCoordinates = result;
             SetBoats();
         }
     });
 }
 
+// place boats on field using the coordinates
 function SetBoats() {
-    var grids = $(".grid_coordinate[data-field="+player.orderNumber+"]");
+
+    var grids = $(".grid_coordinate[data-field=" + (player.orderNumber + 1) +"]");
 
     $.each(boatCoordinates, function (key, val) {
 

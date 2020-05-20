@@ -204,6 +204,8 @@ namespace battleship_view
 
         public ActionResult OnGetBoatCoordinates()
         {
+            StaticResources.field = StaticResources.field.boats == null ? GetMyDummyField() : StaticResources.field;
+
             List<Coordinates> coordinates = new List<Coordinates>();
 
             foreach (Boat boat in StaticResources.field.boats)
