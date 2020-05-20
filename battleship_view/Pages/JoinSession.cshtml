@@ -27,9 +27,7 @@
             <input id="lobbycode-input" type="text" />
         </div>
         <div class="join-container">
-            <form asp-page-handler="test" method="post">
             <button onclick="JoinSession();" class="join">Join lobby</button>
-                </form>
         </div>
     </div>
 
@@ -49,54 +47,61 @@
             <a class="nav-link text-dark leave" asp-area="" asp-page="/JoinSession">Leave lobby</a>
         </div>
     </div>
-            @if (ViewData["players"] as List<Player> != null)
-            {<div id="players" class="right-side"> 
-                <ul>
-                @foreach (var p in ViewData["players"] as List<Player>)
-                {
-                    <li>@p.name</li>
-                }
-                    </ul>
-            </div>
-            }
+
+    <table id="playerTable" class="hidden right-side"> 
+        <thead>
+            <tr class="">
+                <th class="tableHeader">order nummber</th>
+                <th class="tableHeader">name</th>
+            </tr>
+        </thead>
+        <tbody id="players" >
+        </tbody>
+    </table>
 
     <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
 </div>
 
 <script>
-    var players = "";
-    var interval = setInterval(GetPlayers, 5000);
 
     function JoinSession() {
         var name = $("#username-input").val();
         var sessionCode = $("#lobbycode-input").val();
 
-        //alert(name);
         $.ajax({
             type: "Get",
             url: "JoinSession?handler=JoinHost&&name=" + name + "&&sessionCode=" + sessionCode
         });
-    
-}
 
-    function GetPlayers() {
+        $("#playerTable").removeClass("hidden");
+        CheckForChanges();
+    }
+
+    function CheckForChanges() {
         $.ajax({
             type: "GET",
-            url: "JoinSession?handler=Players",
+            url: "JoinSession?handler=ChangeChecker",
             contentType: 'application/json; charset=utf-8',
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             success: function (result) {
-                players = result;
-                UpdatePlayers();
+                UpdatePlayers(result);
+            },
+            complete: function () {
+                setTimeout(CheckForChanges, 3000);
             }
         });
     }
 
-    function UpdatePlayers() {
-        alert("update");
-        $("#players").html("<p>" + players + "</p>");
+    function UpdatePlayers(players) {
+
+        $("#players").html("");
+
+        $.each(players, function (key, player) {
+            console.log(player);
+            $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
+        });
     }
 
 </script>

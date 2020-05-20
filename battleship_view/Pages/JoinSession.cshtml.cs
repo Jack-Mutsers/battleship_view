@@ -81,14 +81,21 @@ namespace battleship_view
             }
         }
 
-        public void OnPostTest()
+        public ActionResult OnGetChangeChecker()
         {
-            ViewData["players"] = players;
-        }
+            if (StaticResources.PlayerList.Count() < 4)
+            {
+                Player player = new Player()
+                {
+                    PlayerId = StaticResources.PlayerList.Count(),
+                    name = "test " + StaticResources.PlayerList.Count(),
+                    orderNumber = StaticResources.PlayerList.Count()
+                };
 
-        public ActionResult OnGetPlayers()
-        {
-            return new JsonResult(players);
+                StaticResources.PlayerList.Add(player);
+            }
+
+            return new JsonResult(StaticResources.PlayerList);
         }
     }
 }

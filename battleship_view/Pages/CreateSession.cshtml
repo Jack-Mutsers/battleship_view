@@ -48,12 +48,33 @@
             cursor: pointer;
         }
 
-            input[type=submit]:hover {
-                background-color: #45a049;
-            }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
 
         .hidden {
-            display: none;
+            display: none !important;
+        }
+
+        #playerTable {
+            width: 310px;
+        }
+
+        #playerTable thead {
+            border-bottom: 1px solid black;
+        }
+
+        .tableHeader {
+            width: 50%;
+        }
+
+        .right-side {
+            border-style: solid;
+            border-color: black;
+            border-width: 1.3px;
+            background-color: #f5f5f5;
+            width: 40%;
+            float: right;
         }
     </style>
 </head>
@@ -65,8 +86,18 @@
     <form action="/action_page.php">
         <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
         <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
-        <textarea style="        height: 200px;
-        max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
+
+        <table id="playerTable" class="hidden right-side">
+            <thead>
+                <tr class="">
+                    <th class="tableHeader">order nummber</th>
+                    <th class="tableHeader">name</th>
+                </tr>
+            </thead>
+            <tbody id="players">
+            </tbody>
+        </table>
+
         <br /><br />
         <label>Lobby code:</label> <label id="sessionContainer"></label><br />
         <br /><br /><br />
@@ -110,7 +141,7 @@
 
         function StartSession() {
             var name = $("#PlayerName").val();
-            alert(name);
+
             $.ajax({
                 type: "POST",
                 url: "CreateSession?handler=StartHost&name="+name,
@@ -121,10 +152,39 @@
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
                 },
-                success: function (result) {
-                    List = result;
-                    SetHighscores(result);
+                success: function () {
+                    GetSessionCode();
+
+                    $("#playerTable").removeClass("hidden");
+                    CheckForChanges();
                 }
+            });
+        }
+
+        function CheckForChanges() {
+            $.ajax({
+                type: "GET",
+                url: "CreateSession?handler=ChangeChecker",
+                contentType: 'application/json; charset=utf-8',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                },
+                success: function (result) {
+                    UpdatePlayers(result);
+                },
+                complete: function () {
+                    setTimeout(CheckForChanges, 3000);
+                }
+            });
+        }
+
+        function UpdatePlayers(players) {
+
+            $("#players").html("");
+
+            $.each(players, function (key, player) {
+                console.log(player);
+                $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
             });
         }
 
