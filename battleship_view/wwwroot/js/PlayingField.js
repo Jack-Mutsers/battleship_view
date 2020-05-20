@@ -149,10 +149,12 @@ function UpdateLog(gameLog) {
         gameLog.splice(0, (oldGameLog.length));
 
     $.each(gameLog, function (key, LogEntry) {
-        $("#log_content").append("<tr><td>" + LogEntry + "</td></tr>");
+        $("#log_content").prepend("<tr><td>" + LogEntry + "</td></tr>");
         oldGameLog.push(LogEntry)
     });
 }
+
+
 
 
 //testen
