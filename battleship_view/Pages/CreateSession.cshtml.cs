@@ -82,18 +82,6 @@ namespace battleship_view
 
         public ActionResult OnGetChangeChecker()
         {
-            if (StaticResources.PlayerList.Count() < 4)
-            {
-                Player player = new Player()
-                {
-                    PlayerId = StaticResources.PlayerList.Count(),
-                    name = "test " + StaticResources.PlayerList.Count(),
-                    orderNumber = StaticResources.PlayerList.Count()
-                };
-
-                StaticResources.PlayerList.Add(player);
-            }
-
             return new JsonResult(StaticResources.PlayerList);
         }
 
