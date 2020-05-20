@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj": {}
+    "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\ServiceBus\\ServiceBus.csproj": {}
   },
   "projects": {
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\Entities.csproj": {
+    "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\jack\\.nuget\\packages\\",
-        "outputPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jack\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -68,26 +67,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj": {
+    "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\ServiceBus\\ServiceBus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\ServiceBus\\ServiceBus.csproj",
         "projectName": "ServiceBus",
-        "projectPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\ServiceBus.csproj",
-        "packagesPath": "C:\\Users\\jack\\.nuget\\packages\\",
-        "outputPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\ServiceBus\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\ServiceBus\\ServiceBus.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\ServiceBus\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jack\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -99,8 +97,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\programeren\\semester 2\\proftaak\\battleship_view\\Entities\\Entities.csproj"
+              "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\Dell\\Documents\\Github\\battleship_view\\Entities\\Entities.csproj"
               }
             }
           }
@@ -152,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
