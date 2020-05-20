@@ -19,16 +19,16 @@ namespace battleship_view
     {
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
-        public List<Player> players { get; set; } = StaticResources.PlayerList;
+        public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
 
         public async void OnGet()
         {
             StaticResources.field.fieldNumber = GetDummyPlayer().orderNumber;
 
-            SetDummyData();
-
             if (ServiceBusHandler.program == null)
             {
+                SetDummyUser();
+
                 // initialise SessionCodeGenerator
                 SessionCodeGenerator generator = new SessionCodeGenerator();
 
@@ -38,6 +38,10 @@ namespace battleship_view
                 await ServiceBusHandler.InitiateServiceBusHandler(StaticResources.user, true);
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
             }
+
+            SetDummyData();
+
+            players = StaticResources.PlayerList;
         }
 
         public void OnTopicMessageReceived(string message)
@@ -87,18 +91,30 @@ namespace battleship_view
                 GameResponse response = JsonConvert.DeserializeObject<GameResponse>(transfer.message);
                 //Player player = StaticResources.PlayerList.Where(Speler => Speler.userId == response.playerId).First();
 
-                // write the game response to the log + modify playing field to show what happenend
-                string logEntry = response.hit ?
-                    "The shot at {field}, {row}, {col} has landed a hit":
-                    "The shot at {field}, {row}, {col} has missed its target";
-                WriteMessageToLog(logEntry);
+                HandelGameResponse(response);
+            }
+        }
+
+        private void HandelGameResponse(GameResponse response = null)
+        {
+            if (response == null)
+            {
+                response = GetHitResponseDummyData();
+            }
+
+            StaticResources.log.shotLog.Add(response);
+
+            // write the game response to the log + modify playing field to show what happenend
+            string logEntry = response.hit ?
+                "The shot at {field}, {row}, {col} has landed a hit" :
+                "The shot at {field}, {row}, {col} has missed its target";
+            WriteMessageToLog(logEntry);
 
 
-                // start gameover function if player is gameover
-                if (response.gameOver)
-                {
-                    HandleGameOver(response.playerId);
-                }
+            // start gameover function if player is gameover
+            if (response.gameOver)
+            {
+                HandleGameOver(response.playerId);
             }
         }
 
@@ -122,6 +138,7 @@ namespace battleship_view
         public void WriteMessageToLog(string logEntry)
         {
             // implement function to write the message to the log
+            StaticResources.log.gameLog.Add(logEntry);
         }
 
         public void SendHitResponseMessage(Coordinates shot, bool hit, bool gameOver)
@@ -224,7 +241,18 @@ namespace battleship_view
                 .Replace("{hit}", "landed an hit");
         }
 
+        public ActionResult OnGetChangeChecker()
+        {
+            //HandelGameResponse();
+            for (int i = 0; i < 5; i++)
+            {
+                string message = "test " + StaticResources.log.gameLog.Count();
+                WriteMessageToLog(message);
+            }
+            
 
+            return new JsonResult(StaticResources.log);
+        }
 
         /****************************************************************************************************************************************************
         *                                                               Start of dummy data                                                                 *
@@ -233,8 +261,12 @@ namespace battleship_view
         private void SetDummyData()
         {
             StaticResources.field = StaticResources.field.boats == null ? GetMyDummyField() : StaticResources.field;
+            StaticResources.PlayerList = StaticResources.PlayerList.Count == 0 ? GetDummyPlayerList() : StaticResources.PlayerList;
+        }
+
+        private void SetDummyUser()
+        {
             StaticResources.user = StaticResources.user == null ? GetDummyPlayer() : StaticResources.user;
-            StaticResources.PlayerList = StaticResources.PlayerList == null ? GetDummyPlayerList() : StaticResources.PlayerList;
         }
 
         //used to check if your field is under attack + to deremain who did what for the log

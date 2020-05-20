@@ -4,23 +4,24 @@ var Comparison;
 var fieldnr;
 var col;
 var row;
-
+var oldShotLog = [];
+var oldGameLog = [];
 
 
 function GetCoordinates(element) {
     fieldnr = $(element).data("field");
     col = $(element).data("col");
     row = $(element).data("row");
-    alert("field: " + fieldnr + " -- col: " + col + " -- row: " + row);
+    console.log("field: " + fieldnr + " -- col: " + col + " -- row: " + row);
 }
 
-function ColorCoordinate(col, row, hit) {
-    if (hit == true) {
-        document.getElementById("square" + col + "." + row).style.backgroundColor = "red";
-    } else {
-        document.getElementById("square" + col + "." + row).style.backgroundColor = "#1f4a44";
-    }
-}
+//function ColorCoordinate(col, row, hit) {
+//    if (hit == true) {
+//        document.getElementById("square" + col + "." + row).style.backgroundColor = "red";
+//    } else {
+//        document.getElementById("square" + col + "." + row).style.backgroundColor = "#1f4a44";
+//    }
+//}
 
 function SendSurrender() {
     alert("test"); 
@@ -37,25 +38,27 @@ function SendSurrender() {
     });
 }
 
-StartUp();
-function StartUp() {
-    GetPlayerData();
-}
+//GetPlayerData();
+//function GetPlayerData() {
+//    $.ajax({
+//        type: "GET",
+//        url: "PlayingField?handler=PlayerData",
+//        contentType: 'application/json; charset=utf-8',
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+//        },
+//        success: function (result) {
+//            player = result;
+//            GetBoats();
+//        }
+//    });
+//}
 
-function GetPlayerData() {
-    $.ajax({
-        type: "GET",
-        url: "PlayingField?handler=PlayerData",
-        contentType: 'application/json; charset=utf-8',
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-        },
-        success: function (result) {
-            player = result;
-            GetBoats();
-        }
-    });
-}
+//function SetPlayers() {
+//    $.each(players, function (key, player) {
+
+//    });
+//}
 
 function GetBoats() {
     $.ajax({
@@ -119,22 +122,56 @@ function reset() {
     document.getElementById("time").innerHTML = timeElapsed;
 }
 
-//testen
-function CompareShots() {
+
+function CheckForChanges() {
     $.ajax({
         type: "GET",
-        url: "PlayingField?handler=CompareShot",
+        url: "PlayingField?handler=ChangeChecker",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-            Comparison = result;
-            alertCompareShots();
+            UpdateField(result.shotLog);
+            UpdateLog(result.gameLog);
+        },
+        complete: function () {
+            setTimeout(CheckForChanges, 3000);
         }
     });
 }
 
-function alertCompareShots() {
-    alert("test: " + Comparison);
+function UpdateField(shotLog) {
+    shotLog = shotLog.filter((el) => !oldShotLog.includes(el));
 }
+
+function UpdateLog(gameLog) {
+    if (oldGameLog.length > 0) 
+        gameLog.splice(0, (oldGameLog.length));
+
+    $.each(gameLog, function (key, LogEntry) {
+        $("#log_content").append("<tr><td>" + LogEntry + "</td></tr>");
+        oldGameLog.push(LogEntry)
+    });
+}
+
+
+//testen
+//function CompareShots() {
+//    $.ajax({
+//        type: "GET",
+//        url: "PlayingField?handler=CompareShot",
+//        contentType: 'application/json; charset=utf-8',
+//        error: function (XMLHttpRequest, textStatus, errorThrown) {
+//            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+//        },
+//        success: function (result) {
+//            Comparison = result;
+//            alertCompareShots();
+//        }
+//    });
+//}
+
+//function alertCompareShots() {
+//    alert("test: " + Comparison);
+//}

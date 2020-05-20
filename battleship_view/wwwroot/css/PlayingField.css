@@ -1,4 +1,4 @@
-﻿/*Style voor de buttons*/
+﻿/*
 .button {
     width: 130px;
     max-width: 130px;
@@ -12,65 +12,62 @@
     font-size: 16px;
     border-radius: 8px;
     transition-duration: 0.35s;
-    margin: 0px 35px 8px;
     position: fixed;
 }
 
-    .button:hover {
-        background-color: #AAAAAA;
-    }
+.button:hover {
+    background-color: #AAAAAA;
+}*/
 
-.button-midden {
-    left: 975px;
+.playing_field{
+    padding: 20px;
 }
 
-.button-left {
-    left: 25px
-}
-
-.grid-item.MyBoat {
-    background-color: green;
-}
-
-.grid-item.field_hit {
-    background-color: red;
+.listbox{
+    width: 100%;
+    float: right;
 }
 
 #tbl_players {
     height: 200px;
     max-height: 200px;
     border: 1px solid black;
+    display: inline-block;
 }
 
-#tbl_players thead td{
-    padding-left: 10px;
+#tbl_players thead {
+    padding: 10px;
+    height: 50px;
     border-bottom: 1px solid black;
+    display: block;
 }
 
-#tbl_players tbody td{
-    padding-left: 10px;
-    font-size: 16px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+#tbl_players tbody{
+    padding: 10px;
+    height: 148px;
+    display: block;
 }
 
 #log {
-    top: 300px;
     border: 1px solid black;
+    display: inline-block;
     height: 500px;
     max-height: 500px;
     min-height: 500px;
 }
 
-#log #log_header {
-    margin: 0 !important;
-    padding-left: 10px;
+#log_header {
+    padding: 10px;
+    height: 50px;
     border-bottom: 1px solid black;
+    display: block;
 }
 
-#log #log_content {
-    padding-left: 10px;
-    font-size: 16px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+#log_content {
+    padding: 10px;
+    overflow-y: scroll;
+    height: 448px;
+    display: block;
 }
 
 /*Style voor de grid*/
@@ -102,19 +99,12 @@
     background-color: aqua;
 }
 
-/*Style voor de textarea*/
-.listbox {
-    position: fixed;
-    right: 0px;
-    width: 350px;
-    max-width: 350px;
-    height: 300px;
-    max-height: 300px;
-    font-size: 24px;
+.grid-item.MyBoat {
+    background-color: green;
 }
 
-.listbox-bottom {
-    top: 275px;
+.grid-item.field_hit {
+    background-color: red;
 }
 
 /*Style voor de timer*/
@@ -124,11 +114,8 @@
     height: 50px;
     max-height: 50px;
     background-color: #FFFFFF;
-    border-style: solid;
-    border-color: #000000;
-    color: #000000;
+    border: 1px solid #000000;
     text-align: center;
     font-size: 16px;
     border-radius: 3px;
-    position: fixed;
 }
