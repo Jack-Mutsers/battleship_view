@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="~/css/PlayingField.css">
 <script type="text/javascript" src="~/js/PlayingField.js"></script>
 
+@Html.AntiForgeryToken()
 <div class="row playing_field">
     <div class="col-md-2">
         <div class="row">
@@ -37,7 +38,7 @@
                                     <div class='grid-item-row-space-divider'>
                                         @for (int j = 0; j < 10; j++)
                                         {
-                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' onclick='GetCoordinates(this); CompareShots()' class='grid-item grid_coordinate'>@{Write(i + "." + j);}</div>
+                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item hitable grid_coordinate'>@{Write(i + "." + j);}</div>
                                         }
                                     </div>
                                 }
@@ -49,8 +50,8 @@
 
             <div class="button_view">
                 <input type="button" onclick="SendSurrender()" class="" value="Surrender">
-                <input type="button" onclick='ColorCoordinate(model.firedCoordinate.col, model.firedCoordinate.row, model.hit)' class="" value="Shoot">
-                <input type="button" onclick='CheckForChanges()' class="" value="Servicebus Response Tester">
+                <input type="button" onclick='SendShootCommand()' class="" value="Shoot">
+                <input type="button" onclick='toggleCheckForChanges()' class="" value="Servicebus Response Tester">
             </div>
         </div>
 

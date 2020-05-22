@@ -103,8 +103,20 @@
     background-color: green;
 }
 
+.grid-item.hitable{
+    cursor:pointer;
+}
+
+.grid-item.hitable.selectedCoordinate{
+    background-color: yellow;
+}
+
 .grid-item.field_hit {
     background-color: red;
+}
+
+.grid-item.field_miss {
+    background-color: gray;
 }
 
 .field_view{
