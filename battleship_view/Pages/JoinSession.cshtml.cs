@@ -81,14 +81,9 @@ namespace battleship_view
             }
         }
 
-        public void OnPostTest()
+        public ActionResult OnGetChangeChecker()
         {
-            ViewData["players"] = players;
-        }
-
-        public ActionResult OnGetPlayers()
-        {
-            return new JsonResult(players);
+            return new JsonResult(StaticResources.PlayerList);
         }
     }
 }

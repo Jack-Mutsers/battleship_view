@@ -7,30 +7,35 @@
 <link rel="stylesheet" type="text/css" href="~/css/Tutorial.css">
 <script type="text/javascript" src="~/js/Tutorial.js"></script>
 
-<h1>Tutorial</h1>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Tutorial</h1>
 
-<div class="tutorial">
-    <div class="left-side">
-        <div id="title">
-            <h2>
-                Main menu
-            </h2>
-        </div>
-    
-        <div class="current-slide" id="current-slide">
-            <img src="~/Tutorial_images/Menu.PNG">
+        <div class="tutorial">
+            <div class="left-side">
+                <div id="title">
+                    <h2>
+                        Main menu
+                    </h2>
+                </div>
+
+                <div class="current-slide" id="current-slide">
+                    <img src="~/Tutorial_images/Menu.PNG">
+                </div>
+
+                <button id="BtnPrevious" onclick="PreviousImg()">Previous</button>
+                <button id="BtnNext" onclick="NextImg()">Next</button>
+            </div>
+            <div class="right-side">
+                <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
+                <div id="explanation" class="explanation">
+                    <p>
+                        "This is the main menu, from here you can go to the highscores page, create lobby page, join lobby page and the tutorial page."
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <button id="BtnPrevious" onclick="PreviousImg()">Previous</button>
-        <button id="BtnNext" onclick="NextImg()">Next</button>
-    </div>
-    <div class="right-side">
-        <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
-        <div id="explanation" class="explanation">
-            <p>
-                "This is the main menu, from here you can go to the highscores page, create lobby page, join lobby page and the tutorial page."
-            </p>
-        </div>
-    </div>
+
+    </main>
 </div>
-

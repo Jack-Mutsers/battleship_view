@@ -4,670 +4,674 @@
     ViewData["Title"] = "CreateField";
 }
 
-<head>
-    <style>
-        .wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, auto);
-            grid-column-gap: 200px;
-            justify-items: center;
-        }
-
-        .field-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 40px);
-            grid-template-rows: repeat(10, 40px);
-            background-color:#00b7ed;
-        }
-
-        .field-grid > div {
-                border: #000 1px solid;
-        }
-
-        .selection-grid > div {
-            border: #000 1px solid;
-        }
-
-        .selection-grid {
-            position:relative;
-            display: grid;
-            grid-row: 1;
-            grid-column: 2;
-            grid-template-columns: repeat(6, 40px);
-            grid-template-rows: repeat(10, 40px);
-            background-color:#00b7ed;
-            z-index: -1;
-        }
-
-        .selection-grid-layer {
-            position: relative;
-            display: grid;
-            grid-row: 1;
-            grid-column: 2;
-            grid-template-columns: repeat(6, 40px);
-            grid-template-rows: repeat(10, 40px);
-        }
-
-        .button-container1 {
-            grid-column: 1;
-        }
-
-        .button-container2 {
-            grid-column: 2;
-        }
-
-        .button {
-            background-color: #bbb;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 25px;
-            margin: 25px 2px;
-            cursor: pointer;
-        }
-
-            .button:hover {
-                background-color: #aaa;
-            }
-
-        .button1 {
-            border-radius: 12px
-        }
-
-        .button2 {
-            border-radius: 12px
-        }
-
-        #boat1 {
-            position: relative;
-            background-color: #012758;
-            height: 200px;
-            width: 40px;
-            border: #000 1px solid;
-            border-radius: 50%;
-            transform-origin: center;
-        }
-
-        #boat2 {
-            position: relative;
-            background-color: #012758;
-            height: 160px;
-            width: 40px;
-            border: #000 1px solid;
-            border-radius: 50%;
-            transform-origin: left center;
-        }
-
-        #boat3 {
-            position: relative;
-            background-color: #012758;
-            height: 120px;
-            width: 40px;
-            border: #000 1px solid;
-            border-radius: 50%;
-            transform-origin: center;
-        }
-
-        #boat4 {
-            position: relative;
-            background-color: #012758;
-            height: 120px;
-            width: 40px;
-            border: #000 1px solid;
-            border-radius: 50%;
-            transform-origin: center;
-        }
-
-        #boat5 {
-            position: relative;
-            background-color: #012758;
-            height: 80px;
-            width: 40px;
-            border: #000 1px solid;
-            border-radius: 50%;
-            transform-origin: left center;
-        }
-
-    </style>
-</head>
-
-<h1>CreateField</h1>
-<body onload="boatPositions(); createField();">
-    <div class="wrapper">
-        <div class="field-grid">
-            <div id="topleft" class="field" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-        </div>
-        <div class="selection-grid">
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-            <div> </div>
-        </div>
-        <div class="selection-grid-layer">
-            <div id="topleftselect" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat1" onclick="selectElement(this.id)"></div>
-            </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat2" onclick="selectElement(this.id)"></div>
-            </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat3" onclick="selectElement(this.id)"></div>
-            </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat4" onclick="selectElement(this.id)"></div>
-            </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div ondragstart="dragStart(event)" draggable="true" id="boat5" onclick="selectElement(this.id)"></div>
-            </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-            <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
-        </div>
-        <div class="button-container1">
-            @*<a href="/PlayingField" >*@<input type="button" class="button button1" onclick="GetCoordinates()" value="Ready"/>@*</a>*@
-            <a href="/PlayingField" ><input type="button" role="button" value="go to playingfield"/></a>
-        </div>
-        <div class="button-container2">
-            <input type="button" class="button button2" onclick="rotateElement()" value="Rotate">
-        </div>
-    </div>
-
-    <script>
-        var id;
-        var boatsPixel = new Array(5);
-        var boatCoordinates;
-        var boats;
-
-        //function createField() {
-        //    for (var i = 0; i < 99; i++) {
-        //        var div = document.createElement("div");
-        //        alert("drop(event)");
-        //        div.addEventListener("drop", "drop(event)");
-        //        div.addEventListener("dragover", "allowDrop(event)");
-        //        var containerElement = document.getElementsByClassName("field-grid");
-        //        containerElement[0].appendChild(div);
-        //    }
-        //}
-
-        function boatPositions() {
-            for (var i = 1; i < 6; i++) {
-                var boatId = i;
-                var horizontalBegin = document.getElementById("boat" + i).offsetLeft;
-                var horizontalEnd = horizontalBegin + document.getElementById("boat" + i).offsetWidth;
-                var verticalBegin = document.getElementById("boat" + i).offsetTop;
-                var verticalEnd = verticalBegin + document.getElementById("boat" + i).offsetHeight;
-
-                var boat = [boatId, horizontalBegin, horizontalEnd, verticalBegin, verticalEnd];
-
-                boatsPixel[i - 1] = boat;
-            }
-        }
-
-        function dragStart(event) {  
-            event.dataTransfer.setData("Text", event.target.id);
-        }
-
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        function drop(event) {
-            event.preventDefault();
-            var data = event.dataTransfer.getData("Text");
-
-            if (event.target.parentElement.className == "field-grid") {
-                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
-                var right = document.getElementById("topleft").offsetLeft + 10 * 40;
-                var elHeight = document.getElementById(data).offsetHeight;
-                var elWidth = document.getElementById(data).offsetWidth;
-                var eventVertical = event.target.offsetTop;
-                var eventHorizontal = event.target.offsetLeft;
-
-                boatId = parseInt(data[4]) - 1;
-                var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
-                //alert(overlap);
-
-                if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right) && !overlap) {
-                    event.target.appendChild(document.getElementById(data));
-
-                    boatsPixel[boatId][1] = eventHorizontal;
-                    boatsPixel[boatId][2] = boatsPixel[boatId][1] + elWidth;
-                    boatsPixel[boatId][3] = eventVertical;
-                    boatsPixel[boatId][4] = boatsPixel[boatId][3] + elHeight;
+<div class="container">
+    <main role="main" class="pb-3">
+        <head>
+            <style>
+                .wrapper {
+                    display: grid;
+                    grid-template-columns: repeat(2, auto);
+                    grid-column-gap: 200px;
+                    justify-items: center;
                 }
-            } else if (event.target.parentElement.className == "selection-grid-layer") {
-                var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
-                var right = document.getElementById("topleft").offsetLeft + 6 * 40;
-                var elHeight = document.getElementById(data).offsetHeight;
-                var elWidth = document.getElementById(data).offsetWidth;
-                var eventVertical = event.target.offsetTop;
-                var eventHorizontal = event.target.offsetLeft;
 
-                boatId = parseInt(data[4]) - 1;
-                var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
-
-                if (((document.getElementById("topleft").offsetTop + eventVertical + elHeight) <= bottom) && ((document.getElementById("topleft").offsetLeft + eventHorizontal + elWidth) <= right) && !overlap) {
-                    event.target.appendChild(document.getElementById(data));
-
-                    boatsPixel[boatId][1] = eventHorizontal;
-                    boatsPixel[boatId][2] = boatsPixel[boatId][1] + elWidth;
-                    boatsPixel[boatId][3] = eventVertical;
-                    boatsPixel[boatId][4] = boatsPixel[boatId][3] + elHeight;
+                .field-grid {
+                    display: grid;
+                    grid-template-columns: repeat(10, 40px);
+                    grid-template-rows: repeat(10, 40px);
+                    background-color: #00b7ed;
                 }
-            }
-        }
 
-        function checkOverlap(evHorizontal, elW, evVertical, elH, boatId) {
-            var boat;
-
-            for (var i = 0; i < boatsPixel.length; i++) {
-                if (boatId == -1) {
-                    boat = parseInt(id[4]) - 1;
-                } else {
-                    boat = boatId;
-                }
-                if (i != boat) {
-                    //alert(evHorizontal);
-                    //alert(boats[i][2]);
-                    //alert(evVertical);
-                    //alert(boats[i][4]);
-                    //alert(boats[i][2] >= evHorizontal + elW);
-                    //alert(evHorizontal >= boats[i][2]);
-                    //alert(evVertical >= boats[i][4]);
-                    //alert(boats[i][3] >= evVertical + elH);
-                    //alert(boats[i][2] + "-" + (evHorizontal + elW));
-                    if (evHorizontal >= boatsPixel[i][2] || boatsPixel[i][1] >= evHorizontal + elW) {
-                        //alert("test 1");
-                        continue;
-                        //return false;
-                    } else if (evVertical >= boatsPixel[i][4] || boatsPixel[i][3] >= evVertical + elH) {
-                        //alert("test 2");
-                        continue;
-                        //return false;
+                    .field-grid > div {
+                        border: #000 1px solid;
                     }
-                    //alert(evVertical);
-                    //alert(i);
-                    //alert(boatId);
-                    //alert(boats[i][4]);
-                    //alert("test 3");
-                    return true;
+
+                .selection-grid > div {
+                    border: #000 1px solid;
                 }
-            }
-            return false;
-        }
 
-        function selectElement(clicked_id) {
-            if (id != null) {
-                document.getElementById(id).style.border = "#000 1px solid"
-            }
-            id = clicked_id;
-            document.getElementById(id).style.border = "#F00 3px solid"
-        }
+                .selection-grid {
+                    position: relative;
+                    display: grid;
+                    grid-row: 1;
+                    grid-column: 2;
+                    grid-template-columns: repeat(6, 40px);
+                    grid-template-rows: repeat(10, 40px);
+                    background-color: #00b7ed;
+                    z-index: -1;
+                }
 
-        function rotateElement() {
-            var className = document.getElementById(id).parentElement.parentElement.className
+                .selection-grid-layer {
+                    position: relative;
+                    display: grid;
+                    grid-row: 1;
+                    grid-column: 2;
+                    grid-template-columns: repeat(6, 40px);
+                    grid-template-rows: repeat(10, 40px);
+                }
 
-            if (className == "field-grid") {
-                if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
-                    var width = document.getElementById(id).offsetWidth + 'px';
-                    var height = document.getElementById(id).offsetHeight + 'px';
-                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                    var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
-                    var elTop = document.getElementById(id).offsetTop;
-                    var elLeft = document.getElementById(id).offsetLeft;
-                    var elWidthRotated = document.getElementById(id).offsetHeight;
-                    var elHeightRotated = document.getElementById(id).offsetWidth;
+                .button-container1 {
+                    grid-column: 1;
+                }
 
-                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
-                    //alert(overlap);
+                .button-container2 {
+                    grid-column: 2;
+                }
 
-                    if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
-                        document.getElementById(id).style.width = height;
-                        document.getElementById(id).style.height = width;
+                .button {
+                    background-color: #bbb;
+                    border: none;
+                    color: white;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 25px;
+                    margin: 25px 2px;
+                    cursor: pointer;
+                }
 
-                        boatId = parseInt(id[4]) - 1;
-
-                        boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-                        boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                    .button:hover {
+                        background-color: #aaa;
                     }
-                } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
-                    var width = document.getElementById(id).offsetWidth + 'px';
-                    var height = document.getElementById(id).offsetHeight + 'px';
-                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                    var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
-                    var elTop = document.getElementById(id).offsetTop;
-                    var elLeft = document.getElementById(id).offsetLeft;
-                    var elWidthRotated = document.getElementById(id).offsetHeight;
-                    var elHeightRotated = document.getElementById(id).offsetWidth;
 
-                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                .button1 {
+                    border-radius: 12px
+                }
 
-                    if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
-                        document.getElementById(id).style.width = height;
-                        document.getElementById(id).style.height = width;
+                .button2 {
+                    border-radius: 12px
+                }
 
-                        boatId = parseInt(id[4]) - 1;
+                #boat1 {
+                    position: relative;
+                    background-color: #012758;
+                    height: 200px;
+                    width: 40px;
+                    border: #000 1px solid;
+                    border-radius: 50%;
+                    transform-origin: center;
+                }
 
-                        boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-                        boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                #boat2 {
+                    position: relative;
+                    background-color: #012758;
+                    height: 160px;
+                    width: 40px;
+                    border: #000 1px solid;
+                    border-radius: 50%;
+                    transform-origin: left center;
+                }
+
+                #boat3 {
+                    position: relative;
+                    background-color: #012758;
+                    height: 120px;
+                    width: 40px;
+                    border: #000 1px solid;
+                    border-radius: 50%;
+                    transform-origin: center;
+                }
+
+                #boat4 {
+                    position: relative;
+                    background-color: #012758;
+                    height: 120px;
+                    width: 40px;
+                    border: #000 1px solid;
+                    border-radius: 50%;
+                    transform-origin: center;
+                }
+
+                #boat5 {
+                    position: relative;
+                    background-color: #012758;
+                    height: 80px;
+                    width: 40px;
+                    border: #000 1px solid;
+                    border-radius: 50%;
+                    transform-origin: left center;
+                }
+            </style>
+        </head>
+
+        <h1>CreateField</h1>
+        <body onload="boatPositions(); createField();">
+            <div class="wrapper">
+                <div class="field-grid">
+                    <div id="topleft" class="field" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                </div>
+                <div class="selection-grid">
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                </div>
+                <div class="selection-grid-layer">
+                    <div id="topleftselect" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div ondragstart="dragStart(event)" draggable="true" id="boat1" onclick="selectElement(this.id)"></div>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div ondragstart="dragStart(event)" draggable="true" id="boat2" onclick="selectElement(this.id)"></div>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div ondragstart="dragStart(event)" draggable="true" id="boat3" onclick="selectElement(this.id)"></div>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div ondragstart="dragStart(event)" draggable="true" id="boat4" onclick="selectElement(this.id)"></div>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div ondragstart="dragStart(event)" draggable="true" id="boat5" onclick="selectElement(this.id)"></div>
+                    </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+                </div>
+                <div class="button-container1">
+                    @*<a href="/PlayingField" >*@<input type="button" class="button button1" onclick="GetCoordinates()" value="Ready" />@*</a>*@
+                    <a href="/PlayingField"><input type="button" role="button" value="go to playingfield" /></a>
+                </div>
+                <div class="button-container2">
+                    <input type="button" class="button button2" onclick="rotateElement()" value="Rotate">
+                </div>
+            </div>
+
+            <script>
+                var id;
+                var boatsPixel = new Array(5);
+                var boatCoordinates;
+                var boats;
+
+                //function createField() {
+                //    for (var i = 0; i < 99; i++) {
+                //        var div = document.createElement("div");
+                //        alert("drop(event)");
+                //        div.addEventListener("drop", "drop(event)");
+                //        div.addEventListener("dragover", "allowDrop(event)");
+                //        var containerElement = document.getElementsByClassName("field-grid");
+                //        containerElement[0].appendChild(div);
+                //    }
+                //}
+
+                function boatPositions() {
+                    for (var i = 1; i < 6; i++) {
+                        var boatId = i;
+                        var horizontalBegin = document.getElementById("boat" + i).offsetLeft;
+                        var horizontalEnd = horizontalBegin + document.getElementById("boat" + i).offsetWidth;
+                        var verticalBegin = document.getElementById("boat" + i).offsetTop;
+                        var verticalEnd = verticalBegin + document.getElementById("boat" + i).offsetHeight;
+
+                        var boat = [boatId, horizontalBegin, horizontalEnd, verticalBegin, verticalEnd];
+
+                        boatsPixel[i - 1] = boat;
                     }
                 }
-            } else if (className == "selection-grid-layer") {
-                if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
-                    var width = document.getElementById(id).offsetWidth + 'px';
-                    var height = document.getElementById(id).offsetHeight + 'px';
-                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                    var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
-                    var elTop = document.getElementById(id).offsetTop;
-                    var elLeft = document.getElementById(id).offsetLeft;
-                    var elWidthRotated = document.getElementById(id).offsetHeight;
-                    var elHeightRotated = document.getElementById(id).offsetWidth;
-                   
-                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
-                    //alert(overlap);
 
-                    if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
-                        document.getElementById(id).style.width = height;
-                        document.getElementById(id).style.height = width;
+                function dragStart(event) {
+                    event.dataTransfer.setData("Text", event.target.id);
+                }
 
-                        boatId = parseInt(id[4]) - 1;
+                function allowDrop(event) {
+                    event.preventDefault();
+                }
 
-                        boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-                        boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
-                    }
-                } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
-                    var width = document.getElementById(id).offsetWidth + 'px';
-                    var height = document.getElementById(id).offsetHeight + 'px';
-                    var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
-                    var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
-                    var elTop = document.getElementById(id).offsetTop;
-                    var elLeft = document.getElementById(id).offsetLeft;
-                    var elWidthRotated = document.getElementById(id).offsetHeight;
-                    var elHeightRotated = document.getElementById(id).offsetWidth;
+                function drop(event) {
+                    event.preventDefault();
+                    var data = event.dataTransfer.getData("Text");
 
-                    var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                    if (event.target.parentElement.className == "field-grid") {
+                        var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+                        var right = document.getElementById("topleft").offsetLeft + 10 * 40;
+                        var elHeight = document.getElementById(data).offsetHeight;
+                        var elWidth = document.getElementById(data).offsetWidth;
+                        var eventVertical = event.target.offsetTop;
+                        var eventHorizontal = event.target.offsetLeft;
 
-                    if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
-                        document.getElementById(id).style.width = height;
-                        document.getElementById(id).style.height = width;
+                        boatId = parseInt(data[4]) - 1;
+                        var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
+                        //alert(overlap);
 
-                        boatId = parseInt(id[4]) - 1;
+                        if (((eventVertical + elHeight) <= bottom) && ((eventHorizontal + elWidth) <= right) && !overlap) {
+                            event.target.appendChild(document.getElementById(data));
 
-                        boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-                        boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                            boatsPixel[boatId][1] = eventHorizontal;
+                            boatsPixel[boatId][2] = boatsPixel[boatId][1] + elWidth;
+                            boatsPixel[boatId][3] = eventVertical;
+                            boatsPixel[boatId][4] = boatsPixel[boatId][3] + elHeight;
+                        }
+                    } else if (event.target.parentElement.className == "selection-grid-layer") {
+                        var bottom = document.getElementById("topleft").offsetTop + 10 * 40;
+                        var right = document.getElementById("topleft").offsetLeft + 6 * 40;
+                        var elHeight = document.getElementById(data).offsetHeight;
+                        var elWidth = document.getElementById(data).offsetWidth;
+                        var eventVertical = event.target.offsetTop;
+                        var eventHorizontal = event.target.offsetLeft;
+
+                        boatId = parseInt(data[4]) - 1;
+                        var overlap = checkOverlap(eventHorizontal, elWidth, eventVertical, elHeight, boatId);
+
+                        if (((document.getElementById("topleft").offsetTop + eventVertical + elHeight) <= bottom) && ((document.getElementById("topleft").offsetLeft + eventHorizontal + elWidth) <= right) && !overlap) {
+                            event.target.appendChild(document.getElementById(data));
+
+                            boatsPixel[boatId][1] = eventHorizontal;
+                            boatsPixel[boatId][2] = boatsPixel[boatId][1] + elWidth;
+                            boatsPixel[boatId][3] = eventVertical;
+                            boatsPixel[boatId][4] = boatsPixel[boatId][3] + elHeight;
+                        }
                     }
                 }
-            }
-        
-        }
 
-        function GetCoordinates() {
-            boatCoordinates = [];
-
-            for (var i = 0; i < boatsPixel.length; i++) {
-                //alert("test1");
-                var boatId = "boat" + (i + 1);
-                var grid = document.getElementById(boatId).parentElement.parentElement.className;
-                //alert("test2");
-                if (grid == "selection-grid-layer") {
-                    //alert("test3");
-                    alert("Not all boats have been placed yet!");
-                    break;
-                } else {
-                    //alert("test4");
-                    var boatLeft = boatsPixel[i][1] - document.getElementById("topleft").offsetLeft;
-                    var boatRight = boatsPixel[i][2] - document.getElementById("topleft").offsetLeft;
-                    var boatTop = boatsPixel[i][3] - document.getElementById("topleft").offsetTop;
-                    var boatBottom = boatsPixel[i][4] - document.getElementById("topleft").offsetTop;
-                    var width = (boatRight - boatLeft) / 40;
-                    var height = (boatBottom - boatTop) / 40;
+                function checkOverlap(evHorizontal, elW, evVertical, elH, boatId) {
                     var boat;
-                    var coordinate;
-                    var row;
-                    var col;
-                    var field;
 
-                    if (width > height) {
-                        boat = [];
-
-                        for (var j = boatLeft; j < boatRight; j += 40) {
-                            coordinate = [];
-                            row = boatBottom / 40;
-                            col = (j + 40) / 40;
-                            field = 0;
-                            coordinate.push(row, col, field);
-                            boat.push(coordinate);
+                    for (var i = 0; i < boatsPixel.length; i++) {
+                        if (boatId == -1) {
+                            boat = parseInt(id[4]) - 1;
+                        } else {
+                            boat = boatId;
                         }
-
-                    } else if (height > width) {
-                        boat = [];
-
-                        for (var j = boatTop; j < boatBottom; j += 40) {
-                            coordinate = [];
-                            row = (j + 40) / 40;
-                            col = boatRight / 40;
-                            field = 0;
-                            coordinate.push(row, col, field);
-                            boat.push(coordinate);
+                        if (i != boat) {
+                            //alert(evHorizontal);
+                            //alert(boats[i][2]);
+                            //alert(evVertical);
+                            //alert(boats[i][4]);
+                            //alert(boats[i][2] >= evHorizontal + elW);
+                            //alert(evHorizontal >= boats[i][2]);
+                            //alert(evVertical >= boats[i][4]);
+                            //alert(boats[i][3] >= evVertical + elH);
+                            //alert(boats[i][2] + "-" + (evHorizontal + elW));
+                            if (evHorizontal >= boatsPixel[i][2] || boatsPixel[i][1] >= evHorizontal + elW) {
+                                //alert("test 1");
+                                continue;
+                                //return false;
+                            } else if (evVertical >= boatsPixel[i][4] || boatsPixel[i][3] >= evVertical + elH) {
+                                //alert("test 2");
+                                continue;
+                                //return false;
+                            }
+                            //alert(evVertical);
+                            //alert(i);
+                            //alert(boatId);
+                            //alert(boats[i][4]);
+                            //alert("test 3");
+                            return true;
                         }
                     }
-                    boatCoordinates.push(boat);
+                    return false;
                 }
-            }
-            boats = json.Stringify(boatCoordinates);
-            //alert(boats);
-        }
 
-    </script>
+                function selectElement(clicked_id) {
+                    if (id != null) {
+                        document.getElementById(id).style.border = "#000 1px solid"
+                    }
+                    id = clicked_id;
+                    document.getElementById(id).style.border = "#F00 3px solid"
+                }
 
-</body>
+                function rotateElement() {
+                    var className = document.getElementById(id).parentElement.parentElement.className
+
+                    if (className == "field-grid") {
+                        if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                            var width = document.getElementById(id).offsetWidth + 'px';
+                            var height = document.getElementById(id).offsetHeight + 'px';
+                            var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                            var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
+                            var elTop = document.getElementById(id).offsetTop;
+                            var elLeft = document.getElementById(id).offsetLeft;
+                            var elWidthRotated = document.getElementById(id).offsetHeight;
+                            var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                            //alert(overlap);
+
+                            if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                                document.getElementById(id).style.width = height;
+                                document.getElementById(id).style.height = width;
+
+                                boatId = parseInt(id[4]) - 1;
+
+                                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                            }
+                        } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                            var width = document.getElementById(id).offsetWidth + 'px';
+                            var height = document.getElementById(id).offsetHeight + 'px';
+                            var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                            var right = document.getElementById("topleft").offsetLeft + 1 + 10 * 40;
+                            var elTop = document.getElementById(id).offsetTop;
+                            var elLeft = document.getElementById(id).offsetLeft;
+                            var elWidthRotated = document.getElementById(id).offsetHeight;
+                            var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+
+                            if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                                document.getElementById(id).style.width = height;
+                                document.getElementById(id).style.height = width;
+
+                                boatId = parseInt(id[4]) - 1;
+
+                                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                            }
+                        }
+                    } else if (className == "selection-grid-layer") {
+                        if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
+                            var width = document.getElementById(id).offsetWidth + 'px';
+                            var height = document.getElementById(id).offsetHeight + 'px';
+                            var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                            var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
+                            var elTop = document.getElementById(id).offsetTop;
+                            var elLeft = document.getElementById(id).offsetLeft;
+                            var elWidthRotated = document.getElementById(id).offsetHeight;
+                            var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+                            //alert(overlap);
+
+                            if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
+                                document.getElementById(id).style.width = height;
+                                document.getElementById(id).style.height = width;
+
+                                boatId = parseInt(id[4]) - 1;
+
+                                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                            }
+                        } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
+                            var width = document.getElementById(id).offsetWidth + 'px';
+                            var height = document.getElementById(id).offsetHeight + 'px';
+                            var bottom = document.getElementById("topleft").offsetTop + 1 + 10 * 40;
+                            var right = document.getElementById("topleft").offsetLeft + 1 + 6 * 40;
+                            var elTop = document.getElementById(id).offsetTop;
+                            var elLeft = document.getElementById(id).offsetLeft;
+                            var elWidthRotated = document.getElementById(id).offsetHeight;
+                            var elHeightRotated = document.getElementById(id).offsetWidth;
+
+                            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1);
+
+                            if (((document.getElementById("topleft").offsetTop + elTop + elHeightRotated) <= bottom) && ((document.getElementById("topleft").offsetLeft + elLeft + elWidthRotated) <= right) && !overlap) {
+                                document.getElementById(id).style.width = height;
+                                document.getElementById(id).style.height = width;
+
+                                boatId = parseInt(id[4]) - 1;
+
+                                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                            }
+                        }
+                    }
+
+                }
+
+                function GetCoordinates() {
+                    boatCoordinates = [];
+
+                    for (var i = 0; i < boatsPixel.length; i++) {
+                        //alert("test1");
+                        var boatId = "boat" + (i + 1);
+                        var grid = document.getElementById(boatId).parentElement.parentElement.className;
+                        //alert("test2");
+                        if (grid == "selection-grid-layer") {
+                            //alert("test3");
+                            alert("Not all boats have been placed yet!");
+                            break;
+                        } else {
+                            //alert("test4");
+                            var boatLeft = boatsPixel[i][1] - document.getElementById("topleft").offsetLeft;
+                            var boatRight = boatsPixel[i][2] - document.getElementById("topleft").offsetLeft;
+                            var boatTop = boatsPixel[i][3] - document.getElementById("topleft").offsetTop;
+                            var boatBottom = boatsPixel[i][4] - document.getElementById("topleft").offsetTop;
+                            var width = (boatRight - boatLeft) / 40;
+                            var height = (boatBottom - boatTop) / 40;
+                            var boat;
+                            var coordinate;
+                            var row;
+                            var col;
+                            var field;
+
+                            if (width > height) {
+                                boat = [];
+
+                                for (var j = boatLeft; j < boatRight; j += 40) {
+                                    coordinate = [];
+                                    row = boatBottom / 40;
+                                    col = (j + 40) / 40;
+                                    field = 0;
+                                    coordinate.push(row, col, field);
+                                    boat.push(coordinate);
+                                }
+
+                            } else if (height > width) {
+                                boat = [];
+
+                                for (var j = boatTop; j < boatBottom; j += 40) {
+                                    coordinate = [];
+                                    row = (j + 40) / 40;
+                                    col = boatRight / 40;
+                                    field = 0;
+                                    coordinate.push(row, col, field);
+                                    boat.push(coordinate);
+                                }
+                            }
+                            boatCoordinates.push(boat);
+                        }
+                    }
+                    boats = json.Stringify(boatCoordinates);
+                    //alert(boats);
+                }
+
+            </script>
+
+        </body>
+
+    </main>
+</div>

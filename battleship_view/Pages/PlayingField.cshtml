@@ -7,68 +7,82 @@
 <link rel="stylesheet" type="text/css" href="~/css/PlayingField.css">
 <script type="text/javascript" src="~/js/PlayingField.js"></script>
 
-<head>
-</head>
-
-
-<input style="top: 110px" type="button" onclick="SendSurrender()" class="button button-midden" value="Surrender">
-
-
-
-<table id="tbl_players" name="message" class="listbox">
-    <thead>
-        <tr>
-            <th>Player List</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var player in Model.players)
-        {
-            <tr>
-                <td>@player.name</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div id="log" class="listbox">
-    <div id="log_header" class="row">Log</div>
-    <div class="row" id="log_content">
-
-    </div>
-</div>
-
-<form asp-page-handler="Shoot" method="post" class="playing_field">
-    @for (int a = 0; a < 4; a += 2)
-    {
+@Html.AntiForgeryToken()
+<div class="row playing_field">
+    <div class="col-md-2">
         <div class="row">
-            @for (int b = 1; b < 3; b++)
-            {
-                <div class="grid-container">
-                    @for (int i = 0; i < 10; i++)
-                    {
-                        <div class='grid-item-row-space-divider'>
-                            @for (int j = 0; j < 10; j++)
-                            {
-                                <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' onclick='GetCoordinates(this); CompareShots()' class='grid-item grid_coordinate'>@{Write(i + "." + j);}</div>
-                            }
-                        </div>
-                    }
-                </div>
-            }
+            <div class="col-md-12">
+                <div class="timer">Seconds: <span id="time"></span></div>
+            </div>
         </div>
-    }
-
-    <input style="top: 550px" type="submit" onclick='ColorCoordinate(model.firedCoordinate.col, model.firedCoordinate.row, model.hit)' class="button button-midden" value="Shoot">
-    
-    
-    <div>
-        <div style="top: 110px" class="timer button-left">Seconds: <span id="time"></span></div>
-        <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br />
-        <input type="button" id="stopTimer" value="Stop Timer" onclick="stop();"><br />
-        <input type="button" id="resetTimer" value="Reset Timer" onclick="reset();"><br />
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" id="startTimer" value="Start Timer" onclick="start();"><br />
+                <input type="button" id="stopTimer" value="Stop Timer" onclick="stop();"><br />
+                <input type="button" id="resetTimer" value="Reset Timer" onclick="reset();"><br />
+            </div>
+        </div>
     </div>
 
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-7 field_view">
+                @for (int a = 0; a < 4; a += 2)
+                {
+                    <div class="row">
+                        @for (int b = 1; b < 3; b++)
+                        {
+                            <div class="grid-container">
+                                @for (int i = 0; i < 10; i++)
+                                {
+                                    <div class='grid-item-row-space-divider'>
+                                        @for (int j = 0; j < 10; j++)
+                                        {
+                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item hitable grid_coordinate'>@{Write(i + "." + j);}</div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
 
-</form>
+            <div class="button_view">
+                <input type="button" onclick="SendSurrender()" class="" value="Surrender">
+                <input type="button" onclick='SendShootCommand()' class="" value="Shoot">
+                <input type="button" onclick='toggleCheckForChanges()' class="" value="Servicebus Response Tester">
+            </div>
+        </div>
 
+    </div>
 
+    <div class="col-md-3">
+        <table id="tbl_players" name="message" class="listbox">
+            <thead>
+                <tr>
+                    <th>Player List</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.players)
+                {
+                    <tr>
+                        <td>@player.name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <table id="log" class="listbox">
+            <thead id="log_header">
+                <tr>
+                    <th>Log</th>
+                </tr>
+            </thead>
+            <tbody id="log_content">
+            </tbody>
+        </table>
+    </div>
+
+</div>

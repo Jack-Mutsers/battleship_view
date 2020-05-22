@@ -5,132 +5,198 @@
 
 }
 
-<head>
-    <style>
+<div class="container">
+    <main role="main" class="pb-3">
+        <head>
+            <style>
 
-        input[type=text], select {
-            width: 40%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            resize: none;
-        }
-
-        input[type=Back] {
-            width: 10%;
-            background-color: gray;
-            border: 1px solid #1e1c1c;
-            resize: none;
-            border-radius: 4px;
-        }
-
-        .listbox {
-            position: fixed;
-            right: 2px;
-            width: 350px;
-            height: 300px;
-            font-size: 24px;
-        }
-
-
-
-        input[type=submit] {
-            width: 45%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            input[type=submit]:hover {
-                background-color: #45a049;
-            }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    @Html.AntiForgeryToken()
-
-    <h1>Create Session</h1>
-
-    <form action="/action_page.php">
-        <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
-        <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
-        <textarea style="        height: 200px;
-        max-height: 200px;" name="message" class="listbox">Player list</textarea><br />
-        <br /><br />
-        <label>Lobby code:</label> <label id="sessionContainer"></label><br />
-        <br /><br /><br />
-    </form>
-    <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
-    <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton" />
-
-    <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
-    <script>
-        function toggleView() {
-            // check if the LobbyButton has the hidden class
-
-            if (!$("#LobbyButton").hasClass('hidden')) {
-                // LobbyButton does not have the hidden class
-
-                StartSession();
-
-                // give the LobbyButton the hidden class
-                $("#LobbyButton").addClass('hidden');
-
-                // remove hidden class from the StartButton
-                $("#StartButton").removeClass('hidden');
-            }
-        }
-
-        function GetSessionCode() {
-
-            $.ajax({
-                type: "GET",
-                url: "CreateSession?handler=SessionCode",
-                contentType: 'application/json; charset=utf-8',
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                },
-                success: function (result) {
-                    console.log(result);
-                    $("#sessionContainer").html(result);
+                input[type=text], select {
+                    width: 40%;
+                    padding: 12px 20px;
+                    margin: 8px 0;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                    resize: none;
                 }
-            });
-        }
 
-        function StartSession() {
-            var name = $("#PlayerName").val();
-            alert(name);
-            $.ajax({
-                type: "POST",
-                url: "CreateSession?handler=StartHost&name="+name,
-                headers: {
-                    "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
-                },
-                contentType: 'application/json; charset=utf-8',
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                },
-                success: function (result) {
-                    List = result;
-                    SetHighscores(result);
+                input[type=Back] {
+                    width: 10%;
+                    background-color: gray;
+                    border: 1px solid #1e1c1c;
+                    resize: none;
+                    border-radius: 4px;
                 }
-            });
-        }
 
-        function StartedSession() {
-            location.replace("https://localhost:5001/CreateField")
-        }
-    </script>
+                .listbox {
+                    position: fixed;
+                    right: 2px;
+                    width: 350px;
+                    height: 300px;
+                    font-size: 24px;
+                }
 
-</body>
+
+
+                input[type=submit] {
+                    width: 45%;
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 14px 20px;
+                    margin: 8px 0;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                    input[type=submit]:hover {
+                        background-color: #45a049;
+                    }
+
+                .hidden {
+                    display: none !important;
+                }
+
+                #playerTable {
+                    width: 310px;
+                }
+
+                    #playerTable thead {
+                        border-bottom: 1px solid black;
+                    }
+
+                .tableHeader {
+                    width: 50%;
+                }
+
+                .right-side {
+                    border-style: solid;
+                    border-color: black;
+                    border-width: 1.3px;
+                    background-color: #f5f5f5;
+                    width: 40%;
+                    float: right;
+                }
+            </style>
+        </head>
+        <body>
+            @Html.AntiForgeryToken()
+
+            <h1>Create Session</h1>
+
+            <form action="/action_page.php">
+                <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
+                <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
+
+                <table id="playerTable" class="hidden right-side">
+                    <thead>
+                        <tr class="">
+                            <th class="tableHeader">order number</th>
+                            <th class="tableHeader">name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="players">
+                    </tbody>
+                </table>
+
+                <br /><br />
+                <label>Lobby code:</label> <label id="sessionContainer"></label><br />
+                <br /><br /><br />
+            </form>
+            <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
+            <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton" />
+
+            <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
+            <script>
+                function toggleView() {
+                    // check if the LobbyButton has the hidden class
+
+                    if (!$("#LobbyButton").hasClass('hidden')) {
+                        // LobbyButton does not have the hidden class
+
+                        StartSession();
+
+                        // give the LobbyButton the hidden class
+                        $("#LobbyButton").addClass('hidden');
+
+                        // remove hidden class from the StartButton
+                        $("#StartButton").removeClass('hidden');
+                    }
+                }
+
+                function GetSessionCode() {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "CreateSession?handler=SessionCode",
+                        contentType: 'application/json; charset=utf-8',
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            $("#sessionContainer").html(result);
+                        }
+                    });
+                }
+
+                function StartSession() {
+                    var name = $("#PlayerName").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "CreateSession?handler=StartHost&name=" + name,
+                        headers: {
+                            "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                        },
+                        success: function () {
+                            GetSessionCode();
+
+                            $("#playerTable").removeClass("hidden");
+                            CheckForChanges();
+                        }
+                    });
+                }
+
+                function CheckForChanges() {
+                    $.ajax({
+                        type: "GET",
+                        url: "CreateSession?handler=ChangeChecker",
+                        contentType: 'application/json; charset=utf-8',
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                        },
+                        success: function (result) {
+                            UpdatePlayers(result);
+                        },
+                        complete: function () {
+                            setTimeout(CheckForChanges, 3000);
+                        }
+                    });
+                }
+
+                function UpdatePlayers(players) {
+
+                    $("#players").html("");
+
+                    $.each(players, function (key, player) {
+                        console.log(player);
+                        $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
+                    });
+                }
+
+                function StartedSession() {
+                    location.replace("https://localhost:5001/CreateField")
+                }
+            </script>
+
+        </body>
+
+
+    </main>
+</div>

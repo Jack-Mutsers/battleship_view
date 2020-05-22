@@ -80,10 +80,15 @@ namespace battleship_view
             }
         }
 
-        //public ActionResult OnGetSessionCode()
-        //{
-        //    return null; //new JsonResult(SessionCode());
-        //}
+        public ActionResult OnGetChangeChecker()
+        {
+            return new JsonResult(StaticResources.PlayerList);
+        }
+
+        public ActionResult OnGetSessionCode()
+        {
+            return new JsonResult(StaticResources.sessionCode);
+        }
 
         //public string SessionCode()
         //{
@@ -110,7 +115,7 @@ namespace battleship_view
         //            int newInt = random.Next(0,10);
         //            str_build.Append(newInt.ToString());
         //        }
-                
+
         //    }
 
         //    return str_build.ToString();
