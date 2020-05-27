@@ -19,6 +19,40 @@ namespace battleship_view
 
         }
 
+        public void OnPost()
+        {
+            List<Boat> boats = new List<Boat>();
+            //foreach () // foreach boat
+            //{
+            //    List<Coordinates> coordinates = new List<Coordinates>();
+
+            //    foreach () //foreach boat coordiantes
+            //    {
+            //        Coordinates coordinate = new Coordinates()
+            //        {
+            //            field = StaticResources.user.orderNumber,
+            //            row = ,
+            //            col =
+            //        };
+
+            //        coordinates.Add(coordinate);
+            //    }
+
+            //    Boat boat = new Boat()
+            //    {
+            //        coordinates = coordinates
+            //    };
+
+            //    boats.Add(boat);
+            //}
+
+            StaticResources.field = new PlayerField()
+            {
+                fieldNumber = StaticResources.user.orderNumber,
+                boats = boats
+            };
+        }
+
         public void OnPostReadyUp([FromBody] List<Boat> boats)
         {
             foreach (Boat boat in boats)

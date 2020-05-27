@@ -14,9 +14,9 @@ namespace battleship_view.Logic
         
         public void SetDummyData()
         {
-            StaticResources.field = StaticResources.field == null ? GetMyDummyField() : StaticResources.field;
             StaticResources.PlayerList = StaticResources.PlayerList.Count <= 1 ? GetDummyPlayerList() : StaticResources.PlayerList;
             StaticResources.user = StaticResources.user == null ? GetDummyPlayer() : StaticResources.user;
+            StaticResources.field = StaticResources.field == null ? GetMyDummyField() : StaticResources.field;
         }
 
         //used to check if your field is under attack + to deremain who did what for the log
@@ -89,39 +89,40 @@ namespace battleship_view.Logic
 
         public PlayerField GetMyDummyField()
         {
+            int field = StaticResources.user.orderNumber;
             PlayerField myField = new PlayerField()
             {
-                fieldNumber = 1,
+                fieldNumber = field,
                 boats = new List<Boat>()
                 {
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { field = 1, row = 1, col = 1 }, new Coordinates() { field = 1, row = 1, col = 2 }, new Coordinates() { field = 1, row = 1, col = 3 }
+                            new Coordinates() { field = field, row = 1, col = 1 }, new Coordinates() { field = field, row = 1, col = 2 }, new Coordinates() { field = field, row = 1, col = 3 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { field = 1, row = 4, col = 9 }, new Coordinates() { field = 1, row = 5, col = 9 }, new Coordinates() { field = 1, row = 6, col = 9 }
+                            new Coordinates() { field = field, row = 4, col = 9 }, new Coordinates() { field = field, row = 5, col = 9 }, new Coordinates() { field = field, row = 6, col = 9 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { field = 1, row = 7, col = 7 }, new Coordinates() { field = 1, row = 7, col = 8 }
+                            new Coordinates() { field = field, row = 7, col = 7 }, new Coordinates() { field = field, row = 7, col = 8 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { field = 1, row = 3, col = 4 }, new Coordinates() { field = 1, row = 4, col = 4 }
+                            new Coordinates() { field = field, row = 3, col = 4 }, new Coordinates() { field = field, row = 4, col = 4 }
                         }
                     },
                     new Boat(){
                         coordinates = new List<Coordinates>()
                         {
-                            new Coordinates() { field = 1, row = 9, col = 7 }, new Coordinates() { field = 1, row = 9, col = 8 }, new Coordinates() { field = 1, row = 9, col = 9 }
+                            new Coordinates() { field = field, row = 9, col = 7 }, new Coordinates() { field = field, row = 9, col = 8 }, new Coordinates() { field = field, row = 9, col = 9 }
                         }
                     },
                 }

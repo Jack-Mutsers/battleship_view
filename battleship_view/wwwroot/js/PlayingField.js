@@ -151,12 +151,12 @@ function reset() {
 }
 
 
-var active = false;
+var active = true;
 function toggleCheckForChanges() {
     active = !active;
-    CheckForChanges();
 }
 
+CheckForChanges();
 function CheckForChanges() {
     if (active == true) {
         $.ajax({
