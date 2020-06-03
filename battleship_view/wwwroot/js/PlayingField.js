@@ -169,6 +169,7 @@ function CheckForChanges() {
             success: function (result) {
                 UpdateField(result.shotLog);
                 UpdateLog(result.gameLog);
+                UpdateTurn(result.myTurn);
             },
             complete: function () {
                 //setTimeout(CheckForChanges, 3000);
@@ -207,7 +208,15 @@ function UpdateLog(gameLog) {
     });
 }
 
-
+function UpdateTurn(myTurn) {
+    if (myTurn) {
+        $('#btnShoot').prop('disabled', false)
+        $('#btnSurrender').prop('disabled', false)
+    } else {
+        $('#btnShoot').prop('disabled', true)
+        $('#btnSurrender').prop('disabled', true)
+    }
+}
 
 
 //testen

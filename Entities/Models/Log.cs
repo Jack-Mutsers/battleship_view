@@ -8,5 +8,7 @@ namespace Entities.Models
     {
         public List<GameResponse> shotLog { get; set; } = new List<GameResponse>();
         public List<string> gameLog { get; set; } = new List<string>();
+        public bool MyTurn { get; set; }
+        public int Turn { get; set; }
     }
 }
