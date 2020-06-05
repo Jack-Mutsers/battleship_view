@@ -53,27 +53,6 @@ namespace battleship_view
             };
         }
 
-        public void OnPostReadyUp([FromBody] List<Boat> boats)
-        {
-            foreach (Boat boat in boats)
-            {
-                foreach (Coordinates coordinate in boat.coordinates)
-                {
-                    coordinate.field = StaticResources.user.orderNumber;
-                }
-            }
-
-            StaticResources.field = new PlayerField()
-            {
-                fieldNumber = StaticResources.user.orderNumber,
-                boats = boats
-            };
-
-            StaticResources.user.ready = true;
-
-            SendReadyUpMessage();
-        }
-
         private void SendReadyUpMessage()
         {
             string line = JsonConvert.SerializeObject(StaticResources.user);
@@ -112,7 +91,9 @@ namespace battleship_view
 
         public void OnPostUploadField([FromBody] List<List<Coordinates>> JSON)
         {
-            string temp = JSON.ToString();
+            StaticResources.user.ready = true;
+
+            SendReadyUpMessage();
         }
 
     }
