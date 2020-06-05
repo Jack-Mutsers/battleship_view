@@ -4,6 +4,8 @@ using Entities.Models;
 using Entities.Resources;
 using GameLogic;
 using Newtonsoft.Json;
+using ServiceBusEntities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,52 +30,52 @@ namespace battleship_view.Models
         }
 
         // used to mark a hit in the field + log message
-        //public GameResponse GetHitResponseDummyData()
-        //{
-        //    List<Player> players = StaticResources.PlayerList;
+        public GameResponse GetHitResponseDummyData()
+        {
+            List<Player> players = StaticResources.PlayerList;
 
-        //    /*
-        //        Fields == 2-4
-        //        col == 0-9
-        //        row == 0-9
-        //    */
+            /*
+                Fields == 2-4
+                col == 0-9
+                row == 0-9
+            */
 
-        //    Log log = StaticResources.log;
-        //    int logCount = log.shotLog.Count;
+            Log log = StaticResources.log;
+            int logCount = log.shotLog.Count;
 
-        //    int field = 2;
-        //    int col = 0;
-        //    int row = 0;
+            int field = 2;
+            int col = 0;
+            int row = 0;
 
-        //    if (logCount > 0)
-        //    {
-        //        Coordinate coordinates = log.shotLog.Last().coordinates;
+            if (logCount > 0)
+            {
+                ICoordinate coordinates = log.shotLog.Last().coordinate;
 
-        //        if (coordinates.col == 9 && coordinates.row == 9 && coordinates.field == 4)
-        //            return null;
+                if (coordinates.col == 9 && coordinates.row == 9 && coordinates.field == 4)
+                    return null;
 
-        //        col = (coordinates.col + 1) < 10 ? (coordinates.col + 1) : 0;
+                col = (coordinates.col + 1) < 10 ? (coordinates.col + 1) : 0;
 
-        //        int increase = col == 0 ? 1 : 0;
-        //        row = (coordinates.row + increase) < 10 ? (coordinates.row + increase) : 0;
+                int increase = col == 0 ? 1 : 0;
+                row = (coordinates.row + increase) < 10 ? (coordinates.row + increase) : 0;
 
-        //        increase = row == 0 && col == 0 ? 1 : 0;
-        //        field = (coordinates.field + increase) < 10 ? (coordinates.field + increase) : 0;
-        //    }
+                increase = row == 0 && col == 0 ? 1 : 0;
+                field = (coordinates.field + increase) < 10 ? (coordinates.field + increase) : 0;
+            }
 
-        //    Random rnd = new Random();
-        //    int hit = rnd.Next(0, 2);
+            Random rnd = new Random();
+            int hit = rnd.Next(0, 2);
 
-        //    GameResponse response = new GameResponse()
-        //    {
-        //        playerId = players[1].PlayerId,
-        //        fieldNumber = field,
-        //        coordinates = new Coordinate() { field = field, col = col, row = row },
-        //        hit = hit == 0 ? true : false
-        //    };
+            GameResponse response = new GameResponse()
+            {
+                playerId = players[1].PlayerId,
+                fieldNumber = field,
+                coordinates = new Coordinate() { field = field, col = col, row = row },
+                hit = hit == 0 ? true : false
+            };
 
-        //    return response;
-        //}
+            return response;
+        }
 
         public List<Player> GetDummyPlayerList()
         {
@@ -95,31 +97,31 @@ namespace battleship_view.Models
                 fieldNumber = field,
             };
 
-            List<List<Coordinate>> CoordinateList = new List<List<Coordinate>>()
+            List<List<ICoordinate>> CoordinateList = new List<List<ICoordinate>>()
             {
-                new List<Coordinate>()
+                new List<ICoordinate>()
                 {
                     new Coordinate() { field = field, row = 1, col = 1 }, new Coordinate() { field = field, row = 1, col = 2 }, new Coordinate() { field = field, row = 1, col = 3 }, new Coordinate() { field = field, row = 1, col = 4 }, new Coordinate() { field = field, row = 1, col = 5 }
                 },
-                new List<Coordinate>()
+                new List<ICoordinate>()
                 {
                     new Coordinate() { field = field, row = 4, col = 9 }, new Coordinate() { field = field, row = 5, col = 9 }, new Coordinate() { field = field, row = 6, col = 9 }, new Coordinate() { field = field, row = 7, col = 9 }
                 },
-                new List<Coordinate>()
+                new List<ICoordinate>()
                 {
-                    new Coordinate() { field = field, row = 7, col = 5 }, new Coordinate() { field = field, row = 7, col = 4 }, new Coordinate() { field = field, row = 7, col = 7 }
+                    new Coordinate() { field = field, row = 7, col = 4 }, new Coordinate() { field = field, row = 7, col = 5 }, new Coordinate() { field = field, row = 7, col = 6 }
                 },
-                new List<Coordinate>()
+                new List<ICoordinate>()
                 {
                     new Coordinate() { field = field, row = 9, col = 7 }, new Coordinate() { field = field, row = 9, col = 8 }, new Coordinate() { field = field, row = 9, col = 9 }
                 },
-                new List<Coordinate>()
+                new List<ICoordinate>()
                 {
                     new Coordinate() { field = field, row = 3, col = 4 }, new Coordinate() { field = field, row = 4, col = 4 }
                 },
             };
 
-            foreach (List<Coordinate> coordinates in CoordinateList)
+            foreach (List<ICoordinate> coordinates in CoordinateList)
             {
                 IBoat boat = new Boat();
                 boat.FillWithCoordinates(coordinates);

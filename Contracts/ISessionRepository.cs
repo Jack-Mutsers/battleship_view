@@ -1,7 +1,4 @@
-﻿using Entities.DatabaseModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DatabaseEntities.DatabaseModels;
 
 namespace Contracts
 {

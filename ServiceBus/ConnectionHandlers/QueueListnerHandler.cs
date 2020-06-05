@@ -1,15 +1,9 @@
-﻿using Microsoft.Azure.ServiceBus;
-using Newtonsoft.Json;
+﻿using Entities.DataModels;
+using Microsoft.Azure.ServiceBus;
+using ServiceBus.ServiceBusHandlers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Entities.Models;
-using Entities.DataModels;
-using System.Collections.Generic;
-using System;
-using Entities.Enums;
-using ServiceBus.ServiceBusHandlers;
-using Entities.Resources;
 
 namespace ServiceBus.ConnectionHandlers
 {

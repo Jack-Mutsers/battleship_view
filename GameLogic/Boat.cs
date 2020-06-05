@@ -9,10 +9,10 @@ namespace GameLogic
 {
     public class Boat : IBoat
     {
-        private List<Coordinate> _coordinates { get; set; }
-        public IEnumerable<Coordinate> coordinates { get; }
+        private List<ICoordinate> _coordinates { get; set; } = new List<ICoordinate>();
+        public IEnumerable<ICoordinate> coordinates { get { return _coordinates; } }
 
-        public void FillWithCoordinates(List<Coordinate> coordinates)
+        public void FillWithCoordinates(List<ICoordinate> coordinates)
         {
 
             if (coordinates == null)
@@ -20,7 +20,7 @@ namespace GameLogic
 
             foreach (Coordinate coordinate in coordinates)
             {
-                if (coordinate.validateCoordinates())
+                if (coordinate.validateCoordinates() == false)
                     throw new ArgumentException("invalid coordinates");
 
                 _coordinates.Add(coordinate);

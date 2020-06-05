@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using Entities.Models;
 using battleship_view.Logic;
 using Entities.Resources;
+using GameLogic;
+using Contracts;
+using ServiceBusEntities.Models;
 
 namespace battleship_view
 {
@@ -72,7 +75,11 @@ namespace battleship_view
 
             if (transfer.type == MessageType.Surrender)
             {
-                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message);
+                var settings = new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                };
+                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message, settings);
                 Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == response.playerId).First();
 
                 // enter code here to display surrender message in log
@@ -92,7 +99,7 @@ namespace battleship_view
             }
         }
 
-        private void HandleGameOver(int playerId, PlayerField field = null)
+        private void HandleGameOver(int playerId, IPlayerField field = null)
         {
             Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == playerId).First();
 
@@ -109,15 +116,13 @@ namespace battleship_view
                 {
                     foreach (var coordinate in boat.coordinates)
                     {
-                        GameResponse response = new GameResponse()
+                        ShotLog shotLog = new ShotLog()
                         {
-                            fieldNumber = coordinate.field,
-                            coordinates = coordinate,
-                            gameOver = true,
-                            hit = true,
+                            coordinate = coordinate,
+                            hit = true
                         };
 
-                        StaticResources.log.shotLog.Add(response);
+                        StaticResources.log.shotLog.Add(shotLog);
                     }
                 }
 
@@ -138,7 +143,14 @@ namespace battleship_view
             }
 
             GameResponse response = gameResponse == null ? dummy.GetHitResponseDummyData() : gameResponse;
-            StaticResources.log.shotLog.Add(response);
+
+            ShotLog shotLog = new ShotLog()
+            {
+                coordinate = gameResponse.coordinates,
+                hit = gameResponse.hit
+            };
+
+            StaticResources.log.shotLog.Add(shotLog);
 
             Player player = StaticResources.PlayerList.Where(p => p.PlayerId == response.playerId).FirstOrDefault();
 

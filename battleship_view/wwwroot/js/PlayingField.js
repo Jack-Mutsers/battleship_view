@@ -183,7 +183,7 @@ function UpdateField(shotLog) {
         shotLog.splice(0, (oldShotLog.length));
 
     $.each(shotLog, function (key, LogEntry) {
-        var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinates.field + "][data-row=" + LogEntry.coordinates.row + "][data-col=" + LogEntry.coordinates.col + "]");
+        var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinate.field + "][data-row=" + LogEntry.coordinate.row + "][data-col=" + LogEntry.coordinate.col + "]");
 
         if (LogEntry.hit == true) {
             $(coordinate).addClass("field_hit");

@@ -1,12 +1,8 @@
-﻿using Entities.DatabaseModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using DatabaseEntities.DatabaseModels;
 
-namespace Entities.DataTransferObjects
+namespace DatabaseEntities.DataTransferObjects
 {
-    public class HighscoresForUpdateDto
+    public class HighscoresDto
     {
         public int Id { get; set; }
 

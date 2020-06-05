@@ -1,7 +1,10 @@
-﻿using Entities.Enums;
+﻿using Contracts;
+using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
+using GameLogic;
 using Newtonsoft.Json;
+using ServiceBusEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +35,19 @@ namespace battleship_view.Logic
 
         public void SendSurrenderMessage()
         {
+            PlayerField field = new PlayerField()
+            {
+                fieldNumber = StaticResources.field.fieldNumber,
+                hitList = StaticResources.field.hitList
+            };
+
+            foreach (IBoat boat in StaticResources.field.boats)
+                field.AddNewBoatToField(boat);
+
             SurrenderResponse response = new SurrenderResponse()
             {
                 playerId = StaticResources.user.PlayerId,
-                field = StaticResources.field
+                field = field
             };
 
             string line = JsonConvert.SerializeObject(response);
@@ -43,7 +55,7 @@ namespace battleship_view.Logic
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Surrender);
         }
 
-        public void SendShootMessage(Coordinate coordinates)
+        public void SendShootMessage(ICoordinate coordinates)
         {
             GameAction action = new GameAction()
             {

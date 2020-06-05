@@ -6,6 +6,7 @@ using battleship_view.Logic;
 using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
+using GameLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace battleship_view
 
         public void OnPost()
         {
-            List<Boat> boats = new List<Boat>();
+            //List<Boat> boats = new List<Boat>();
             //foreach () // foreach boat
             //{
             //    List<Coordinates> coordinates = new List<Coordinates>();
@@ -46,11 +47,11 @@ namespace battleship_view
             //    boats.Add(boat);
             //}
 
-            StaticResources.field = new PlayerField()
-            {
-                fieldNumber = StaticResources.user.orderNumber,
-                boats = boats
-            };
+            //StaticResources.field = new PlayerField()
+            //{
+            //    fieldNumber = StaticResources.user.orderNumber,
+            //    boats = boats
+            //};
         }
 
         private void SendReadyUpMessage()

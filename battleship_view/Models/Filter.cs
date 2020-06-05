@@ -1,8 +1,5 @@
-﻿using Entities.DatabaseModels;
-using System;
+﻿using DatabaseEntities.DatabaseModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace battleship_view.Models
 {

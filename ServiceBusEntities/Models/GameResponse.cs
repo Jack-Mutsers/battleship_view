@@ -1,4 +1,5 @@
-﻿using Entities.Enums;
+﻿using Contracts;
+using GameLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class GameAction
+    public class GameResponse
     {
         public int playerId { get; set; }
-        public string sessionCode { get; set; }
+        public int fieldNumber { get; set; }
         public Coordinate coordinates { get; set; }
-        public PlayerAction action { get; set; }
+        public bool hit { get; set; }
+        public bool gameOver { get; set; }
 
     }
 

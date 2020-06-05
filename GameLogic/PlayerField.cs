@@ -10,13 +10,13 @@ namespace GameLogic
 {
     public class PlayerField : IPlayerField
     {
-        private List<IBoat> _boats { get; set; }
+        private List<IBoat> _boats { get; set; } = new List<IBoat>();
         public IEnumerable<IBoat> boats { get { return _boats; } }
 
-        public List<Coordinate> hitList { get; set; } = new List<Coordinate>();
+        public List<ICoordinate> hitList { get; set; } = new List<ICoordinate>();
         public int fieldNumber { get; set; }
 
-        public bool CheckForHit(Coordinate shotCoordinate)
+        public bool CheckForHit(ICoordinate shotCoordinate)
         {
             foreach (var boat in boats)
             {
@@ -75,24 +75,27 @@ namespace GameLogic
             int threeSquare = 2;
             int twoSquare = 1;
 
-            foreach (IBoat boat in boats)
-            {
-                switch (boat.coordinates.Count())
+            //if (boats.Count() > 0)
+            //{
+                foreach (IBoat boat in boats)
                 {
-                    case 2:
-                        twoSquare--;
-                        break;
-                    case 3:
-                        threeSquare--;
-                        break;
-                    case 4:
-                        fourSquare--;
-                        break;
-                    case 5:
-                        fiveSquare--;
-                        break;
+                    switch (boat.coordinates.Count())
+                    {
+                        case 2:
+                            twoSquare--;
+                            break;
+                        case 3:
+                            threeSquare--;
+                            break;
+                        case 4:
+                            fourSquare--;
+                            break;
+                        case 5:
+                            fiveSquare--;
+                            break;
+                    }
                 }
-            }
+            //}
 
             bool allowed = true;
             switch (size)
@@ -117,5 +120,6 @@ namespace GameLogic
 
             return allowed;
         }
+
     }
 }

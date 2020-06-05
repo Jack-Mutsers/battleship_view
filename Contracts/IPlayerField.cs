@@ -1,7 +1,4 @@
-﻿using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Contracts
 {
@@ -9,10 +6,10 @@ namespace Contracts
     {
         public IEnumerable<IBoat> boats { get; }
 
-        public List<Coordinate> hitList { get; set; }
+        public List<ICoordinate> hitList { get; set; }
         public int fieldNumber { get; set; }
 
-        public bool CheckForHit(Coordinate shotCoordinate);
+        public bool CheckForHit(ICoordinate shotCoordinate);
 
         public bool CheckForGameOver();
     }

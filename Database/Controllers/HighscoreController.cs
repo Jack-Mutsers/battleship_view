@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Contracts;
+using DatabaseEntities.DatabaseModels;
 using Entities;
-using Entities.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Database.Controllers
 {

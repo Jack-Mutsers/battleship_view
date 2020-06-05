@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace GameLogic
 {
-    public class Coordinate
+    public class Coordinate : ICoordinate
     {
         private int _row { get; set; }
         private int _col { get; set; }

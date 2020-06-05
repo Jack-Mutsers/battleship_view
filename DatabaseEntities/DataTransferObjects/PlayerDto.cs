@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Entities.DataTransferObjects
+namespace DatabaseEntities.DataTransferObjects
 {
-    public class PlayerForCreationDto
+    public class PlayerDto
     {
+        public int PlayerId { get; set; }
+
         [Required(ErrorMessage = "player name is required")]
         public string name { get; set; }
     }

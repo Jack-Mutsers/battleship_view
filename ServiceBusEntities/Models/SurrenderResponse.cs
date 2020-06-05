@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using Contracts;
+using Entities.Models;
+using GameLogic;
 using System;
 using System.Collections.Generic;
 using System.Text;

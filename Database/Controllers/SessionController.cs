@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Contracts;
+using DatabaseEntities.DatabaseModels;
 using Entities;
-using Entities.DatabaseModels;
-using Repository;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Database.Controllers
 {

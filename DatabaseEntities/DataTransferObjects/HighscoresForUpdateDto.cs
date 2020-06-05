@@ -1,13 +1,11 @@
-﻿using Entities.DatabaseModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using DatabaseEntities.DatabaseModels;
 
-namespace Entities.DataTransferObjects
+namespace DatabaseEntities.DataTransferObjects
 {
-    public class HighscoresForCreationDto
+    public class HighscoresForUpdateDto
     {
+        public int Id { get; set; }
+
         public Player player { get; set; }
 
         public int session_id { get; set; }
