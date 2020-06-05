@@ -110,5 +110,10 @@ namespace battleship_view
             }
         }
 
+        public void OnPostUploadField([FromBody] List<List<Coordinates>> JSON)
+        {
+            string temp = JSON.ToString();
+        }
+
     }
 }
