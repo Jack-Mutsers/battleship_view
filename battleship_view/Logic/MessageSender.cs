@@ -11,7 +11,7 @@ namespace battleship_view.Logic
 {
     public class MessageSender
     {
-        public void SendHitResponseMessage(Coordinates shot, bool hit, bool gameOver)
+        public void SendHitResponseMessage(Coordinate shot, bool hit, bool gameOver)
         {
             // col = 0 - 9
             // row = 0 - 9
@@ -43,12 +43,12 @@ namespace battleship_view.Logic
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Surrender);
         }
 
-        public void SendShootMessage(Coordinates coordinates)
+        public void SendShootMessage(Coordinate coordinates)
         {
             GameAction action = new GameAction()
             {
                 action = PlayerAction.shoot,
-                coordinates = new Coordinates()
+                coordinates = new Coordinate()
                 {
                     field = coordinates.field,
                     row = coordinates.row,

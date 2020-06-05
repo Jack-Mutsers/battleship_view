@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Coordinates
+    public class Coordinate
     {
         private int _row { get; set; }
         private int _col { get; set; }
@@ -43,6 +43,21 @@ namespace Entities.Models
 
                 _field = value;
             }
+        }
+
+        public bool validateCoordinates()
+        {
+            bool valid = true;
+            if (row < 0 || row > 9)
+                valid = false;
+
+            if (col < 0 || col > 9)
+                valid = false;
+
+            if (field < 1 || field > 4)
+                valid = false;
+
+            return valid;
         }
     }
 }

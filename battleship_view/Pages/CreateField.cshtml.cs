@@ -89,7 +89,7 @@ namespace battleship_view
             }
         }
 
-        public void OnPostUploadField([FromBody] List<List<Coordinates>> JSON)
+        public void OnPostUploadField([FromBody] List<List<Coordinate>> JSON)
         {
             StaticResources.user.ready = true;
 

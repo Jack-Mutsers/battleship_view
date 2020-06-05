@@ -6,6 +6,6 @@ namespace battleship_view.classes
 {
     public class Shot
     {
-        public Coordinates coordinate;
+        public Coordinate coordinate;
     }
 }

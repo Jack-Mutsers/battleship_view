@@ -13,7 +13,7 @@ namespace UnitTests
         [ExpectedException(typeof(ArgumentException))]
         public void TestNegativeCoordinates()
         {
-            Coordinates coordinates = new Coordinates()
+            Coordinate coordinates = new Coordinate()
             {
                 row = -2,
                 col = -1,

@@ -12,7 +12,7 @@ namespace UnitTests
         public void CheckForHit_Happy_Hit()
         {
             PlayerField playerField = GetMyDummyField();
-            Coordinates coordinates = new Coordinates()
+            Coordinate coordinates = new Coordinate()
             {
                 row = 1,
                 col = 1,
@@ -28,7 +28,7 @@ namespace UnitTests
         public void CheckForHit_Happy_Mis()
         {
             PlayerField playerField = GetMyDummyField();
-            Coordinates coordinates = new Coordinates()
+            Coordinate coordinates = new Coordinate()
             {
                 row = 2,
                 col = 1,
@@ -48,33 +48,33 @@ namespace UnitTests
                 boats = new List<Boat>()
                 {
                     new Boat(){
-                        coordinates = new List<Coordinates>()
+                        coordinates = new List<Coordinate>()
                         {
-                            new Coordinates() { field = 1, row = 1, col = 1 }, new Coordinates() { field = 1, row = 1, col = 2 }, new Coordinates() { field = 1, row = 1, col = 3 }
+                            new Coordinate() { field = 1, row = 1, col = 1 }, new Coordinate() { field = 1, row = 1, col = 2 }, new Coordinate() { field = 1, row = 1, col = 3 }
                         }
                     },
                     new Boat(){
-                        coordinates = new List<Coordinates>()
+                        coordinates = new List<Coordinate>()
                         {
-                            new Coordinates() { field = 1, row = 4, col = 9 }, new Coordinates() { field = 1, row = 5, col = 9 }, new Coordinates() { field = 1, row = 6, col = 9 }
+                            new Coordinate() { field = 1, row = 4, col = 9 }, new Coordinate() { field = 1, row = 5, col = 9 }, new Coordinate() { field = 1, row = 6, col = 9 }
                         }
                     },
                     new Boat(){
-                        coordinates = new List<Coordinates>()
+                        coordinates = new List<Coordinate>()
                         {
-                            new Coordinates() { field = 1, row = 7, col = 7 }, new Coordinates() { field = 1, row = 7, col = 8 }
+                            new Coordinate() { field = 1, row = 7, col = 7 }, new Coordinate() { field = 1, row = 7, col = 8 }
                         }
                     },
                     new Boat(){
-                        coordinates = new List<Coordinates>()
+                        coordinates = new List<Coordinate>()
                         {
-                            new Coordinates() { field = 1, row = 3, col = 4 }, new Coordinates() { field = 1, row = 4, col = 4 }
+                            new Coordinate() { field = 1, row = 3, col = 4 }, new Coordinate() { field = 1, row = 4, col = 4 }
                         }
                     },
                     new Boat(){
-                        coordinates = new List<Coordinates>()
+                        coordinates = new List<Coordinate>()
                         {
-                            new Coordinates() { field = 1, row = 9, col = 7 }, new Coordinates() { field = 1, row = 9, col = 8 }, new Coordinates() { field = 1, row = 9, col = 9 }
+                            new Coordinate() { field = 1, row = 9, col = 7 }, new Coordinate() { field = 1, row = 9, col = 8 }, new Coordinate() { field = 1, row = 9, col = 9 }
                         }
                     },
                 }

@@ -11,7 +11,7 @@ namespace Entities.Models
     {
         public int playerId { get; set; }
         public int fieldNumber { get; set; }
-        public Coordinates coordinates { get; set; }
+        public Coordinate coordinates { get; set; }
         public bool hit { get; set; }
         public bool gameOver { get; set; }
 

@@ -178,11 +178,11 @@ namespace battleship_view
         {
             StaticResources.field = StaticResources.field.boats == null ? dummy.GetMyDummyField() : StaticResources.field;
 
-            List<Coordinates> coordinates = new List<Coordinates>();
+            List<Coordinate> coordinates = new List<Coordinate>();
 
             foreach (Boat boat in StaticResources.field.boats)
             {
-                foreach (Coordinates coordinate in boat.coordinates)
+                foreach (Coordinate coordinate in boat.coordinates)
                 {
                     coordinates.Add(coordinate);
                 }
@@ -196,7 +196,7 @@ namespace battleship_view
             sender.SendSurrenderMessage();
         }
 
-        public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
+        public ActionResult OnPostShoot([FromBody]Coordinate coordinates)
         {
             sender.SendShootMessage(coordinates);
 
