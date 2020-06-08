@@ -50,7 +50,13 @@ namespace battleship_view.Logic
                 field = field
             };
 
-            string line = JsonConvert.SerializeObject(response);
+            var indented = Formatting.Indented;
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            string line = JsonConvert.SerializeObject(response, indented, settings);
 
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Surrender);
         }

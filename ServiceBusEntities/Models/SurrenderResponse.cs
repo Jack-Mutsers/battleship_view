@@ -10,6 +10,6 @@ namespace Entities.Models
     public class SurrenderResponse
     {
         public int playerId { get; set; }
-        public PlayerField field { get; set; }
+        public IPlayerField field { get; set; }
     }
 }
