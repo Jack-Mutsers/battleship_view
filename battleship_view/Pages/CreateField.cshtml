@@ -576,8 +576,8 @@
 
                                 for (var j = boatLeft; j < boatRight; j += 40) {
                                     coordinate = {
-                                        row: boatBottom / 40,
-                                        col: (j + 40) / 40,
+                                        row: (boatBottom - 40) / 40,
+                                        col: j / 40,
                                         field: 0
                                     };
                                     boat.push(coordinate);
@@ -588,8 +588,8 @@
 
                                 for (var j = boatTop; j < boatBottom; j += 40) {
                                     coordinate = {
-                                        row: (j + 40) / 40,
-                                        col: boatRight / 40,
+                                        row: j / 40,
+                                        col: (boatRight - 40) / 40,
                                         field: 0
                                     };
                                     boat.push(coordinate);
@@ -615,10 +615,7 @@
                         },
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
-                        data: boats,
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                        }
+                        data: boats
                     });
                 }
 

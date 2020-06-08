@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
+using Entities.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ namespace GameLogic
 
             foreach (Coordinate coordinate in coordinates)
             {
+                if (coordinate == null)
+                    throw new ArgumentNullException("coordinate");
+
+                coordinate.field = StaticResources.user.orderNumber;
+
                 if (coordinate.validateCoordinates() == false)
                     throw new ArgumentException("invalid coordinates");
 
