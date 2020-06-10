@@ -46,7 +46,7 @@ namespace battleship_view.Logic
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             ++Time;
-            StaticResources.log.Time = 20 - Time;
+            StaticResources.log.Time = 21 - Time;
             Console.WriteLine("The time is: "+Time);
             if (Time==20)
             {
