@@ -24,19 +24,17 @@ namespace battleship_view
 
         public void OnGet()
         {
-
+            if(StaticResources.lobbyStarted == false)
+            {
+                ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+                StaticResources.lobbyStarted = true;
+            }
         }
 
         public void OnPost()
         {
         }
 
-        private void SendReadyUpMessage()
-        {
-            string line = JsonConvert.SerializeObject(StaticResources.user);
-
-            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.ReadyUp);
-        }
 
         public void OnTopicMessageReceived(string message)
         {
@@ -87,7 +85,8 @@ namespace battleship_view
 
             StaticResources.user.ready = true;
 
-            SendReadyUpMessage();
+            MessageSender sender = new MessageSender();
+            sender.SendReadyUpMessage();
         }
 
         public IActionResult OnGetStartCheck()

@@ -16,6 +16,7 @@ namespace Entities.Resources
         public static Log log { get; set; } = new Log();
         public static bool startLobby { get; set; } = false;
         public static bool startGame { get; set; } = false;
+        public static bool lobbyStarted { get; set; } = false;
 
         public static List<Player> dummyPlayers = new List<Player>(){
             new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },

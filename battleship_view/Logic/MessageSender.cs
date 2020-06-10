@@ -87,5 +87,12 @@ namespace battleship_view.Logic
 
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.StartGame);
         }
+
+        public void SendReadyUpMessage()
+        {
+            string line = JsonConvert.SerializeObject(StaticResources.user);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.ReadyUp);
+        }
     }
 }
