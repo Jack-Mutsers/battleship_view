@@ -24,7 +24,7 @@ namespace battleship_view
 
         public void OnGet()
         {
-            if(StaticResources.lobbyStarted == false)
+            if(StaticResources.lobbyStarted == false && ServiceBusHandler.program != null)
             {
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
                 StaticResources.lobbyStarted = true;

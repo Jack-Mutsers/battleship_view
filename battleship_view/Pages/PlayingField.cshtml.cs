@@ -30,7 +30,10 @@ namespace battleship_view
         {
             TimerHandler.SetTimer();
             TimerHandler.StartTimer();
-            dummy.SetDummyData();
+            if (StaticResources.PlayerList.Count() == 0)
+            {
+                dummy.SetDummyData();
+            }
 
             StaticResources.field.fieldNumber = StaticResources.user.orderNumber;
 
@@ -45,8 +48,9 @@ namespace battleship_view
                 StaticResources.sessionCode = generator.GenerateSessionCode();
 
                 await ServiceBusHandler.InitiateServiceBusHandler(player, true);
-                ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
             }
+            
+            ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
 
             players = StaticResources.PlayerList;
 
@@ -71,7 +75,7 @@ namespace battleship_view
                         bool hit = StaticResources.field.CheckForHit(action.coordinates);
                         bool gameOver = StaticResources.field.CheckForGameOver();
 
-                        sender.SendHitResponseMessage(action.coordinates, hit, gameOver);
+                        sender.SendHitResponseMessage(action.coordinates, hit, gameOver, action.playerId);
                     }
                     
                     // reset timer and increase turn

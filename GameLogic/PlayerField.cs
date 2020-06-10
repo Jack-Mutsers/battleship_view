@@ -46,6 +46,7 @@ namespace GameLogic
                 }
             }
 
+            //17
             if (coordinatesCount == hitList.Count)
             {
                 gameOver = true;

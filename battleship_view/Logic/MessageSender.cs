@@ -14,7 +14,7 @@ namespace battleship_view.Logic
 {
     public class MessageSender
     {
-        public void SendHitResponseMessage(Coordinate shot, bool hit, bool gameOver)
+        public void SendHitResponseMessage(Coordinate shot, bool hit, bool gameOver, int playerID)
         {
             // col = 0 - 9
             // row = 0 - 9
@@ -25,7 +25,7 @@ namespace battleship_view.Logic
                 coordinates = shot,
                 hit = hit,
                 gameOver = gameOver,
-                playerId = StaticResources.user.PlayerId
+                playerId = playerID
             };
 
             string line = JsonConvert.SerializeObject(response);
