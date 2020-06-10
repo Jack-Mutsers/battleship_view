@@ -17,11 +17,11 @@ namespace battleship_view
 {
     public class CreateFieldModel : PageModel
     {
-        private bool start = false;
+        private bool start { get { return StaticResources.start; } }
 
         public void OnGet()
         {
-
+            StaticResources.start = false;
         }
 
         public void OnPost()
