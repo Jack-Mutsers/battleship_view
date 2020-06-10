@@ -80,5 +80,12 @@ namespace battleship_view.Logic
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Action);
         }
 
+        public void StartGameMessage()
+        {
+            List<Player> players = StaticResources.PlayerList;
+            string line = JsonConvert.SerializeObject(players);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.StartGame);
+        }
     }
 }

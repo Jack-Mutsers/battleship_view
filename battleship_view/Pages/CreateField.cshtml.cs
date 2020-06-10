@@ -17,6 +17,8 @@ namespace battleship_view
 {
     public class CreateFieldModel : PageModel
     {
+        private bool start = false;
+
         public void OnGet()
         {
 
@@ -57,7 +59,7 @@ namespace battleship_view
 
                 if (count == StaticResources.PlayerList.Count())
                 {
-                    // go to next screen
+                    start = true;
                 }
             }
         }
@@ -83,6 +85,11 @@ namespace battleship_view
             StaticResources.user.ready = true;
 
             SendReadyUpMessage();
+        }
+
+        public IActionResult OnGetStartCheck()
+        {
+            return new JsonResult(start);
         }
 
         public void validateUser()
