@@ -125,9 +125,8 @@ function SetBoats() {
 
 
 //timer functies + variabele
-var timeElapsed = 10;
+var timeElapsed = 20;
 var myTimer = 0;
-
 function start() {
     myTimer = setInterval(function () {
 
@@ -145,7 +144,7 @@ function stop() {
     clearInterval(myTimer);
 }
 function reset() {
-    timeElapsed = 10;
+    timeElapsed = 20;
     clearInterval(myTimer);
     document.getElementById("time").innerHTML = timeElapsed;
 }
@@ -170,6 +169,7 @@ function CheckForChanges() {
                 UpdateField(result.shotLog);
                 UpdateLog(result.gameLog);
                 UpdateTurn(result.myTurn);
+                $("#time").html(result.time);
             },
             complete: function () {
                 //setTimeout(CheckForChanges, 3000);

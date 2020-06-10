@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Entities.Models;
 using battleship_view.Logic;
 using Entities.Resources;
+using System.Threading;
 
 namespace battleship_view
 {
@@ -25,6 +26,8 @@ namespace battleship_view
 
         public async void OnGet()
         {
+            TimerHandler.SetTimer();
+            TimerHandler.StartTimer();
             dummy.SetDummyData();
 
             StaticResources.field.fieldNumber = StaticResources.user.orderNumber;
@@ -66,8 +69,8 @@ namespace battleship_view
 
                         sender.SendHitResponseMessage(action.coordinates, hit, gameOver);
                     }
-                    // increase turn
-                    IncreaseTurn();
+                    // reset timer and increase turn
+                    TimerHandler.ResetTime();
                     
                 }
 
@@ -85,9 +88,8 @@ namespace battleship_view
 
                 // start gameover function
                 HandleGameOver(response.playerId, response.field);
-
-                // increase turn
-                IncreaseTurn();
+                // reset timer and increase turn
+                TimerHandler.ResetTime();
             }
 
             if (transfer.type == MessageType.GameResponse)
@@ -99,24 +101,7 @@ namespace battleship_view
             // check if it is my turn
             StaticResources.log.MyTurn = StaticResources.log.Turn == StaticResources.user.orderNumber ? true : false;
         }
-
-        private void IncreaseTurn()
-        {
-            StaticResources.log.Turn = StaticResources.log.Turn >= players.Count() ? 1 : StaticResources.log.Turn++;
-            while (true)
-            {
-                Player p = StaticResources.PlayerList.Where(Speler => Speler.orderNumber == StaticResources.log.Turn).First();
-                if (p.GameOver)
-                {
-                    StaticResources.log.Turn = StaticResources.log.Turn >= players.Count() ? 1 : StaticResources.log.Turn++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-
+        
         private void HandleGameOver(int playerId, PlayerField field = null)
         {
             Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == playerId).First();
