@@ -46,13 +46,19 @@ namespace GameLogic
                 }
             }
 
+            List<ICoordinate> distinct = removeDuplicates(hitList);
             //17
-            if (coordinatesCount == hitList.Count)
+            if (coordinatesCount == distinct.Count)
             {
                 gameOver = true;
             }
 
             return gameOver;
+        }
+
+        public static List<T> removeDuplicates<T>(List<T> list)
+        {
+            return new HashSet<T>(list).ToList();
         }
 
         public void AddNewBoatToField(IBoat boat)
