@@ -17,7 +17,10 @@ namespace battleship_view
     {
         public string sessionCode { get; set; } = "";
         public List<Player> players { get; set; } = StaticResources.PlayerList;
-        private bool start { get{ return StaticResources.start; } }
+        private bool start { 
+            get { return StaticResources.startLobby; }
+            set { StaticResources.startLobby = value; }
+        }
 
         public void OnGet()
         {
@@ -83,7 +86,7 @@ namespace battleship_view
 
             if (transfer.type == MessageType.StartGame)
             {
-                StaticResources.start = true;
+                start = true;
             }
         }
 

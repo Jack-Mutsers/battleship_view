@@ -17,11 +17,14 @@ namespace battleship_view
 {
     public class CreateFieldModel : PageModel
     {
-        private bool start { get { return StaticResources.start; } }
+        private bool start { 
+            get { return StaticResources.startGame; } 
+            set { StaticResources.startGame = value; }
+        }
 
         public void OnGet()
         {
-            StaticResources.start = false;
+
         }
 
         public void OnPost()
@@ -59,7 +62,7 @@ namespace battleship_view
 
                 if (count == StaticResources.PlayerList.Count())
                 {
-                    StaticResources.start = true;
+                    start = true;
                 }
             }
         }
