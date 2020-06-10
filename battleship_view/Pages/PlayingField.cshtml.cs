@@ -49,6 +49,8 @@ namespace battleship_view
             }
 
             players = StaticResources.PlayerList;
+
+            StaticResources.log.MyTurn = StaticResources.user.orderNumber == 1 ? true : false;
         }
 
         public void OnTopicMessageReceived(string message)
@@ -71,9 +73,9 @@ namespace battleship_view
 
                         sender.SendHitResponseMessage(action.coordinates, hit, gameOver);
                     }
+                    
                     // reset timer and increase turn
                     TimerHandler.ResetTime();
-                    
                 }
 
             }
@@ -104,8 +106,6 @@ namespace battleship_view
 
                 HandleHitResponse(response);
             }
-            // check if it is my turn
-            StaticResources.log.MyTurn = StaticResources.log.Turn == StaticResources.user.orderNumber ? true : false;
         }
 
         private void HandleGameOver(int playerId, IPlayerField field = null)
@@ -226,6 +226,7 @@ namespace battleship_view
         {
             if (StaticResources.log.MyTurn)
             {
+                StaticResources.log.MyTurn = false;
                 sender.SendShootMessage(coordinates);
             }
             return new JsonResult(true);

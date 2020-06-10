@@ -173,7 +173,7 @@ function CheckForChanges() {
             },
             complete: function () {
                 //setTimeout(CheckForChanges, 3000);
-                setTimeout(CheckForChanges, 500);
+                setTimeout(CheckForChanges, 1000);
             }
         });
     }

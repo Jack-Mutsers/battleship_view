@@ -56,22 +56,26 @@ namespace battleship_view.Logic
 
         private static void IncreaseTurn()
         {
-            StaticResources.log.Turn = StaticResources.log.Turn >= StaticResources.PlayerList.Count() ? 1 : StaticResources.log.Turn + 1;
-            while (true)
+            int turn = StaticResources.log.Turn;
+            turn = turn >= StaticResources.PlayerList.Count() ? 1 : turn + 1;
+            Player p = null;
+
+            bool loop = true;
+            while (loop == true)
             {
-                Player p = StaticResources.PlayerList.Where(Speler => Speler.orderNumber == 4).First();
-                if (StaticResources.log.Turn != 5) {
-                    p = StaticResources.PlayerList.Where(Speler => Speler.orderNumber == StaticResources.log.Turn).First();
-                }
-                if (p.GameOver)
-                {
-                    StaticResources.log.Turn = StaticResources.log.Turn >= StaticResources.PlayerList.Count() ? 1 : StaticResources.log.Turn++;
-                }
+                if(turn < 5)
+                    p = StaticResources.PlayerList.Where(Speler => Speler.orderNumber == turn).First();
+
+                if (p == null || p.GameOver)
+                    turn = turn >= StaticResources.PlayerList.Count() ? 1 : turn + 1;
                 else
-                {
-                    break;
-                }
+                    loop = false;
             }
+
+            StaticResources.log.Turn = turn;
+
+            if (p.PlayerId == StaticResources.user.PlayerId)
+                StaticResources.log.MyTurn = true;
         }
     }
 }
