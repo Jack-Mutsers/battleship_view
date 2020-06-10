@@ -59,7 +59,7 @@ namespace battleship_view
 
                 if (count == StaticResources.PlayerList.Count())
                 {
-                    start = true;
+                    StaticResources.start = true;
                 }
             }
         }
