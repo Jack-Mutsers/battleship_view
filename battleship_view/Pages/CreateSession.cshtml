@@ -175,7 +175,7 @@
                             UpdatePlayers(result);
                         },
                         complete: function () {
-                            setTimeout(CheckForChanges, 3000);
+                            setTimeout(CheckForChanges, 1000);
                         }
                     });
                 }
@@ -191,6 +191,11 @@
                 }
 
                 function StartedSession() {
+                    $.ajax({
+                        type: "GET",
+                        url: "CreateSession?handler=StartGame"
+                    });
+
                     location.replace("https://localhost:5001/CreateField")
                 }
             </script>

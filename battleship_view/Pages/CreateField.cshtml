@@ -619,6 +619,27 @@
                     });
                 }
 
+                CheckForStartGame();
+                function CheckForStartGame() {
+                    $.ajax({
+                        type: "GET",
+                        url: "CreateField?handler=StartCheck",
+                        contentType: 'application/json; charset=utf-8',
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            if (result == true) {
+                                location.replace("https://localhost:5001/PlayingField");
+                            }
+                        },
+                        complete: function () {
+                            setTimeout(CheckForStartGame, 1000);
+                        }
+                    });
+                }
+
             </script>
         </body>
 

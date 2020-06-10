@@ -17,6 +17,7 @@ namespace battleship_view
     {
         public string sessionCode { get; set; } = "";
         public List<Player> players { get; set; } = StaticResources.PlayerList;
+        private bool start = false; 
 
         public void OnGet()
         {
@@ -79,11 +80,21 @@ namespace battleship_view
                 ServiceBusHandler.HandleNewPlayerTopicMessage(message);
                 players = StaticResources.PlayerList;
             }
+
+            if (transfer.type == MessageType.StartGame)
+            {
+                start = true;
+            }
         }
 
         public ActionResult OnGetChangeChecker()
         {
             return new JsonResult(StaticResources.PlayerList);
+        }
+
+        public ActionResult OnGetStartCheck()
+        {
+            return new JsonResult(start);
         }
     }
 }

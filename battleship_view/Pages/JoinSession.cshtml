@@ -80,6 +80,7 @@
             }
 
             function CheckForChanges() {
+                CheckForStartGame();
                 $.ajax({
                     type: "GET",
                     url: "JoinSession?handler=ChangeChecker",
@@ -88,10 +89,12 @@
                         alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
                     },
                     success: function (result) {
-                        UpdatePlayers(result);
+                        if (result != undefined && result != null) {
+                            UpdatePlayers(result);
+                        }
                     },
                     complete: function () {
-                        setTimeout(CheckForChanges, 3000);
+                        setTimeout(CheckForChanges, 1000);
                     }
                 });
             }
@@ -103,6 +106,23 @@
                 $.each(players, function (key, player) {
                     console.log(player);
                     $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
+                });
+            }
+
+            function CheckForStartGame() {
+                $.ajax({
+                    type: "GET",
+                    url: "JoinSession?handler=StartCheck",
+                    contentType: 'application/json; charset=utf-8',
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        if (result == true) {
+                            location.replace("https://localhost:5001/CreateField");
+                        }
+                    }
                 });
             }
 
