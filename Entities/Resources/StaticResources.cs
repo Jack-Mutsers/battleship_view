@@ -14,6 +14,7 @@ namespace Entities.Resources
         public static string sessionCode { get; set; } = "";
         public static IPlayerField field { get; set; }
         public static Log log { get; set; } = new Log();
+        public static bool start { get; set; } = false;
 
         public static List<Player> dummyPlayers = new List<Player>(){
             new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },

@@ -85,25 +85,23 @@
 
             <h1>Create Session</h1>
 
-            <form action="/action_page.php">
-                <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
-                <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
+            <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a><br /><br />
+            <label for="PlayerName">Player name:</label><input type="text" id="PlayerName" name="PlayerName" placeholder="Your name..">
 
-                <table id="playerTable" class="hidden right-side">
-                    <thead>
-                        <tr class="">
-                            <th class="tableHeader">order number</th>
-                            <th class="tableHeader">name</th>
-                        </tr>
-                    </thead>
-                    <tbody id="players">
-                    </tbody>
-                </table>
+            <table id="playerTable" class="hidden right-side">
+                <thead>
+                    <tr class="">
+                        <th class="tableHeader">order number</th>
+                        <th class="tableHeader">name</th>
+                    </tr>
+                </thead>
+                <tbody id="players">
+                </tbody>
+            </table>
 
-                <br /><br />
-                <label>Lobby code:</label> <label id="sessionContainer"></label><br />
-                <br /><br /><br />
-            </form>
+            <br /><br />
+            <label>Lobby code:</label> <label id="sessionContainer"></label><br />
+            <br /><br /><br />
             <input type="submit" value="Create lobby" onclick="toggleView()" id="LobbyButton">
             <input type="submit" class="hidden" value="Start session" onclick="StartedSession()" id="StartButton" />
 
@@ -193,10 +191,12 @@
                 function StartedSession() {
                     $.ajax({
                         type: "GET",
-                        url: "CreateSession?handler=StartGame"
+                        url: "CreateSession?handler=StartGame",
+                        complete: function () {
+                            location.replace("https://localhost:5001/CreateField")
+                        }
                     });
 
-                    location.replace("https://localhost:5001/CreateField")
                 }
             </script>
 
