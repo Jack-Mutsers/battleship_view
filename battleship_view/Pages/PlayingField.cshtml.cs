@@ -28,6 +28,8 @@ namespace battleship_view
 
         public async void OnGet()
         {
+            TimerHandler.SetTimer();
+            TimerHandler.StartTimer();
             dummy.SetDummyData();
 
             StaticResources.field.fieldNumber = StaticResources.user.orderNumber;
@@ -69,6 +71,9 @@ namespace battleship_view
 
                         sender.SendHitResponseMessage(action.coordinates, hit, gameOver);
                     }
+                    // reset timer and increase turn
+                    TimerHandler.ResetTime();
+                    
                 }
 
             }
@@ -89,6 +94,8 @@ namespace battleship_view
 
                 // start gameover function
                 HandleGameOver(response.playerId, response.field);
+                // reset timer and increase turn
+                TimerHandler.ResetTime();
             }
 
             if (transfer.type == MessageType.GameResponse)
@@ -97,6 +104,8 @@ namespace battleship_view
 
                 HandleHitResponse(response);
             }
+            // check if it is my turn
+            StaticResources.log.MyTurn = StaticResources.log.Turn == StaticResources.user.orderNumber ? true : false;
         }
 
         private void HandleGameOver(int playerId, IPlayerField field = null)
@@ -106,6 +115,8 @@ namespace battleship_view
             string logEntry = "All boats of {player} have been destroyed";
             logEntry = logEntry.Replace("{player}", player.name);
             WriteMessageToLog(logEntry);
+
+            player.GameOver = true;
 
             if (field != null)
             {
@@ -205,13 +216,18 @@ namespace battleship_view
 
         public void OnGetSurrender()
         {
-            sender.SendSurrenderMessage();
+            if (StaticResources.log.MyTurn)
+            {
+                sender.SendSurrenderMessage();
+            }
         }
 
         public ActionResult OnPostShoot([FromBody]Coordinate coordinates)
         {
-            sender.SendShootMessage(coordinates);
-
+            if (StaticResources.log.MyTurn)
+            {
+                sender.SendShootMessage(coordinates);
+            }
             return new JsonResult(true);
         }
 
