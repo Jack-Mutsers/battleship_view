@@ -49,22 +49,25 @@ function SendSurrender() {
 }
 
 function SendShootCommand() {
-    $.ajax({
-        type: "POST",
-        url: "PlayingField?handler=shoot",
-        headers: {
-            "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
-        },
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify(Coordinates),
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-        },
-        success: function (result) {
+    if (coordinates != null) {
+        $.ajax({
+            type: "POST",
+            url: "PlayingField?handler=shoot",
+            headers: {
+                "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(Coordinates),
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            success: function (result) {
 
-        }
-    });
+            }
+        });
+    }
+    coordinates = null;
 
 }
 

@@ -21,6 +21,8 @@ namespace battleship_view
         Dummy dummy = new Dummy();
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
+        public Player playerId { public get; private set; }
+
         public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
 
         public async void OnGet()
@@ -32,6 +34,9 @@ namespace battleship_view
             if (ServiceBusHandler.program == null)
             {
                 Player player = dummy.GetDummyPlayer();
+
+                //field-id doorgeven
+                playerId = player;
 
                 // initialise SessionCodeGenerator
                 SessionCodeGenerator generator = new SessionCodeGenerator();
@@ -197,7 +202,7 @@ namespace battleship_view
         }
 
         public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
-        {
+        {           
             sender.SendShootMessage(coordinates);
 
             return new JsonResult(true);
