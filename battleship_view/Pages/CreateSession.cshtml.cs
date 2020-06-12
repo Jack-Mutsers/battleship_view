@@ -47,6 +47,7 @@ namespace battleship_view
                 // create an instance of the servicebus handler
                 await ServiceBusHandler.InitiateServiceBusHandler(player, true);
                 await ServiceBusHandler.program.CreateQueueListner(PlayerType.Host);
+                ServiceBusHandler.program.QueueListner.ConnectToQueue();
 
                 ServiceBusHandler.program.QueueListner.MessageReceived += OnQueueMessageReceived;
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
