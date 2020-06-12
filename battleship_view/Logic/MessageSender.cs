@@ -25,7 +25,8 @@ namespace battleship_view.Logic
                 coordinates = shot,
                 hit = hit,
                 gameOver = gameOver,
-                playerId = playerID
+                playerId = playerID,
+                senderId = StaticResources.user.PlayerId
             };
 
             string line = JsonConvert.SerializeObject(response);

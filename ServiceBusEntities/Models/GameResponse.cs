@@ -11,6 +11,7 @@ namespace Entities.Models
     public class GameResponse
     {
         public int playerId { get; set; }
+        public int senderId { get; set; }
         public int fieldNumber { get; set; }
         public Coordinate coordinates { get; set; }
         public bool hit { get; set; }

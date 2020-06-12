@@ -178,7 +178,7 @@ namespace battleship_view
             // start gameover function if player is gameover
             if (response.gameOver)
             {
-                HandleGameOver(response.playerId);
+                HandleGameOver(response.senderId);
             }
         }
 
