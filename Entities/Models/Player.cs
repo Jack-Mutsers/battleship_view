@@ -14,7 +14,7 @@ namespace Entities.Models
         public int orderNumber { get; set; } = 0;
         public bool ready { get; set; } = false;
         public PlayerType type { get; set; } = PlayerType.Guest;
-        public bool GameOver { get; set; }
+        public bool GameOver { get; set; } = false;
     }
 
 }

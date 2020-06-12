@@ -21,7 +21,10 @@ namespace ServiceBus.ConnectionHandlers
 
             // set the session data
             QueueData = listnerData;
+        }
 
+        public void ConnectToQueue()
+        {
             // assign handler
             _ListnerQueueHandler = new ServiceBusQueueHandler(QueueData.QueueConnectionString, QueueData.queueName, ProcessQueueSessionAsync);
         }

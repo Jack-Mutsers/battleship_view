@@ -27,7 +27,6 @@ namespace battleship_view
 
         }
 
-
         public async void OnGetJoinHost(string name, string sessionCode)
         {
             // check if handler is empty, if so create an instance of it
@@ -51,7 +50,9 @@ namespace battleship_view
 
                 string message = JsonConvert.SerializeObject(StaticResources.user);
 
-                ServiceBusHandler.program.QueueWriter.SendQueueMessage(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
+                await ServiceBusHandler.program.QueueWriter.SendQueueMessage(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
+                await ServiceBusHandler.program.QueueWriter.DisconnectFromQueue();
+                ServiceBusHandler.program.QueueListner.ConnectToQueue();
             }
 
             sessionCode = StaticResources.sessionCode;

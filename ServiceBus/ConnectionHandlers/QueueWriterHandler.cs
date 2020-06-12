@@ -27,7 +27,7 @@ namespace ServiceBus.ConnectionHandlers
 
         }
 
-        public async void SendQueueMessage(string message, MessageType type, QueueData queueData = null)
+        public async Task SendQueueMessage(string message, MessageType type, QueueData queueData = null)
         {
             // create trasfer model to differentiate between message types
             Transfer transfer = new Transfer();

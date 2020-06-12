@@ -142,23 +142,27 @@
                 function StartSession() {
                     var name = $("#PlayerName").val();
 
-                    $.ajax({
-                        type: "POST",
-                        url: "CreateSession?handler=StartHost&name=" + name,
-                        headers: {
-                            "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
-                        },
-                        contentType: 'application/json; charset=utf-8',
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                        },
-                        success: function () {
-                            GetSessionCode();
+                    if (name == null || name == undefined || name == "") {
+                        alert("Must declare a name");
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "CreateSession?handler=StartHost&name=" + name,
+                            headers: {
+                                "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
+                            },
+                            contentType: 'application/json; charset=utf-8',
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                            },
+                            success: function () {
+                                GetSessionCode();
 
-                            $("#playerTable").removeClass("hidden");
-                            CheckForChanges();
-                        }
-                    });
+                                $("#playerTable").removeClass("hidden");
+                                CheckForChanges();
+                            }
+                        });
+                    }
                 }
 
                 function CheckForChanges() {

@@ -128,10 +128,9 @@ namespace battleship_view.Logic
                         // store service bus topic data in program
                         program.CreateTopicConnection(response.topicData);
 
-                        await program.QueueWriter.DisconnectFromQueue();
                         await program.QueueListner.DisconnectFromQueue();
 
-                        //program.DeleteListnerQueue();
+                        program.DeleteListnerQueue();
                     }
                 }
             }

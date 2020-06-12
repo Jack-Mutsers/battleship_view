@@ -59,7 +59,8 @@ function SendShootCommand() {
         dataType: 'json',
         data: JSON.stringify(Coordinates),
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("SendShootCommand");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
 
@@ -76,7 +77,8 @@ function GetPlayerData() {
         url: "PlayingField?handler=PlayerData",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("GetPlayerData");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
             player = result;
@@ -92,7 +94,8 @@ function GetBoats() {
         url: "PlayingField?handler=BoatCoordinates",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("GetBoats");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
             boatCoordinates = result;
@@ -149,7 +152,6 @@ function reset() {
     document.getElementById("time").innerHTML = timeElapsed;
 }
 
-
 var active = true;
 function toggleCheckForChanges() {
     active = !active;
@@ -163,7 +165,8 @@ function CheckForChanges() {
             url: "PlayingField?handler=ChangeChecker",
             contentType: 'application/json; charset=utf-8',
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+                console.log("CheckForChanges");
+                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             success: function (result) {
                 UpdateField(result.shotLog);

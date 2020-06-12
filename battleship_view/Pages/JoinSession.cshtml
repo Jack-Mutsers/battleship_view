@@ -70,13 +70,19 @@
                 var name = $("#username-input").val();
                 var sessionCode = $("#lobbycode-input").val();
 
-                $.ajax({
-                    type: "Get",
-                    url: "JoinSession?handler=JoinHost&&name=" + name + "&&sessionCode=" + sessionCode
-                });
+                if (name == null || name == undefined || name == "") {
+                    alert("Must declare a name");
+                } else if (sessionCode == null || sessionCode == undefined || sessionCode == "") {
 
-                $("#playerTable").removeClass("hidden");
-                CheckForChanges();
+                }else {
+                    $.ajax({
+                        type: "Get",
+                        url: "JoinSession?handler=JoinHost&&name=" + name + "&&sessionCode=" + sessionCode
+                    });
+
+                    $("#playerTable").removeClass("hidden");
+                    CheckForChanges();
+                }
             }
 
             function CheckForChanges() {

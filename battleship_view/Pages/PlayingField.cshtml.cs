@@ -16,8 +16,6 @@ using ServiceBusEntities.Models;
 
 namespace battleship_view
 {
-
-
     public class PlayingFieldModel : PageModel
     {
         MessageSender sender = new MessageSender();
@@ -114,7 +112,7 @@ namespace battleship_view
 
         private void HandleGameOver(int playerId, IPlayerField field = null)
         {
-            Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == playerId).First();
+            var player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.PlayerId == playerId);
 
             string logEntry = "All boats of {player} have been destroyed";
             logEntry = logEntry.Replace("{player}", player.name);
