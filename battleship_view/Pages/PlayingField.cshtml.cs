@@ -23,7 +23,9 @@ namespace battleship_view
 
         public Player playerId { public get; private set; }
 
-        public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
+        public static List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList; //static gezet
+
+
 
         public async void OnGet()
         {
@@ -199,6 +201,14 @@ namespace battleship_view
         public void OnGetSurrender()
         {
             sender.SendSurrenderMessage();
+        }
+
+        public ActionResult OnGetFieldDisable()
+        {
+            int playerCount = new int();
+            playerCount = players.Count;
+
+            return new JsonResult(playerCount);
         }
 
         public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
