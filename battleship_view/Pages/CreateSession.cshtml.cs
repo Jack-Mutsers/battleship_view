@@ -45,8 +45,8 @@ namespace battleship_view
                 player.orderNumber = 1;
 
                 // create an instance of the servicebus handler
-                bool initialised = await ServiceBusHandler.InitiateServiceBusHandler(player, true);
-                bool created = await ServiceBusHandler.program.CreateQueueListner(PlayerType.Host);
+                await ServiceBusHandler.InitiateServiceBusHandler(player, true);
+                await ServiceBusHandler.program.CreateQueueListner(PlayerType.Host);
 
                 ServiceBusHandler.program.QueueListner.MessageReceived += OnQueueMessageReceived;
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;

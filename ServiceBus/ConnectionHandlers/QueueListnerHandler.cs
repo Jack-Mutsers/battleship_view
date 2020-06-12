@@ -44,9 +44,10 @@ namespace ServiceBus.ConnectionHandlers
             await Task.CompletedTask;
         }
 
-        public void DisconnectFromQueue()
+        public async Task DisconnectFromQueue()
         {
-            _ListnerQueueHandler.DisconnectAsync();
+            await _ListnerQueueHandler.DisconnectAsync();
+            await Task.CompletedTask;
         }
     }
 }

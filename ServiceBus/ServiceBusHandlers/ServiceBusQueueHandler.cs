@@ -38,6 +38,7 @@ namespace ServiceBus.ServiceBusHandlers
                 // Send the message to the queue.
                 await _queueClient.SendAsync(encodedMessage);
 
+                await Task.CompletedTask;
             }
             catch (Exception exception)
             {
@@ -74,9 +75,11 @@ namespace ServiceBus.ServiceBusHandlers
             return Task.CompletedTask;
         }
 
-        public void DisconnectAsync()
+        public async Task DisconnectAsync()
         {
-            _queueClient.CloseAsync();
+            await _queueClient.CloseAsync();
+            _queueClient = null;
+            await Task.CompletedTask;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ServiceBus
             StaticResources.user = player;
         }
 
-        public async Task<bool> CreateQueueListner(PlayerType playerType)
+        public async Task CreateQueueListner(PlayerType playerType)
         {
             QueueTypes queueTypes = new QueueTypes();
 
@@ -31,15 +31,13 @@ namespace ServiceBus
 
             // pass over connection data
             QueueListner = new QueueListnerHandler(listnerData);
-
-            return true;
         }
 
-        public async Task<bool> CreateQueueWriter(PlayerType playerType, QueueData queueData = null)
+        public async Task CreateQueueWriter(PlayerType playerType, QueueData queueData = null)
         {
             if (QueueWriter != null)
             {
-                QueueWriter.DisconnectFromQueue();
+                await QueueWriter.DisconnectFromQueue();
             }
 
             QueueTypes queueTypes = new QueueTypes();
@@ -56,8 +54,6 @@ namespace ServiceBus
 
             // pass over connection data
             QueueWriter = new QueueWriterHandler(writerData);
-
-            return true;
         }
 
         public void CreateTopicConnection(TopicData data)

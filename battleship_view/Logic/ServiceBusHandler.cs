@@ -21,7 +21,7 @@ namespace battleship_view.Logic
 
         public static ServiceBus.Program program { get; private set; }
 
-        public async static Task<bool> InitiateServiceBusHandler(Player player, bool host = false)
+        public async static Task InitiateServiceBusHandler(Player player, bool host = false)
         {
             // create new instance of program
             program = new ServiceBus.Program(player);
@@ -35,8 +35,6 @@ namespace battleship_view.Logic
                 // create new topic with subscriptions
                 await program.CreateNewTopic();
             }
-
-            return true;
         }
 
         public static async void HandleQueueMessage(string message)
@@ -116,7 +114,7 @@ namespace battleship_view.Logic
                     // message type is response
                     // decode message to SessionResponseModel
                     SessionResponse response = JsonConvert.DeserializeObject<SessionResponse>(transfer.message);
-
+                    
                     // get the player from the response model
                     Player player = response.Player;
 
@@ -130,10 +128,10 @@ namespace battleship_view.Logic
                         // store service bus topic data in program
                         program.CreateTopicConnection(response.topicData);
 
-                        program.QueueWriter.DisconnectFromQueue();
-                        program.QueueListner.DisconnectFromQueue();
+                        await program.QueueWriter.DisconnectFromQueue();
+                        await program.QueueListner.DisconnectFromQueue();
 
-                        program.DeleteListnerQueue();
+                        //program.DeleteListnerQueue();
                     }
                 }
             }

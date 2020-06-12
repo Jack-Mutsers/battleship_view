@@ -4,6 +4,7 @@ using Entities.Models;
 using Newtonsoft.Json;
 using ServiceBus.ServiceBusHandlers;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceBus.ConnectionHandlers
 {
@@ -41,9 +42,10 @@ namespace ServiceBus.ConnectionHandlers
             await _WriterQueueHandler.SendMessagesAsync(line, QueueData.sessionCode);
         }
 
-        public void DisconnectFromQueue()
+        public async Task DisconnectFromQueue()
         {
-            _WriterQueueHandler.DisconnectAsync();
+            await _WriterQueueHandler.DisconnectAsync();
+            await Task.CompletedTask;
         }
     }
 }
