@@ -35,12 +35,14 @@
                             <div class="grid-container">
                                 @for (int i = 0; i < 10; i++)
                                 {
-                                    <div class='grid-item-row-space-divider'>
-                                        @for (int j = 0; j < 10; j++)
-                                        {
-                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item hitable grid_coordinate'>@{Write(i + "." + j);}</div>
-                                        }
-                                    </div>
+                                <div class='grid-item-row-space-divider'>
+                                    @for (int j = 0; j < 10; j++)
+                                    {
+                                        string hitable = Model.playerId.orderNumber == (a + b) ? "" : "hitable";
+                                        string activationTest = Model.players.Count() < (a + b) ? "field_miss" : hitable;
+                                        <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item @{Write(activationTest);} grid_coordinate'>@{Write(i + "." + j);}</div>
+                                    }
+                                </div>
                                 }
                             </div>
                         }

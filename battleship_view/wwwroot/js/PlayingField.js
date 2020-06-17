@@ -1,5 +1,6 @@
 ﻿var boatCoordinates = "";
 var player = "";
+var playerCount;
 var Comparison;
 var Coordinates = {
     row: 0,
@@ -64,8 +65,10 @@ function SendShootCommand() {
         },
         success: function (result) {
 
-        }
-    });
+            }
+        });
+    }
+    coordinates = null;
 
 }
 
@@ -241,3 +244,4 @@ function UpdateTurn(myTurn) {
 //function alertCompareShots() {
 //    alert("test: " + Comparison);
 //}
+
