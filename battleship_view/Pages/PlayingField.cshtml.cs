@@ -26,8 +26,6 @@ namespace battleship_view
 
         public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
 
-
-
         public async void OnGet()
         {
             TimerHandler.SetTimer();

@@ -65,11 +65,8 @@ function SendShootCommand() {
         },
         success: function (result) {
 
-            }
-        });
-    }
-    coordinates = null;
-
+        }
+    });
 }
 
 // get current player data to build field
@@ -190,17 +187,19 @@ function UpdateField(shotLog) {
         shotLog.splice(0, (oldShotLog.length));
 
     $.each(shotLog, function (key, LogEntry) {
-        var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinate.field + "][data-row=" + LogEntry.coordinate.row + "][data-col=" + LogEntry.coordinate.col + "]");
+        if (LogEntry.coordinate != undefined && LogEntry.coordinate != null) {
+            var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinate.field + "][data-row=" + LogEntry.coordinate.row + "][data-col=" + LogEntry.coordinate.col + "]");
 
-        if (LogEntry.hit == true) {
-            $(coordinate).addClass("field_hit");
-            $(coordinate).removeClass("hitable");
-        } else {
-            $(coordinate).addClass("field_miss");
-            $(coordinate).removeClass("hitable");
+            if (LogEntry.hit == true) {
+                $(coordinate).addClass("field_hit");
+                $(coordinate).removeClass("hitable");
+            } else {
+                $(coordinate).addClass("field_miss");
+                $(coordinate).removeClass("hitable");
+            }
+
+            oldShotLog.push(LogEntry);
         }
-
-        oldShotLog.push(LogEntry);
     });
 }
 
