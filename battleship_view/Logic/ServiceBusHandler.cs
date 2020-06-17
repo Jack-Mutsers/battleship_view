@@ -89,7 +89,7 @@ namespace battleship_view.Logic
                             await program.CreateQueueWriter(PlayerType.Host, transfer.QueueData);
 
                             // send response data on the newly joined writer queue
-                            program.QueueWriter.SendQueueMessage(line, MessageType.Response);
+                            await program.QueueWriter.SendQueueMessageAsync(line, MessageType.Response);
 
                             // disconnect from the writer queue
                             //program.QueueWriter.DisconnectFromQueue();

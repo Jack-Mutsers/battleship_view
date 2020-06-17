@@ -50,7 +50,7 @@ namespace battleship_view
 
                 string message = JsonConvert.SerializeObject(StaticResources.user);
 
-                await ServiceBusHandler.program.QueueWriter.SendQueueMessage(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
+                await ServiceBusHandler.program.QueueWriter.SendQueueMessageAsync(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
                 await ServiceBusHandler.program.QueueWriter.DisconnectFromQueue();
                 ServiceBusHandler.program.QueueListner.ConnectToQueue();
             }

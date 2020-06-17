@@ -27,7 +27,7 @@ $(document).on("click", ".grid-item.hitable", function (e) {
     Coordinates.field = $(element).data("field");
     Coordinates.col = $(element).data("col");
     Coordinates.row = $(element).data("row");
-    console.log("field: " + Coordinates.field + " -- col: " + Coordinates.col + " -- row: " + Coordinates.row);
+    //console.log("field: " + Coordinates.field + " -- col: " + Coordinates.col + " -- row: " + Coordinates.row);
 })
 
 //function ColorCoordinate(col, row, hit) {
@@ -99,7 +99,7 @@ function GetBoats() {
         },
         success: function (result) {
             boatCoordinates = result;
-            console.log(boatCoordinates);
+            //console.log(boatCoordinates);
             SetBoats();
         }
     });
@@ -169,9 +169,10 @@ function CheckForChanges() {
                 console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
             },
             success: function (result) {
+                console.log(result);
                 UpdateField(result.shotLog);
                 UpdateLog(result.gameLog);
-                UpdateTurn(result.myTurn);
+                UpdateTurn(result.myTurn, result.Turn);
                 $("#time").html(result.time);
             },
             complete: function () {
@@ -213,7 +214,11 @@ function UpdateLog(gameLog) {
     });
 }
 
-function UpdateTurn(myTurn) {
+function UpdateTurn(myTurn, Turnnr) {
+
+    console.log("myTurn : " + myTurn);
+    console.log("Turnnr : " + Turnnr);
+
     if (myTurn) {
         $('#btnShoot').prop('disabled', false)
         $('#btnSurrender').prop('disabled', false)
@@ -221,6 +226,17 @@ function UpdateTurn(myTurn) {
         $('#btnShoot').prop('disabled', true)
         $('#btnSurrender').prop('disabled', true)
     }
+
+    //var players = $(".player_name_container")
+
+    //$.each(players, function (key, val) {
+    //    console.log(val);
+    //    $(val).removeClass("activePlayer");
+    //});
+
+    //var test = "#player" + Turnnr;
+    //alert(test);
+    //alert("sdafas");
 }
 
 
