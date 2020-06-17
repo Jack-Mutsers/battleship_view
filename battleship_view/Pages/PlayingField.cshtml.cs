@@ -203,14 +203,6 @@ namespace battleship_view
             sender.SendSurrenderMessage();
         }
 
-        //public ActionResult OnGetFieldDisable()
-        //{
-        //    int playerCount = new int();
-        //    playerCount = players.Count;
-
-        //    return new JsonResult(playerCount);
-        //}
-
         public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
         {           
             sender.SendShootMessage(coordinates);
