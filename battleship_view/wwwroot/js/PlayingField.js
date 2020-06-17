@@ -238,29 +238,29 @@ function UpdateLog(gameLog) {
 
 //test field disable
 
-$.ajax({
-    type: "GET",
-    url: "PlayingField?handler=FieldDisable",
-    contentType: 'application/json; charset=utf-8',
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-    },
-    success: function (result) {
-        playerCount = result;
-    }
-});
+//$.ajax({
+//    type: "GET",
+//    url: "PlayingField?handler=FieldDisable",
+//    contentType: 'application/json; charset=utf-8',
+//    error: function (XMLHttpRequest, textStatus, errorThrown) {
+//        alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+//    },
+//    success: function (result) {
+//        playerCount = result;
+//    }
+//});
 
-function FieldDisable() {
+//function FieldDisable() {
 
-    for (i = 1; i < 5; i++) {
+//    for (i = 1; i < 5; i++) {
 
-        fieldNr++;
+//        fieldNr++;
 
-        var coordinate = $(".grid_coordinate[data-field=" + fieldNr + "][data-row=" + LogEntry.coordinates.row + "][data-col=" + LogEntry.coordinates.col + "]")
+//        var coordinate = $(".grid_coordinate[data-field=" + fieldNr + "][data-row=" + LogEntry.coordinates.row + "][data-col=" + LogEntry.coordinates.col + "]")
 
-        if (fieldnr >= playerCount) {
-            $(coordinate).addClass("field_miss");
-            $(coordinate).removeClass("hitable");
-        }
-    }
-}
+//        if (fieldnr >= playerCount) {
+//            $(coordinate).addClass("field_miss");
+//            $(coordinate).removeClass("hitable");
+//        }
+//    }
+//}

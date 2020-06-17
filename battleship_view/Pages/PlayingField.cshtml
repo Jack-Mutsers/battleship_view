@@ -38,7 +38,7 @@
                                     <div class='grid-item-row-space-divider'>
                                         @for (int j = 0; j < 10; j++)
                                         {
-                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item @if((a+b) != Model.playerId.ordernumber){ Write("hitable"); } grid_coordinate'>@{Write(i + "." + j);}</div>
+                                            <div id='square@{Write(i);}.@{Write(j);}' data-col='@{Write(i);}' data-row='@{Write(j);}' data-field='@{Write(a + b);}' class='grid-item @{  Write(Model.players.Count() < (a + b) ? "" : "hitable"); }  grid_coordinate'>@{Write(i + "." + j);}</div>
                                         }
                                     </div>
                                 }

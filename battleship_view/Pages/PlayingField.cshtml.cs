@@ -21,9 +21,9 @@ namespace battleship_view
         Dummy dummy = new Dummy();
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
-        public Player playerId { public get; private set; }
+        public Player playerId { get; private set; } = StaticResources.user;
 
-        public static List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList; //static gezet
+        public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
 
 
 
@@ -203,13 +203,13 @@ namespace battleship_view
             sender.SendSurrenderMessage();
         }
 
-        public ActionResult OnGetFieldDisable()
-        {
-            int playerCount = new int();
-            playerCount = players.Count;
+        //public ActionResult OnGetFieldDisable()
+        //{
+        //    int playerCount = new int();
+        //    playerCount = players.Count;
 
-            return new JsonResult(playerCount);
-        }
+        //    return new JsonResult(playerCount);
+        //}
 
         public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
         {           
