@@ -31,6 +31,11 @@ namespace Repository
             Update(session);
         }
 
+        public void CheckForInvalidActiveSessions()
+        {
+            RawQuery("update session set active = 0 where DATEDIFF(hh, creation_date, GETDATE()) > 5 AND active = 1;");
+        }
+
         public bool ValidateIfActive(string sessionCode)
         {
             DateTime date = DateTime.Now;

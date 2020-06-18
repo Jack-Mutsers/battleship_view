@@ -27,6 +27,7 @@ namespace Database.Controllers
 
         public bool CheckIfSessionExists(string sessionCode)
         {
+            _repository.session.CheckForInvalidActiveSessions();
             return _repository.session.ValidateIfActive(sessionCode);
         }
 

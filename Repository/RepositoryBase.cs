@@ -41,5 +41,15 @@ namespace Repository
         {
             this.RepositoryContext.Set<T>().Remove(entity);
         }
+
+        public IQueryable<T> FindByRawQuery(string query)
+        {
+            return this.RepositoryContext.Set<T>().FromSqlRaw(query).AsQueryable().AsNoTracking();
+        }
+
+        public void RawQuery(string query)
+        {
+            this.RepositoryContext.Set<T>().FromSqlRaw(query).AsNoTracking();
+        }
     }
 }

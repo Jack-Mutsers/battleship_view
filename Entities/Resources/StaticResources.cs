@@ -13,7 +13,7 @@ namespace Entities.Resources
         public static List<Player> PlayerList { get; set; } = new List<Player>();
         public static string sessionCode { get; set; } = "";
         public static IPlayerField field { get; set; }
-        public static Log log { get; set; } = new Log();
+        public static ChangeLog log { get; set; } = new ChangeLog();
         public static bool startLobby { get; set; } = false;
         public static bool startGame { get; set; } = false;
         public static bool lobbyStarted { get; set; } = false;

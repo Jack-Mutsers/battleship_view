@@ -145,6 +145,13 @@ namespace battleship_view
                 }
 
             }
+
+            int count = StaticResources.PlayerList.Where(p => p.GameOver == false).Count();
+
+            if (count == 1)
+            {
+                StaticResources.log.winner = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false).name;
+            }
         }
 
         public void WriteMessageToLog(string logEntry)
@@ -223,8 +230,9 @@ namespace battleship_view
 
         public void OnGetSurrender()
         {
-            if (StaticResources.log.MyTurn)
+            if (StaticResources.user.GameOver == false)
             {
+                StaticResources.user.GameOver = true;
                 sender.SendSurrenderMessage();
             }
         }

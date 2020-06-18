@@ -40,7 +40,7 @@ namespace battleship_view.Models
                 row == 0-9
             */
 
-            Log log = StaticResources.log;
+            ChangeLog log = StaticResources.log;
             int logCount = log.shotLog.Count;
 
             int field = 2;
