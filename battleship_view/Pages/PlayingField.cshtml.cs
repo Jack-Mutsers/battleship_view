@@ -188,11 +188,29 @@ namespace battleship_view
 
             WriteMessageToLog(newstring);
 
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                if (response.hit == true) //highscore bijhouden
+                {
+                    StaticResources.records.hits += 1;
+                    StaticResources.records.currenctHitStreak += 1;
+                    if (StaticResources.records.currenctHitStreak > StaticResources.records.highestHitStreak)
+                    {
+                        StaticResources.records.highestHitStreak = StaticResources.records.currenctHitStreak;
+                    }
+                }
+                else
+                {
+                    StaticResources.records.currenctHitStreak = 0;
+                }
+            }
+
             // start gameover function if player is gameover
             if (response.gameOver)
             {
                 HandleGameOver(response.senderId);
             }
+            
         }
 
 
@@ -243,6 +261,7 @@ namespace battleship_view
             if (StaticResources.log.MyTurn)
             {
                 StaticResources.log.MyTurn = false;
+                StaticResources.records.shots += 1; //highscores bijhouden
                 sender.SendShootMessage(coordinates);
             }
             return new JsonResult(true);

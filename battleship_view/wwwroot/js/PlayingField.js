@@ -16,7 +16,6 @@ var oldGameLog = [];
 //highscore variabelen
 var shots = 0;
 var hits = 0;
-var boatsSunk = 0;
 var streak = 0;
 var highStreak = 0;
 

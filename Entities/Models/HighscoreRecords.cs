@@ -10,5 +10,6 @@ namespace Entities.Models
         public int hits { get; set; } = 0;
         public int highestHitStreak { get; set; } = 0;
         public int currenctHitStreak { get; set; } = 0;
+
     }
 }

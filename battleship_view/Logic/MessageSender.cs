@@ -26,8 +26,9 @@ namespace battleship_view.Logic
                 hit = hit,
                 gameOver = gameOver,
                 playerId = playerID,
-                senderId = StaticResources.user.PlayerId
+                senderId = StaticResources.user.PlayerId                
             };
+                      
 
             string line = JsonConvert.SerializeObject(response);
 
