@@ -250,26 +250,30 @@
                     <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
                     <div ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
                 </div>
-                <div class="button-container1">
-                    @*<a href="/PlayingField" >*@<input type="button" class="button button1" onclick="GetCoordinates()" value="Ready" />@*</a>*@
-                    <a href="/PlayingField"><input type="button" role="button" value="go to playingfield" /></a>
+
+                <div id="playerTable" class="table">
+                    <div class="row theader">
+                        <div class="col-md-6">ready</div>
+                        <div class="col-md-6">name</div>
+                    </div>
+                    @foreach (Entities.Models.Player player in Model.players)
+                    {
+                        <div class="row tBodyItem">
+                            <div class="col-md-6" id="@{Write("player" + player.PlayerId);}">No</div>
+                            <div class="col-md-6">@{Write(player.name);}</div>
+                        </div>
+                    }
                 </div>
-                <div class="button-container2">
-                    <input type="button" class="button button2" onclick="rotateElement()" value="Rotate">
+                <div class="row">
+                    <div class="button-container1">
+                        @*<a href="/PlayingField" >*@<input type="button" class="button button1" onclick="GetCoordinates()" value="Ready" />@*</a>*@
+                        <a href="/PlayingField"><input type="button" role="button" value="go to playingfield" /></a>
+                    </div>
+                    <div class="button-container2">
+                        <input type="button" class="button button2" onclick="rotateElement()" value="Rotate">
+                    </div>
                 </div>
             </div>
-
-            <table id="playerTable" class="hidden right-side">
-                <thead>
-                    <tr class="">
-                        <th class="tableHeader">order number</th>
-                        <th class="tableHeader">name</th>
-                    </tr>
-                </thead>
-                <tbody id="players">
-                </tbody>
-            </table>
-
         </body>
 
     </main>

@@ -17,6 +17,8 @@ namespace battleship_view
 {
     public class CreateFieldModel : PageModel
     {
+        public List<Player> players { get; set; } = StaticResources.PlayerList;
+
         private bool start { 
             get { return StaticResources.startGame; } 
             set { StaticResources.startGame = value; }

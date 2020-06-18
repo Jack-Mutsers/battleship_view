@@ -3,9 +3,10 @@
 
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    grid-column-gap: 200px;
+    grid-template-columns: repeat(3, auto);
     justify-items: center;
+    max-width: 1050px;
+    min-width: 1050px;
 }
 
 .field-grid {
@@ -149,4 +150,25 @@
     background-color: #f5f5f5;
     width: 40%;
     float: left;
+}
+
+#playerTable{
+    border: 1px solid black;
+    width: 260px;
+    height: 250px;
+    padding: 0 15px;
+}
+
+#playerTable .theader {
+    border-bottom: 1px solid gray;
+    min-height: 35px;
+    max-height: 35px;
+    font-weight: bold;
+}
+
+#playerTable .tBodyItem {
+    min-height: 35px;
+    max-height: 35px;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
