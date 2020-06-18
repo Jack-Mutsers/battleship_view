@@ -13,6 +13,7 @@ using Entities.Resources;
 using GameLogic;
 using Contracts;
 using ServiceBusEntities.Models;
+using Database.Controllers;
 
 namespace battleship_view
 {
@@ -125,6 +126,7 @@ namespace battleship_view
 
             player.GameOver = true;
 
+
             if (field != null)
             {
                 // display all boats in field as sunk
@@ -151,7 +153,14 @@ namespace battleship_view
             if (count == 1)
             {
                 TimerHandler.StopTimer();
-                StaticResources.log.winner = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false).name;
+                player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
+                StaticResources.log.winner = player.name;
+            }
+
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                HighscoreController highscoreController = new HighscoreController();
+                highscoreController.StoreNewHighscoreRecord(StaticResources.records);
             }
         }
 
