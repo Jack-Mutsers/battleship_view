@@ -151,34 +151,41 @@ function reset() {
     document.getElementById("time").innerHTML = timeElapsed;
 }
 
-var active = true;
-function toggleCheckForChanges() {
-    active = !active;
-}
-
 CheckForChanges();
 function CheckForChanges() {
-    if (active == true) {
-        $.ajax({
-            type: "GET",
-            url: "PlayingField?handler=ChangeChecker",
-            contentType: 'application/json; charset=utf-8',
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log("CheckForChanges");
-                console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-            },
-            success: function (result) {
-                UpdateField(result.shotLog);
-                UpdateLog(result.gameLog);
-                UpdateTurn(result.myTurn, result.turn);
-                $("#time").html(result.time);
-            },
-            complete: function () {
-                //setTimeout(CheckForChanges, 3000);
-                setTimeout(CheckForChanges, 1000);
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=ChangeChecker",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("CheckForChanges");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            UpdateField(result.shotLog);
+            UpdateLog(result.gameLog);
+            UpdateTurn(result.myTurn, result.turn);
+
+            if (result.winner != null && result.winner != undefined && result.winner != "") {
+                handelGameOver(result.winner);
             }
-        });
-    }
+
+            $("#time").html(result.time);
+        },
+        complete: function () {
+            //setTimeout(CheckForChanges, 3000);
+            setTimeout(CheckForChanges, 1000);
+        }
+    });
+}
+
+function handelGameOver(name) {
+
+    // set winner name in element
+
+
+    // remove hide class from banner
+
 }
 
 function UpdateField(shotLog) {

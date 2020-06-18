@@ -150,6 +150,7 @@ namespace battleship_view
 
             if (count == 1)
             {
+                TimerHandler.StopTimer();
                 StaticResources.log.winner = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false).name;
             }
         }
