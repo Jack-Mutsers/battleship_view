@@ -52,6 +52,9 @@ namespace Database.Controllers
             _repository.Save();
         }
 
-
+        public Session FindByCode(string sessionCode)
+        {
+            return _repository.session.GetByCode(sessionCode);
+        }
     }
 }

@@ -31,14 +31,11 @@ namespace Repository
                     case "shots":
                         highscores = FindAll().OrderBy(pl => pl.shots).Include(pl => pl.Player).ToList();
                         break;
-                    case "accuracy":
-                        highscores = FindAll().OrderBy(pl => pl.accuracy).Include(pl => pl.Player).ToList();
+                    case "hits":
+                        highscores = FindAll().OrderBy(pl => pl.hits).Include(pl => pl.Player).ToList();
                         break;
                     case "hit_streak":
                         highscores = FindAll().OrderBy(pl => pl.hit_streak).Include(pl => pl.Player).ToList();
-                        break;
-                    case "boats_sunk":
-                        highscores = FindAll().OrderBy(pl => pl.boats_sunk).Include(pl => pl.Player).ToList();
                         break;
                 }
             }
@@ -49,14 +46,11 @@ namespace Repository
                     case "shots":
                         highscores = FindAll().OrderByDescending(pl => pl.shots).Include(pl => pl.Player).ToList();
                         break;
-                    case "accuracy":
-                        highscores = FindAll().OrderByDescending(pl => pl.accuracy).Include(pl => pl.Player).ToList();
+                    case "hits":
+                        highscores = FindAll().OrderByDescending(pl => pl.hits).Include(pl => pl.Player).ToList();
                         break;
                     case "hit_streak":
                         highscores = FindAll().OrderByDescending(pl => pl.hit_streak).Include(pl => pl.Player).ToList();
-                        break;
-                    case "boats_sunk":
-                        highscores = FindAll().OrderByDescending(pl => pl.boats_sunk).Include(pl => pl.Player).ToList();
                         break;
                 }
             }

@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Contracts;
 using DatabaseEntities.DatabaseModels;
+using DatabaseEntities.DataTransferObjects;
 using Entities;
+using Entities.Models;
+using Entities.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
@@ -46,14 +49,11 @@ namespace Database.Controllers
                     case "shots":
                         result = highscores.OrderBy(pl => pl.shots).ToList();
                         break;
-                    case "accuracy":
-                        result = highscores.OrderBy(pl => pl.accuracy).ToList();
+                    case "hits":
+                        result = highscores.OrderBy(pl => pl.hits).ToList();
                         break;
                     case "hit_streak":
                         result = highscores.OrderBy(pl => pl.hit_streak).ToList();
-                        break;
-                    case "boats_sunk":
-                        result = highscores.OrderBy(pl => pl.boats_sunk).ToList();
                         break;
                 }
             }
@@ -64,14 +64,11 @@ namespace Database.Controllers
                     case "shots":
                         result = highscores.OrderByDescending(pl => pl.shots).ToList();
                         break;
-                    case "accuracy":
-                        result = highscores.OrderByDescending(pl => pl.accuracy).ToList();
+                    case "hits":
+                        result = highscores.OrderByDescending(pl => pl.hits).ToList();
                         break;
                     case "hit_streak":
                         result = highscores.OrderByDescending(pl => pl.hit_streak).ToList();
-                        break;
-                    case "boats_sunk":
-                        result = highscores.OrderByDescending(pl => pl.boats_sunk).ToList();
                         break;
                 }
             }
@@ -87,12 +84,21 @@ namespace Database.Controllers
             return highscores;
         }
 
-
-
-
-
-        public void Post(Highscore highscore) 
+        public void StoreNewHighscoreRecord(HighscoreRecords records) 
         {
+            SessionController sessionController = new SessionController();
+
+            Session session = sessionController.FindByCode(StaticResources.sessionCode);
+
+            Highscore highscore = new Highscore()
+            {
+                PlayerId = StaticResources.user.PlayerId,
+                session_id = session.id,
+                shots = records.shots,
+                hits = records.hits,
+                hit_streak = records.highestHitStreak
+            };
+
             _repository.highscore.CreateHighscore(highscore);
             _repository.Save();
         }

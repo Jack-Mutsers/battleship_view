@@ -13,6 +13,7 @@ using Entities.Resources;
 using GameLogic;
 using Contracts;
 using ServiceBusEntities.Models;
+using Database.Controllers;
 
 namespace battleship_view
 {
@@ -125,6 +126,7 @@ namespace battleship_view
 
             player.GameOver = true;
 
+
             if (field != null)
             {
                 // display all boats in field as sunk
@@ -150,7 +152,15 @@ namespace battleship_view
 
             if (count == 1)
             {
-                StaticResources.log.winner = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false).name;
+                TimerHandler.StopTimer();
+                player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
+                StaticResources.log.winner = player.name;
+            }
+
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                HighscoreController highscoreController = new HighscoreController();
+                highscoreController.StoreNewHighscoreRecord(StaticResources.records);
             }
         }
 
@@ -187,11 +197,29 @@ namespace battleship_view
 
             WriteMessageToLog(newstring);
 
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                if (response.hit == true) //highscore bijhouden
+                {
+                    StaticResources.records.hits += 1;
+                    StaticResources.records.currenctHitStreak += 1;
+                    if (StaticResources.records.currenctHitStreak > StaticResources.records.highestHitStreak)
+                    {
+                        StaticResources.records.highestHitStreak = StaticResources.records.currenctHitStreak;
+                    }
+                }
+                else
+                {
+                    StaticResources.records.currenctHitStreak = 0;
+                }
+            }
+
             // start gameover function if player is gameover
             if (response.gameOver)
             {
                 HandleGameOver(response.senderId);
             }
+            
         }
 
 
@@ -242,6 +270,7 @@ namespace battleship_view
             if (StaticResources.log.MyTurn)
             {
                 StaticResources.log.MyTurn = false;
+                StaticResources.records.shots += 1; //highscores bijhouden
                 sender.SendShootMessage(coordinates);
             }
             return new JsonResult(true);
