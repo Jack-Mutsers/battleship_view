@@ -49,14 +49,11 @@ namespace Database.Controllers
                     case "shots":
                         result = highscores.OrderBy(pl => pl.shots).ToList();
                         break;
-                    case "accuracy":
-                        result = highscores.OrderBy(pl => pl.accuracy).ToList();
+                    case "hits":
+                        result = highscores.OrderBy(pl => pl.hits).ToList();
                         break;
                     case "hit_streak":
                         result = highscores.OrderBy(pl => pl.hit_streak).ToList();
-                        break;
-                    case "boats_sunk":
-                        result = highscores.OrderBy(pl => pl.boats_sunk).ToList();
                         break;
                 }
             }
@@ -67,14 +64,11 @@ namespace Database.Controllers
                     case "shots":
                         result = highscores.OrderByDescending(pl => pl.shots).ToList();
                         break;
-                    case "accuracy":
-                        result = highscores.OrderByDescending(pl => pl.accuracy).ToList();
+                    case "hits":
+                        result = highscores.OrderByDescending(pl => pl.hits).ToList();
                         break;
                     case "hit_streak":
                         result = highscores.OrderByDescending(pl => pl.hit_streak).ToList();
-                        break;
-                    case "boats_sunk":
-                        result = highscores.OrderByDescending(pl => pl.boats_sunk).ToList();
                         break;
                 }
             }
