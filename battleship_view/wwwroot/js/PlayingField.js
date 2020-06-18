@@ -18,7 +18,7 @@ var shots = 0;
 var hits = 0;
 var streak = 0;
 var highStreak = 0;
-
+var update = true;
 
 $(document).on("click", ".grid-item.hitable", function (e) {
     var element = e.target;
@@ -172,14 +172,17 @@ function CheckForChanges() {
             $("#time").html(result.time);
         },
         complete: function () {
-            //setTimeout(CheckForChanges, 3000);
-            setTimeout(CheckForChanges, 1000);
+            if (update) {
+                //setTimeout(CheckForChanges, 3000);
+                setTimeout(CheckForChanges, 1000);
+            }
         }
     });
 }
 
 function handelGameOver(name) {
-
+    console.log(name + " has won the game");
+    update = false;
     // set winner name in element
 
 

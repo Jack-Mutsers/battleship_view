@@ -12,10 +12,8 @@ namespace DatabaseEntities.DataTransferObjects
 
         public int shots { get; set; }
 
-        public int accuracy { get; set; }
+        public int hits { get; set; }
 
         public int hit_streak { get; set; }
-
-        public int boats_sunk { get; set; }
     }
 }

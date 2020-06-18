@@ -15,6 +15,7 @@ namespace DatabaseEntities.DatabaseModels
 
         public int shots { get; set; }
 
+        [Column("accuracy")]
         public int hits { get; set; }
         
         public int hit_streak { get; set; }

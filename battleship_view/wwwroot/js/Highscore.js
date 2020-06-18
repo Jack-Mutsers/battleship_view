@@ -31,9 +31,8 @@
             html += '<tr><td class="table_center">' + val.id +
                 '</td><td class="table_center">' + val.player.name +
                 '</td><td class="table_center">' + val.shots +
-                '</td><td class="table_center">' + val.accuracy +
-                '%</td><td class="table_center">' + val.hit_streak +
-                '</td><td class="table_center">' + val.boats_sunk +
+                '</td><td class="table_center">' + val.hits +
+                '</td><td class="table_center">' + val.hit_streak +
             '</td></tr>';
         });
 
