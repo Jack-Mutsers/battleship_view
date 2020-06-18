@@ -13,6 +13,13 @@ var row;
 var oldShotLog = [];
 var oldGameLog = [];
 
+//highscore variabelen
+var shots = 0;
+var hits = 0;
+var boatsSunk = 0;
+var streak = 0;
+var highStreak = 0;
+
 
 $(document).on("click", ".grid-item.hitable", function (e) {
     var element = e.target;
@@ -29,14 +36,6 @@ $(document).on("click", ".grid-item.hitable", function (e) {
     Coordinates.row = $(element).data("row");
     //console.log("field: " + Coordinates.field + " -- col: " + Coordinates.col + " -- row: " + Coordinates.row);
 })
-
-//function ColorCoordinate(col, row, hit) {
-//    if (hit == true) {
-//        document.getElementById("square" + col + "." + row).style.backgroundColor = "red";
-//    } else {
-//        document.getElementById("square" + col + "." + row).style.backgroundColor = "#1f4a44";
-//    }
-//}
 
 function SendSurrender() {
     $.ajax({
@@ -64,7 +63,7 @@ function SendShootCommand() {
             console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-
+            shots++;
         }
     });
 }
@@ -193,6 +192,11 @@ function UpdateField(shotLog) {
             if (LogEntry.hit == true) {
                 $(coordinate).addClass("field_hit");
                 $(coordinate).removeClass("hitable");
+                hits++;
+                streak++;
+                if (streak > highStreak) {
+                    highStreak = streak;
+                }
             } else {
                 $(coordinate).addClass("field_miss");
                 $(coordinate).removeClass("hitable");
@@ -232,25 +236,3 @@ function UpdateTurn(myTurn, Turnnr) {
     var test = "#player" + Turnnr;
     $(test).addClass("activePlayer");
 }
-
-
-//testen
-//function CompareShots() {
-//    $.ajax({
-//        type: "GET",
-//        url: "PlayingField?handler=CompareShot",
-//        contentType: 'application/json; charset=utf-8',
-//        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-//        },
-//        success: function (result) {
-//            Comparison = result;
-//            alertCompareShots();
-//        }
-//    });
-//}
-
-//function alertCompareShots() {
-//    alert("test: " + Comparison);
-//}
-

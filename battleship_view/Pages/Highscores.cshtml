@@ -3,58 +3,13 @@
 @{
     ViewData["Title"] = "Highscores";
 }
-<script type="text/javascript" src="~/js/Highscore.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/css/Highscores.css">
+    <script type="text/javascript" src="~/js/Highscore.js"></script>
 
 <div class="container">
     <main role="main" class="pb-3">
-        <style>
-            h1.title-page {
-                text-align: center;
-                background-color: grey;
-                padding: 16px 0px 16px 0px;
-                border: 4px solid red;
-            }
-
-            .back {
-                color: black;
-                text-align: center;
-                padding: 4px 32px;
-                background-color: lightgrey;
-            }
-
-            table {
-                width: 100%;
-                border: 3px solid black;
-            }
-
-            .table_center {
-                text-align: center;
-                border: 2px solid black;
-                width: 100px;
-            }
-
-            td {
-                border: 1px solid black;
-                width: 100px;
-            }
-
-            .filter {
-                margin: 5px 5px 5px 5px;
-            }
-
-            .column {
-                float: left;
-                padding: 15px;
-            }
-
-                .column.side {
-                    width: 25%;
-                }
-
-                .column.middle {
-                    width: 50%;
-                }
-        </style>
+        
         <body>
             @Html.AntiForgeryToken()
             <h1 class="title-page">Highscores</h1>

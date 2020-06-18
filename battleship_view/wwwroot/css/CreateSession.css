@@ -1,0 +1,71 @@
+﻿body {
+}
+
+input[type=text], select {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+input[type=Back] {
+    width: 10%;
+    background-color: gray;
+    border: 1px solid #1e1c1c;
+    resize: none;
+    border-radius: 4px;
+}
+
+.listbox {
+    position: fixed;
+    right: 2px;
+    width: 350px;
+    height: 300px;
+    font-size: 24px;
+}
+
+
+
+input[type=submit] {
+    width: 45%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+.hidden {
+    display: none !important;
+}
+
+#playerTable {
+    width: 310px;
+}
+
+    #playerTable thead {
+        border-bottom: 1px solid black;
+    }
+
+.tableHeader {
+    width: 50%;
+}
+
+.right-side {
+    border-style: solid;
+    border-color: black;
+    border-width: 1.3px;
+    background-color: #f5f5f5;
+    width: 40%;
+    float: right;
+}

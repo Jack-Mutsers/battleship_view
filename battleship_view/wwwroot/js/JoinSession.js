@@ -1,58 +1,66 @@
-﻿var players = "";
-
-function JoinLobby() {
-    //var username = document.getElementById('username-input').value;
-    //var lobbycode = document.getElementById('lobbycode-input').value;
-
-    //document.getElementById('lobby').style.display = "inline-block";
-    //document.getElementById('players').innerHTML = "<ul><li>" + username + "</li></ul>"
-    //document.getElementById('players').style.display = "inline-block";
-    //document.getElementById('join').style.display = "none";
-    //document.getElementById('back').style.display = "none";
-
-    //document.getElementById('username').innerHTML = "<p>Username: " + username + "</p>";
-    //document.getElementById('lobbycode').innerHTML = "<p>Lobbycode: " + lobbycode + "</p>";
-
+﻿function JoinSession() {
     var name = $("#username-input").val();
     var sessionCode = $("#lobbycode-input").val();
 
+    if (name == null || name == undefined || name == "") {
+        alert("Must declare a name");
+    } else if (sessionCode == null || sessionCode == undefined || sessionCode == "") {
+
+    } else {
+        $.ajax({
+            type: "Get",
+            url: "JoinSession?handler=JoinHost&&name=" + name + "&&sessionCode=" + sessionCode
+        });
+
+        $("#playerTable").removeClass("hidden");
+        CheckForChanges();
+    }
+}
+
+function CheckForChanges() {
+    CheckForStartGame();
     $.ajax({
-        type: "POST",
-        url: "Highscores?handler=ajax",
-        headers: {
-            "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
-        },
+        type: "GET",
+        url: "JoinSession?handler=ChangeChecker",
         contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify(filterData),
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-            List = result;
-            SetHighscores(result);
+            if (result != undefined && result != null) {
+                UpdatePlayers(result);
+            }
+        },
+        complete: function () {
+            setTimeout(CheckForChanges, 1000);
         }
     });
+}
 
-    setInterval(function () {
-        $.ajax({
-            type: "GET",
-            url: "JoinSession?handler=Players",
-            contentType: 'application/json; charset=utf-8',
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-            },
-            success: function (result) {
-                players = result;
-                UpdatePlayers();
+function UpdatePlayers(players) {
+
+    $("#players").html("");
+
+    $.each(players, function (key, player) {
+        console.log(player);
+        $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
+    });
+}
+
+function CheckForStartGame() {
+    $.ajax({
+        type: "GET",
+        url: "JoinSession?handler=StartCheck",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            console.log(result);
+            if (result == true) {
+                location.replace("https://localhost:5001/CreateField");
             }
-        });
-    }, 3000);
-    
+        }
+    });
 }
-
-function UpdatePlayers() {
-    $("#players").html("<p>" + players + "</p>")
-}
-
 
