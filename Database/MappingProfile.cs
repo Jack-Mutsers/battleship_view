@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Entities.DataTransferObjects;
-using Entities.DatabaseModels;
+using DatabaseEntities.DatabaseModels;
+using DatabaseEntities.DataTransferObjects;
 using System;
 
 namespace Database

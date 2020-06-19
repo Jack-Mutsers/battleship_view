@@ -1,15 +1,9 @@
-﻿using Microsoft.Azure.ServiceBus;
-using Newtonsoft.Json;
+﻿using Entities.DataModels;
+using Microsoft.Azure.ServiceBus;
+using ServiceBus.ServiceBusHandlers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Entities.Models;
-using Entities.DataModels;
-using System.Collections.Generic;
-using System;
-using Entities.Enums;
-using ServiceBus.ServiceBusHandlers;
-using Entities.Resources;
 
 namespace ServiceBus.ConnectionHandlers
 {
@@ -27,7 +21,10 @@ namespace ServiceBus.ConnectionHandlers
 
             // set the session data
             QueueData = listnerData;
+        }
 
+        public void ConnectToQueue()
+        {
             // assign handler
             _ListnerQueueHandler = new ServiceBusQueueHandler(QueueData.QueueConnectionString, QueueData.queueName, ProcessQueueSessionAsync);
         }
@@ -50,9 +47,10 @@ namespace ServiceBus.ConnectionHandlers
             await Task.CompletedTask;
         }
 
-        public void DisconnectFromQueue()
+        public async Task DisconnectFromQueue()
         {
-            _ListnerQueueHandler.DisconnectAsync();
+            await _ListnerQueueHandler.DisconnectAsync();
+            await Task.CompletedTask;
         }
     }
 }

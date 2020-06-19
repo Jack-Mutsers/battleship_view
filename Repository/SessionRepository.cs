@@ -1,10 +1,8 @@
 ﻿using Contracts;
+using DatabaseEntities.DatabaseModels;
 using Entities;
-using Entities.DatabaseModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Repository
 {
@@ -31,6 +29,11 @@ namespace Repository
         public void UpdateSession(Session session)
         {
             Update(session);
+        }
+
+        public void CheckForInvalidActiveSessions()
+        {
+            RawQuery("update session set active = 0 where DATEDIFF(hh, creation_date, GETDATE()) > 5 AND active = 1;");
         }
 
         public bool ValidateIfActive(string sessionCode)

@@ -1,5 +1,6 @@
 ﻿var boatCoordinates = "";
 var player = "";
+var playerCount;
 var Comparison;
 var Coordinates = {
     row: 0,
@@ -11,7 +12,7 @@ var col;
 var row;
 var oldShotLog = [];
 var oldGameLog = [];
-
+var update = true;
 
 $(document).on("click", ".grid-item.hitable", function (e) {
     var element = e.target;
@@ -26,16 +27,8 @@ $(document).on("click", ".grid-item.hitable", function (e) {
     Coordinates.field = $(element).data("field");
     Coordinates.col = $(element).data("col");
     Coordinates.row = $(element).data("row");
-    console.log("field: " + Coordinates.field + " -- col: " + Coordinates.col + " -- row: " + Coordinates.row);
+    //console.log("field: " + Coordinates.field + " -- col: " + Coordinates.col + " -- row: " + Coordinates.row);
 })
-
-//function ColorCoordinate(col, row, hit) {
-//    if (hit == true) {
-//        document.getElementById("square" + col + "." + row).style.backgroundColor = "red";
-//    } else {
-//        document.getElementById("square" + col + "." + row).style.backgroundColor = "#1f4a44";
-//    }
-//}
 
 function SendSurrender() {
     $.ajax({
@@ -59,13 +52,17 @@ function SendShootCommand() {
         dataType: 'json',
         data: JSON.stringify(Coordinates),
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("SendShootCommand");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-
+            coordinates = {
+                row: 0,
+                col: 0,
+                field: 0,
+            };
         }
     });
-
 }
 
 // get current player data to build field
@@ -76,7 +73,8 @@ function GetPlayerData() {
         url: "PlayingField?handler=PlayerData",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("GetPlayerData");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
             player = result;
@@ -92,11 +90,12 @@ function GetBoats() {
         url: "PlayingField?handler=BoatCoordinates",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("GetBoats");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
             boatCoordinates = result;
-            console.log(boatCoordinates);
+            //console.log(boatCoordinates);
             SetBoats();
         }
     });
@@ -125,9 +124,8 @@ function SetBoats() {
 
 
 //timer functies + variabele
-var timeElapsed = 10;
+var timeElapsed = 20;
 var myTimer = 0;
-
 function start() {
     myTimer = setInterval(function () {
 
@@ -145,37 +143,50 @@ function stop() {
     clearInterval(myTimer);
 }
 function reset() {
-    timeElapsed = 10;
+    timeElapsed = 20;
     clearInterval(myTimer);
     document.getElementById("time").innerHTML = timeElapsed;
 }
 
-
-var active = true;
-function toggleCheckForChanges() {
-    active = !active;
-}
-
 CheckForChanges();
 function CheckForChanges() {
-    if (active == true) {
-        $.ajax({
-            type: "GET",
-            url: "PlayingField?handler=ChangeChecker",
-            contentType: 'application/json; charset=utf-8',
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-            },
-            success: function (result) {
-                UpdateField(result.shotLog);
-                UpdateLog(result.gameLog);
-            },
-            complete: function () {
-                //setTimeout(CheckForChanges, 3000);
-                setTimeout(CheckForChanges, 500);
+    $.ajax({
+        type: "GET",
+        url: "PlayingField?handler=ChangeChecker",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("CheckForChanges");
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            UpdateField(result.shotLog);
+            UpdateLog(result.gameLog);
+            UpdateTurn(result.myTurn, result.turn);
+
+            if (result.winner != null && result.winner != undefined && result.winner != "") {
+                handelGameOver(result.winner);
             }
-        });
-    }
+
+            $("#time").html(result.time);
+        },
+        complete: function () {
+            if (update) {
+                //setTimeout(CheckForChanges, 3000);
+                setTimeout(CheckForChanges, 1000);
+            }
+        }
+    });
+}
+
+function handelGameOver(name) {
+    console.log(name + " has won the game");
+    update = false;
+    // set winner name in element
+    $("#PlayerName").html("");
+    $("#PlayerName").html(name);
+
+    // remove hide class from banner
+    $(".banner").removeClass("hidden");
 }
 
 function UpdateField(shotLog) {
@@ -183,17 +194,19 @@ function UpdateField(shotLog) {
         shotLog.splice(0, (oldShotLog.length));
 
     $.each(shotLog, function (key, LogEntry) {
-        var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinates.field + "][data-row=" + LogEntry.coordinates.row + "][data-col=" + LogEntry.coordinates.col + "]");
+        if (LogEntry.coordinate != undefined && LogEntry.coordinate != null) {
+            var coordinate = $(".grid_coordinate[data-field=" + LogEntry.coordinate.field + "][data-row=" + LogEntry.coordinate.row + "][data-col=" + LogEntry.coordinate.col + "]");
 
-        if (LogEntry.hit == true) {
-            $(coordinate).addClass("field_hit");
-            $(coordinate).removeClass("hitable");
-        } else {
-            $(coordinate).addClass("field_miss");
-            $(coordinate).removeClass("hitable");
+            if (LogEntry.hit == true) {
+                $(coordinate).addClass("field_hit");
+                $(coordinate).removeClass("hitable");
+            } else {
+                $(coordinate).addClass("field_miss");
+                $(coordinate).removeClass("hitable");
+            }
+
+            oldShotLog.push(LogEntry);
         }
-
-        oldShotLog.push(LogEntry);
     });
 }
 
@@ -207,25 +220,22 @@ function UpdateLog(gameLog) {
     });
 }
 
+function UpdateTurn(myTurn, Turnnr) {
 
+    if (myTurn) {
+        $('#btnShoot').prop('disabled', false)
+        $('#btnSurrender').prop('disabled', false)
+    } else {
+        $('#btnShoot').prop('disabled', true)
+        $('#btnSurrender').prop('disabled', true)
+    }
 
+    var players = $(".player_name_container")
 
-//testen
-//function CompareShots() {
-//    $.ajax({
-//        type: "GET",
-//        url: "PlayingField?handler=CompareShot",
-//        contentType: 'application/json; charset=utf-8',
-//        error: function (XMLHttpRequest, textStatus, errorThrown) {
-//            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-//        },
-//        success: function (result) {
-//            Comparison = result;
-//            alertCompareShots();
-//        }
-//    });
-//}
+    $.each(players, function (key, val) {
+        $(val).removeClass("activePlayer");
+    });
 
-//function alertCompareShots() {
-//    alert("test: " + Comparison);
-//}
+    var test = "#player" + Turnnr;
+    $(test).addClass("activePlayer");
+}

@@ -1,13 +1,11 @@
-﻿using Entities.DatabaseModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DatabaseEntities.DatabaseModels;
 
 namespace Contracts
 {
     public interface ISessionRepository
     {
         bool ValidateIfActive(string sessionCode);
+        void CheckForInvalidActiveSessions();
         Session GetByCode(string sessionCode);
         void CreateSession(Session session);
         void UpdateSession(Session session);

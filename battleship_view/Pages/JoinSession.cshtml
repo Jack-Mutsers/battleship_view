@@ -5,9 +5,12 @@
     ViewData["Title"] = "JoinSession";
 }
 
+    <link rel="stylesheet" type="text/css" href="~/css/JoinSession.css">
+    <script type="text/javascript" src="~/js/JoinSession.js"></script>
+
 <div class="container">
     <main role="main" class="pb-3">
-        <link rel="stylesheet" type="text/css" href="~/css/JoinSession.css">
+        
 
         <h1>JoinSession</h1>
 
@@ -19,7 +22,7 @@
                         Username:
                     </p>
 
-                    <input id="username-input" type="text" />
+                    <input maxlength="20" id="username-input" type="text" />
                 </div>
                 <div class="field">
                     <p>
@@ -63,50 +66,6 @@
 
             <a class="btn btn-outline-dark" asp-area="" asp-page="/CreateField">go to create field</a>
         </div>
-
-        <script>
-
-            function JoinSession() {
-                var name = $("#username-input").val();
-                var sessionCode = $("#lobbycode-input").val();
-
-                $.ajax({
-                    type: "Get",
-                    url: "JoinSession?handler=JoinHost&&name=" + name + "&&sessionCode=" + sessionCode
-                });
-
-                $("#playerTable").removeClass("hidden");
-                CheckForChanges();
-            }
-
-            function CheckForChanges() {
-                $.ajax({
-                    type: "GET",
-                    url: "JoinSession?handler=ChangeChecker",
-                    contentType: 'application/json; charset=utf-8',
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-                    },
-                    success: function (result) {
-                        UpdatePlayers(result);
-                    },
-                    complete: function () {
-                        setTimeout(CheckForChanges, 3000);
-                    }
-                });
-            }
-
-            function UpdatePlayers(players) {
-
-                $("#players").html("");
-
-                $.each(players, function (key, player) {
-                    console.log(player);
-                    $("#players").append("<tr><td>" + player.orderNumber + "</td><td>" + player.name + "</td></tr>");
-                });
-            }
-
-        </script>
 
     </main>
 </div>

@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using battleship_view.Models;
-using Database;
-//using System.Web.Mvc;
+﻿using battleship_view.Models;
 using Database.Controllers;
-using Entities.DataTransferObjects;
-using Entities.DatabaseModels;
+using DatabaseEntities.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace battleship_view
 {

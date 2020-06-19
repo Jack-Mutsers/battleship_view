@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Contracts;
+using DatabaseEntities.DatabaseModels;
 using Entities;
-using Entities.DatabaseModels;
-using Repository;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Database.Controllers
 {
@@ -29,6 +27,7 @@ namespace Database.Controllers
 
         public bool CheckIfSessionExists(string sessionCode)
         {
+            _repository.session.CheckForInvalidActiveSessions();
             return _repository.session.ValidateIfActive(sessionCode);
         }
 
@@ -53,6 +52,9 @@ namespace Database.Controllers
             _repository.Save();
         }
 
-
+        public Session FindByCode(string sessionCode)
+        {
+            return _repository.session.GetByCode(sessionCode);
+        }
     }
 }

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using battleship_view.Logic;
+using battleship_view.Models;
+using Contracts;
 using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
+using GameLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -14,71 +17,24 @@ namespace battleship_view
 {
     public class CreateFieldModel : PageModel
     {
+        public List<Player> players { get; set; } = StaticResources.PlayerList;
+
+        private bool start { 
+            get { return StaticResources.startGame; } 
+            set { StaticResources.startGame = value; }
+        }
+
         public void OnGet()
         {
-
+            if(StaticResources.lobbyStarted == false && ServiceBusHandler.program != null)
+            {
+                ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+                StaticResources.lobbyStarted = true;
+            }
         }
 
         public void OnPost()
         {
-            List<Boat> boats = new List<Boat>();
-            //foreach () // foreach boat
-            //{
-            //    List<Coordinates> coordinates = new List<Coordinates>();
-
-            //    foreach () //foreach boat coordiantes
-            //    {
-            //        Coordinates coordinate = new Coordinates()
-            //        {
-            //            field = StaticResources.user.orderNumber,
-            //            row = ,
-            //            col =
-            //        };
-
-            //        coordinates.Add(coordinate);
-            //    }
-
-            //    Boat boat = new Boat()
-            //    {
-            //        coordinates = coordinates
-            //    };
-
-            //    boats.Add(boat);
-            //}
-
-            StaticResources.field = new PlayerField()
-            {
-                fieldNumber = StaticResources.user.orderNumber,
-                boats = boats
-            };
-        }
-
-        public void OnPostReadyUp([FromBody] List<Boat> boats)
-        {
-            foreach (Boat boat in boats)
-            {
-                foreach (Coordinates coordinate in boat.coordinates)
-                {
-                    coordinate.field = StaticResources.user.orderNumber;
-                }
-            }
-
-            StaticResources.field = new PlayerField()
-            {
-                fieldNumber = StaticResources.user.orderNumber,
-                boats = boats
-            };
-
-            StaticResources.user.ready = true;
-
-            SendReadyUpMessage();
-        }
-
-        private void SendReadyUpMessage()
-        {
-            string line = JsonConvert.SerializeObject(StaticResources.user);
-
-            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.ReadyUp);
         }
 
         public void OnTopicMessageReceived(string message)
@@ -103,12 +59,51 @@ namespace battleship_view
                     }
                 }
 
-                if (count == 4)
+                if (count == StaticResources.PlayerList.Count())
                 {
-                    // go to next screen
+                    start = true;
                 }
             }
         }
 
+        public void OnPostUploadField([FromBody] List<List<Coordinate>> JSON)
+        {
+            validateUser();
+            PlayerField myField = new PlayerField();
+            myField.fieldNumber = StaticResources.user.orderNumber;
+
+            foreach (List<Coordinate> coordinatesList in JSON)
+            {
+                List<ICoordinate> coordinates = coordinatesList.Cast<ICoordinate>().ToList();
+
+                IBoat boat = new Boat();
+                boat.FillWithCoordinates(coordinates);
+
+                myField.AddNewBoatToField(boat);
+            }
+
+            StaticResources.field = myField;
+
+            StaticResources.user.ready = true;
+
+            MessageSender sender = new MessageSender();
+            sender.SendReadyUpMessage();
+        }
+
+        public ActionResult OnGetStartCheck()
+        {
+            return new JsonResult(start);
+        }
+
+        public void validateUser()
+        {
+            Dummy dummy = new Dummy();
+            StaticResources.user = StaticResources.user == null ? dummy.GetDummyPlayer() : StaticResources.user;
+        }
+
+        public ActionResult OnGetChangeChecker()
+        {
+            return new JsonResult(StaticResources.PlayerList);
+        }
     }
 }

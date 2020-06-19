@@ -1,7 +1,10 @@
-﻿using Entities.Enums;
+﻿using Contracts;
+using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
+using GameLogic;
 using Newtonsoft.Json;
+using ServiceBusEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +14,7 @@ namespace battleship_view.Logic
 {
     public class MessageSender
     {
-        public void SendHitResponseMessage(Coordinates shot, bool hit, bool gameOver)
+        public void SendHitResponseMessage(Coordinate shot, bool hit, bool gameOver, int playerID)
         {
             // col = 0 - 9
             // row = 0 - 9
@@ -22,8 +25,10 @@ namespace battleship_view.Logic
                 coordinates = shot,
                 hit = hit,
                 gameOver = gameOver,
-                playerId = StaticResources.user.PlayerId
+                playerId = playerID,
+                senderId = StaticResources.user.PlayerId                
             };
+                      
 
             string line = JsonConvert.SerializeObject(response);
 
@@ -32,23 +37,38 @@ namespace battleship_view.Logic
 
         public void SendSurrenderMessage()
         {
+            PlayerField field = new PlayerField()
+            {
+                fieldNumber = StaticResources.field.fieldNumber,
+                hitList = StaticResources.field.hitList
+            };
+
+            foreach (IBoat boat in StaticResources.field.boats)
+                field.AddNewBoatToField(boat);
+
             SurrenderResponse response = new SurrenderResponse()
             {
                 playerId = StaticResources.user.PlayerId,
-                field = StaticResources.field
+                field = field
             };
 
-            string line = JsonConvert.SerializeObject(response);
+            var indented = Formatting.Indented;
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            string line = JsonConvert.SerializeObject(response, indented, settings);
 
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Surrender);
         }
 
-        public void SendShootMessage(Coordinates coordinates)
+        public void SendShootMessage(ICoordinate coordinates)
         {
             GameAction action = new GameAction()
             {
                 action = PlayerAction.shoot,
-                coordinates = new Coordinates()
+                coordinates = new Coordinate()
                 {
                     field = coordinates.field,
                     row = coordinates.row,
@@ -62,5 +82,19 @@ namespace battleship_view.Logic
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.Action);
         }
 
+        public void StartGameMessage()
+        {
+            List<Player> players = StaticResources.PlayerList;
+            string line = JsonConvert.SerializeObject(players);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.StartGame);
+        }
+
+        public void SendReadyUpMessage()
+        {
+            string line = JsonConvert.SerializeObject(StaticResources.user);
+
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.ReadyUp);
+        }
     }
 }

@@ -1,17 +1,19 @@
-﻿using Entities.Enums;
+﻿using Contracts;
+using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
+using GameLogic;
 using Newtonsoft.Json;
+using ServiceBusEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace battleship_view.Logic
+namespace battleship_view.Models
 {
     public class Dummy
     {
-        
+
         public void SetDummyData()
         {
             StaticResources.PlayerList = StaticResources.PlayerList.Count <= 1 ? GetDummyPlayerList() : StaticResources.PlayerList;
@@ -38,7 +40,7 @@ namespace battleship_view.Logic
                 row == 0-9
             */
 
-            Log log = StaticResources.log;
+            ChangeLog log = StaticResources.log;
             int logCount = log.shotLog.Count;
 
             int field = 2;
@@ -47,7 +49,7 @@ namespace battleship_view.Logic
 
             if (logCount > 0)
             {
-                Coordinates coordinates = log.shotLog.Last().coordinates;
+                ICoordinate coordinates = log.shotLog.Last().coordinate;
 
                 if (coordinates.col == 9 && coordinates.row == 9 && coordinates.field == 4)
                     return null;
@@ -68,7 +70,7 @@ namespace battleship_view.Logic
             {
                 playerId = players[1].PlayerId,
                 fieldNumber = field,
-                coordinates = new Coordinates() { field = field, col = col, row = row },
+                coordinates = new Coordinate() { field = field, col = col, row = row },
                 hit = hit == 0 ? true : false
             };
 
@@ -80,8 +82,8 @@ namespace battleship_view.Logic
             List<Player> players = new List<Player>(){
                 new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },
                 new Player() { PlayerId = 2, name = "Lean", ready = true, orderNumber = 2, type = PlayerType.Guest },
-                new Player() { PlayerId = 3, name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
-                new Player() { PlayerId = 4, name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
+                //new Player() { PlayerId = 3, name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
+                //new Player() { PlayerId = 4, name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
             };
 
             return players;
@@ -93,40 +95,39 @@ namespace battleship_view.Logic
             PlayerField myField = new PlayerField()
             {
                 fieldNumber = field,
-                boats = new List<Boat>()
-                {
-                    new Boat(){
-                        coordinates = new List<Coordinates>()
-                        {
-                            new Coordinates() { field = field, row = 1, col = 1 }, new Coordinates() { field = field, row = 1, col = 2 }, new Coordinates() { field = field, row = 1, col = 3 }
-                        }
-                    },
-                    new Boat(){
-                        coordinates = new List<Coordinates>()
-                        {
-                            new Coordinates() { field = field, row = 4, col = 9 }, new Coordinates() { field = field, row = 5, col = 9 }, new Coordinates() { field = field, row = 6, col = 9 }
-                        }
-                    },
-                    new Boat(){
-                        coordinates = new List<Coordinates>()
-                        {
-                            new Coordinates() { field = field, row = 7, col = 7 }, new Coordinates() { field = field, row = 7, col = 8 }
-                        }
-                    },
-                    new Boat(){
-                        coordinates = new List<Coordinates>()
-                        {
-                            new Coordinates() { field = field, row = 3, col = 4 }, new Coordinates() { field = field, row = 4, col = 4 }
-                        }
-                    },
-                    new Boat(){
-                        coordinates = new List<Coordinates>()
-                        {
-                            new Coordinates() { field = field, row = 9, col = 7 }, new Coordinates() { field = field, row = 9, col = 8 }, new Coordinates() { field = field, row = 9, col = 9 }
-                        }
-                    },
-                }
             };
+
+            List<List<ICoordinate>> CoordinateList = new List<List<ICoordinate>>()
+            {
+                new List<ICoordinate>()
+                {
+                    new Coordinate() { field = field, row = 1, col = 1 }, new Coordinate() { field = field, row = 1, col = 2 }, new Coordinate() { field = field, row = 1, col = 3 }, new Coordinate() { field = field, row = 1, col = 4 }, new Coordinate() { field = field, row = 1, col = 5 }
+                },
+                new List<ICoordinate>()
+                {
+                    new Coordinate() { field = field, row = 4, col = 9 }, new Coordinate() { field = field, row = 5, col = 9 }, new Coordinate() { field = field, row = 6, col = 9 }, new Coordinate() { field = field, row = 7, col = 9 }
+                },
+                new List<ICoordinate>()
+                {
+                    new Coordinate() { field = field, row = 7, col = 4 }, new Coordinate() { field = field, row = 7, col = 5 }, new Coordinate() { field = field, row = 7, col = 6 }
+                },
+                new List<ICoordinate>()
+                {
+                    new Coordinate() { field = field, row = 9, col = 7 }, new Coordinate() { field = field, row = 9, col = 8 }, new Coordinate() { field = field, row = 9, col = 9 }
+                },
+                new List<ICoordinate>()
+                {
+                    new Coordinate() { field = field, row = 3, col = 4 }, new Coordinate() { field = field, row = 4, col = 4 }
+                },
+            };
+
+            foreach (List<ICoordinate> coordinates in CoordinateList)
+            {
+                IBoat boat = new Boat();
+                boat.FillWithCoordinates(coordinates);
+
+                myField.AddNewBoatToField(boat);
+            }
 
             return myField;
         }

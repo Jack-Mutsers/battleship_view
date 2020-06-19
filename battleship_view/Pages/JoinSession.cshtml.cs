@@ -17,12 +17,15 @@ namespace battleship_view
     {
         public string sessionCode { get; set; } = "";
         public List<Player> players { get; set; } = StaticResources.PlayerList;
+        private bool start { 
+            get { return StaticResources.startLobby; }
+            set { StaticResources.startLobby = value; }
+        }
 
         public void OnGet()
         {
 
         }
-
 
         public async void OnGetJoinHost(string name, string sessionCode)
         {
@@ -36,22 +39,21 @@ namespace battleship_view
                 player.name = name;
                 player.type = PlayerType.Guest;
 
-
                 StaticResources.sessionCode = sessionCode;
 
                 // create an instance of the servicebus handler
-                bool initialised = await ServiceBusHandler.InitiateServiceBusHandler(player);
-                bool listnerCreated = await ServiceBusHandler.program.CreateQueueListner(PlayerType.Guest);
-                bool writerCreated = await ServiceBusHandler.program.CreateQueueWriter(PlayerType.Guest);
+                await ServiceBusHandler.InitiateServiceBusHandler(player);
+                await ServiceBusHandler.program.CreateQueueListner(PlayerType.Guest);
+                await ServiceBusHandler.program.CreateQueueWriter(PlayerType.Guest);
 
                 ServiceBusHandler.program.QueueListner.MessageReceived += OnQueueMessageReceived;
 
                 string message = JsonConvert.SerializeObject(StaticResources.user);
 
-                ServiceBusHandler.program.QueueWriter.SendQueueMessage(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
+                await ServiceBusHandler.program.QueueWriter.SendQueueMessageAsync(message, MessageType.JoinRequest, ServiceBusHandler.program.QueueListner.QueueData);
+                await ServiceBusHandler.program.QueueWriter.DisconnectFromQueue();
+                ServiceBusHandler.program.QueueListner.ConnectToQueue();
             }
-
-
 
             sessionCode = StaticResources.sessionCode;
             players = StaticResources.PlayerList;
@@ -79,11 +81,21 @@ namespace battleship_view
                 ServiceBusHandler.HandleNewPlayerTopicMessage(message);
                 players = StaticResources.PlayerList;
             }
+
+            if (transfer.type == MessageType.StartGame)
+            {
+                start = true;
+            }
         }
 
         public ActionResult OnGetChangeChecker()
         {
             return new JsonResult(StaticResources.PlayerList);
+        }
+
+        public ActionResult OnGetStartCheck()
+        {
+            return new JsonResult(start);
         }
     }
 }

@@ -10,28 +10,40 @@ using Newtonsoft.Json;
 using Entities.Models;
 using battleship_view.Logic;
 using Entities.Resources;
+using GameLogic;
+using Contracts;
+using ServiceBusEntities.Models;
+using Database.Controllers;
 
 namespace battleship_view
 {
-
-
     public class PlayingFieldModel : PageModel
     {
         MessageSender sender = new MessageSender();
         Dummy dummy = new Dummy();
         string _placeholderShotReponse = "{player} shot at field: {field} row: {row} col: {col}, and has {hit}";
 
+        public Player playerId { get; private set; } = StaticResources.user;
+
         public List<Player> players { get; set; } = StaticResources.PlayerList.Count == 0 ? StaticResources.dummyPlayers : StaticResources.PlayerList;
 
         public async void OnGet()
         {
-            dummy.SetDummyData();
+            TimerHandler.SetTimer();
+            TimerHandler.StartTimer();
+            if (StaticResources.PlayerList.Count() == 0)
+            {
+                dummy.SetDummyData();
+            }
 
             StaticResources.field.fieldNumber = StaticResources.user.orderNumber;
 
             if (ServiceBusHandler.program == null)
             {
                 Player player = dummy.GetDummyPlayer();
+
+                //field-id doorgeven
+                playerId = player;
 
                 // initialise SessionCodeGenerator
                 SessionCodeGenerator generator = new SessionCodeGenerator();
@@ -40,10 +52,13 @@ namespace battleship_view
                 StaticResources.sessionCode = generator.GenerateSessionCode();
 
                 await ServiceBusHandler.InitiateServiceBusHandler(player, true);
-                ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
             }
+            
+            ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
 
             players = StaticResources.PlayerList;
+
+            StaticResources.log.MyTurn = StaticResources.user.orderNumber == 1 ? true : false;
         }
 
         public void OnTopicMessageReceived(string message)
@@ -64,15 +79,22 @@ namespace battleship_view
                         bool hit = StaticResources.field.CheckForHit(action.coordinates);
                         bool gameOver = StaticResources.field.CheckForGameOver();
 
-                        sender.SendHitResponseMessage(action.coordinates, hit, gameOver);
+                        sender.SendHitResponseMessage(action.coordinates, hit, gameOver, action.playerId);
                     }
+                    
+                    // reset timer and increase turn
+                    TimerHandler.ResetTime();
                 }
 
             }
 
             if (transfer.type == MessageType.Surrender)
             {
-                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message);
+                var settings = new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                };
+                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message, settings);
                 Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == response.playerId).First();
 
                 // enter code here to display surrender message in log
@@ -82,6 +104,8 @@ namespace battleship_view
 
                 // start gameover function
                 HandleGameOver(response.playerId, response.field);
+                // reset timer and increase turn
+                TimerHandler.ResetTime();
             }
 
             if (transfer.type == MessageType.GameResponse)
@@ -92,13 +116,17 @@ namespace battleship_view
             }
         }
 
-        private void HandleGameOver(int playerId, PlayerField field = null)
+        private void HandleGameOver(int playerId, IPlayerField field = null)
         {
-            Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == playerId).First();
+            var player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.PlayerId == playerId);
 
             string logEntry = "All boats of {player} have been destroyed";
             logEntry = logEntry.Replace("{player}", player.name);
             WriteMessageToLog(logEntry);
+
+            player.GameOver = true;
+
+            CheckforHighscoreUpdate(player);
 
             if (field != null)
             {
@@ -109,18 +137,38 @@ namespace battleship_view
                 {
                     foreach (var coordinate in boat.coordinates)
                     {
-                        GameResponse response = new GameResponse()
+                        ShotLog shotLog = new ShotLog()
                         {
-                            fieldNumber = coordinate.field,
-                            coordinates = coordinate,
-                            gameOver = true,
-                            hit = true,
+                            coordinate = coordinate,
+                            hit = true
                         };
 
-                        StaticResources.log.shotLog.Add(response);
+                        StaticResources.log.shotLog.Add(shotLog);
                     }
                 }
 
+            }
+
+            int count = StaticResources.PlayerList.Where(p => p.GameOver == false).Count();
+
+            if (count == 1)
+            {
+                TimerHandler.StopTimer();
+                player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
+                StaticResources.log.winner = player.name;
+
+                string message = player.name + " has won the game";
+                WriteMessageToLog(message);
+                CheckforHighscoreUpdate(player);
+            }
+        }
+
+        public void CheckforHighscoreUpdate(Player player)
+        {
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                HighscoreController highscoreController = new HighscoreController();
+                highscoreController.StoreNewHighscoreRecord(StaticResources.records);
             }
         }
 
@@ -138,7 +186,14 @@ namespace battleship_view
             }
 
             GameResponse response = gameResponse == null ? dummy.GetHitResponseDummyData() : gameResponse;
-            StaticResources.log.shotLog.Add(response);
+
+            ShotLog shotLog = new ShotLog()
+            {
+                coordinate = gameResponse.coordinates,
+                hit = gameResponse.hit
+            };
+
+            StaticResources.log.shotLog.Add(shotLog);
 
             Player player = StaticResources.PlayerList.Where(p => p.PlayerId == response.playerId).FirstOrDefault();
 
@@ -150,11 +205,29 @@ namespace battleship_view
 
             WriteMessageToLog(newstring);
 
+            if (player.PlayerId == StaticResources.user.PlayerId)
+            {
+                if (response.hit == true) //highscore bijhouden
+                {
+                    StaticResources.records.hits += 1;
+                    StaticResources.records.currenctHitStreak += 1;
+                    if (StaticResources.records.currenctHitStreak > StaticResources.records.highestHitStreak)
+                    {
+                        StaticResources.records.highestHitStreak = StaticResources.records.currenctHitStreak;
+                    }
+                }
+                else
+                {
+                    StaticResources.records.currenctHitStreak = 0;
+                }
+            }
+
             // start gameover function if player is gameover
             if (response.gameOver)
             {
-                HandleGameOver(response.playerId);
+                HandleGameOver(response.senderId);
             }
+            
         }
 
 
@@ -178,11 +251,11 @@ namespace battleship_view
         {
             StaticResources.field = StaticResources.field.boats == null ? dummy.GetMyDummyField() : StaticResources.field;
 
-            List<Coordinates> coordinates = new List<Coordinates>();
+            List<Coordinate> coordinates = new List<Coordinate>();
 
             foreach (Boat boat in StaticResources.field.boats)
             {
-                foreach (Coordinates coordinate in boat.coordinates)
+                foreach (Coordinate coordinate in boat.coordinates)
                 {
                     coordinates.Add(coordinate);
                 }
@@ -193,13 +266,21 @@ namespace battleship_view
 
         public void OnGetSurrender()
         {
-            sender.SendSurrenderMessage();
+            if (StaticResources.user.GameOver == false)
+            {
+                StaticResources.user.GameOver = true;
+                sender.SendSurrenderMessage();
+            }
         }
 
-        public ActionResult OnPostShoot([FromBody]Coordinates coordinates)
+        public ActionResult OnPostShoot([FromBody]Coordinate coordinates)
         {
-            sender.SendShootMessage(coordinates);
-
+            if (StaticResources.log.MyTurn)
+            {
+                StaticResources.log.MyTurn = false;
+                StaticResources.records.shots += 1; //highscores bijhouden
+                sender.SendShootMessage(coordinates);
+            }
             return new JsonResult(true);
         }
 
