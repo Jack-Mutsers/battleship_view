@@ -50,6 +50,7 @@ namespace battleship_view.Logic
             if (time > TimerHandler.old || (TimerHandler.old > 0 && time == 0))
             {
                 activated = false;
+                TimerHandler.old = time;
             }
 
             if (activated == false)
