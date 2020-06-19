@@ -10,7 +10,8 @@ namespace battleship_view.Logic
 {
     public static class TimerHandler
     {
-
+        private static bool activated { get; set; } = false;
+        private static int old { get; set; } = 0;
         private static Timer timer;
 
         public static int Time { get; set; } = 0;
@@ -45,12 +46,22 @@ namespace battleship_view.Logic
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            ++Time;
-            StaticResources.log.Time = 21 - Time;
-            Console.WriteLine("The time is: "+Time);
-            if (Time >= 20)
+            int time = int.Parse(DateTime.Now.ToString("ss"));
+            if (time > TimerHandler.old || (TimerHandler.old > 0 && time == 0))
             {
-                TimerHandler.ResetTime();
+                activated = false;
+            }
+
+            if (activated == false)
+            {
+                activated = true;
+                ++Time;
+                StaticResources.log.Time = 21 - Time;
+                Console.WriteLine("The time is: "+Time);
+                if (Time >= 20)
+                {
+                    TimerHandler.ResetTime();
+                }
             }
         }
 
