@@ -12,12 +12,6 @@ var col;
 var row;
 var oldShotLog = [];
 var oldGameLog = [];
-
-//highscore variabelen
-var shots = 0;
-var hits = 0;
-var streak = 0;
-var highStreak = 0;
 var update = true;
 
 $(document).on("click", ".grid-item.hitable", function (e) {
@@ -62,7 +56,11 @@ function SendShootCommand() {
             console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-            shots++;
+            coordinates = {
+                row: 0,
+                col: 0,
+                field: 0,
+            };
         }
     });
 }
@@ -202,11 +200,6 @@ function UpdateField(shotLog) {
             if (LogEntry.hit == true) {
                 $(coordinate).addClass("field_hit");
                 $(coordinate).removeClass("hitable");
-                hits++;
-                streak++;
-                if (streak > highStreak) {
-                    highStreak = streak;
-                }
             } else {
                 $(coordinate).addClass("field_miss");
                 $(coordinate).removeClass("hitable");

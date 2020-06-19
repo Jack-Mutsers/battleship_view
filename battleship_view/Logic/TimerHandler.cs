@@ -48,7 +48,7 @@ namespace battleship_view.Logic
             ++Time;
             StaticResources.log.Time = 21 - Time;
             Console.WriteLine("The time is: "+Time);
-            if (Time==20)
+            if (Time >= 20)
             {
                 TimerHandler.ResetTime();
             }
