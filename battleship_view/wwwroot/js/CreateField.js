@@ -212,7 +212,6 @@ function GetCoordinates() {
         }
     }
     if (boatCoordinates.length == 5) {
-        console.log(boatCoordinates);
         boats = JSON.stringify(boatCoordinates);
         UploadField(boats);
         //alert(boats);
@@ -238,10 +237,12 @@ function CheckForStartGame() {
         url: "CreateField?handler=StartCheck",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("CheckForStartGame");
+            var message = "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown;
+            console.log(message);
+            alert(message);
         },
         success: function (result) {
-            //console.log(result);
             if (result == true) {
                 location.replace("https://localhost:5001/PlayingField");
             }
@@ -260,7 +261,10 @@ function CheckForChanges() {
         url: "CreateField?handler=ChangeChecker",
         contentType: 'application/json; charset=utf-8',
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            console.log("CheckForChanges");
+            var message = "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown;
+            console.log(message);
+            alert(message);
         },
         success: function (result) {
             if (result != undefined && result != null) {
@@ -278,17 +282,9 @@ function UpdatePlayers(players) {
 
 
     $.each(players, function (key, player) {
-        console.log(player);
-        console.log(player.ready);
-
         var state = player.ready == true || player.ready == "true" ? "Ready" : "No";
 
-        console.log("state: " + state);
-
         var id = "#player" + player.playerId;
-
-        console.log("id: " + id);
-
         $(id).html("");
         $(id).html(state);
     });
