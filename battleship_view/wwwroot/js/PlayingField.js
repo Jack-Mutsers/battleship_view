@@ -184,10 +184,11 @@ function handelGameOver(name) {
     console.log(name + " has won the game");
     update = false;
     // set winner name in element
-
+    $("#PlayerName").html("");
+    $("#PlayerName").html(name);
 
     // remove hide class from banner
-
+    $(".banner").removeClass("hidden");
 }
 
 function UpdateField(shotLog) {

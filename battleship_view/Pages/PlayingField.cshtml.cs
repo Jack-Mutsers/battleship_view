@@ -126,6 +126,7 @@ namespace battleship_view
 
             player.GameOver = true;
 
+            CheckforHighscoreUpdate(player);
 
             if (field != null)
             {
@@ -155,8 +156,15 @@ namespace battleship_view
                 TimerHandler.StopTimer();
                 player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
                 StaticResources.log.winner = player.name;
-            }
 
+                string message = player.name + " has won the game";
+                WriteMessageToLog(message);
+                CheckforHighscoreUpdate(player);
+            }
+        }
+
+        public void CheckforHighscoreUpdate(Player player)
+        {
             if (player.PlayerId == StaticResources.user.PlayerId)
             {
                 HighscoreController highscoreController = new HighscoreController();

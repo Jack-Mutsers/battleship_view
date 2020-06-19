@@ -232,7 +232,6 @@ function UploadField(boats) {
     });
 }
 
-CheckForStartGame();
 function CheckForStartGame() {
     $.ajax({
         type: "GET",
@@ -242,7 +241,7 @@ function CheckForStartGame() {
             alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
         },
         success: function (result) {
-            console.log(result);
+            //console.log(result);
             if (result == true) {
                 location.replace("https://localhost:5001/PlayingField");
             }
@@ -250,5 +249,47 @@ function CheckForStartGame() {
         complete: function () {
             setTimeout(CheckForStartGame, 1000);
         }
+    });
+}
+
+CheckForChanges();
+function CheckForChanges() {
+    CheckForStartGame();
+    $.ajax({
+        type: "GET",
+        url: "CreateField?handler=ChangeChecker",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        success: function (result) {
+            if (result != undefined && result != null) {
+                UpdatePlayers(result);
+            }
+        },
+        complete: function () {
+            setTimeout(CheckForChanges, 1000);
+        }
+    });
+}
+
+
+function UpdatePlayers(players) {
+
+
+    $.each(players, function (key, player) {
+        console.log(player);
+        console.log(player.ready);
+
+        var state = player.ready == true || player.ready == "true" ? "Ready" : "No";
+
+        console.log("state: " + state);
+
+        var id = "#player" + player.playerId;
+
+        console.log("id: " + id);
+
+        $(id).html("");
+        $(id).html(state);
     });
 }

@@ -17,6 +17,7 @@
     }
 }
 
+CheckForChanges();
 function CheckForChanges() {
     CheckForStartGame();
     $.ajax({
