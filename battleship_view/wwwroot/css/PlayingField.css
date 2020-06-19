@@ -24,6 +24,14 @@
     margin-top: 250px;
 }
 
+.buttonBannerBottom {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate( -50%,-50%);
+    align-self: center;
+}
+
 .button:hover {
     background-color: #AAAAAA;
 }
