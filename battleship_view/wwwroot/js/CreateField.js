@@ -103,61 +103,80 @@ function selectElement(clicked_id) {
 }
 
 function rotateElement() {
-    var className = document.getElementById(id).parentElement.parentElement.className
+    console.log(id);
+    var element = document.getElementById(id)
 
-    if (document.getElementById(id).offsetHeight > document.getElementById(id).offsetWidth) {
-        var width = document.getElementById(id).offsetWidth + 'px';
-        var height = document.getElementById(id).offsetHeight + 'px';
-        var bottom = 10 * 40;
-        if (className == "field-grid") {
-            var right = 10 * 40;
-            var elTop = document.getElementById(id).offsetTop - document.getElementById("topleft").offsetTop - 1;
-            var elLeft = document.getElementById(id).offsetLeft - document.getElementById("topleft").offsetLeft - 1;
-        } else if (className == "selection-grid-layer") {
-            var right = 6 * 40;
-            var elTop = document.getElementById(id).offsetTop - document.getElementById("topleftlayer").offsetTop - 1;
-            var elLeft = document.getElementById(id).offsetLeft - document.getElementById("topleftlayer").offsetLeft - 1;
+    if (element != undefined && element != null && element != "") {
+        var className = element.parentElement.parentElement.className
+
+
+        if (element.offsetHeight > element.offsetWidth) {
+            var width = element.offsetWidth + 'px';
+            var height = element.offsetHeight + 'px';
+            var bottom = 10 * 40;
+            if (className == "field-grid") {
+                var topleft = document.getElementById("topleft");
+                if (topleft != undefined && topleft != null && topleft != "") {
+                    var right = 10 * 40;
+                    var elTop = element.offsetTop - topleft.offsetTop - 1;
+                    var elLeft = element.offsetLeft - topleft.offsetLeft - 1;
+                }
+            } else if (className == "selection-grid-layer") {
+                var topleftlayer = document.getElementById("topleftlayer");
+                if (topleftlayer != undefined && topleftlayer != null && topleftlayer != "") {
+                    var right = 6 * 40;
+                    var elTop = element.offsetTop - topleftlayer.offsetTop - 1;
+                    var elLeft = element.offsetLeft - topleftlayer.offsetLeft - 1;
+                }
+            }
+            var elWidthRotated = element.offsetHeight;
+            var elHeightRotated = element.offsetWidth;
+
+            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1, className);
+
+            if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                element.style.width = height;
+                element.style.height = width;
+
+                boatId = parseInt(id[4]) - 1;
+
+                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+            }
         }
-        var elWidthRotated = document.getElementById(id).offsetHeight;
-        var elHeightRotated = document.getElementById(id).offsetWidth;
+        else if (element.offsetWidth > element.offsetHeight) {
+            var width = element.offsetWidth + 'px';
+            var height = element.offsetHeight + 'px';
+            var bottom = 10 * 40;
+            if (className == "field-grid") {
+                var topleft = document.getElementById("topleft");
+                if (topleft != undefined && topleft != null && topleft != "") {
+                    var right = 10 * 40;
+                    var elTop = element.offsetTop - topleft.offsetTop - 1;
+                    var elLeft = element.offsetLeft - topleft.offsetLeft - 1;
+                }
+            } else if (className == "selection-grid-layer") {
+                var topleftlayer = document.getElementById("topleftlayer");
+                if (topleftlayer != undefined && topleftlayer != null && topleftlayer != "") {
+                    var right = 6 * 40;
+                    var elTop = element.offsetTop - topleftlayer.offsetTop - 1;
+                    var elLeft = element.offsetLeft - topleftlayer.offsetLeft - 1;
+                }
+            }
+            var elWidthRotated = element.offsetHeight;
+            var elHeightRotated = element.offsetWidth;
 
-        var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1, className);
+            var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1, className);
 
-        if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
-            document.getElementById(id).style.width = height;
-            document.getElementById(id).style.height = width;
+            if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
+                element.style.width = height;
+                element.style.height = width;
 
-            boatId = parseInt(id[4]) - 1;
+                boatId = parseInt(id[4]) - 1;
 
-            boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-            boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
-        }
-    } else if (document.getElementById(id).offsetWidth > document.getElementById(id).offsetHeight) {
-        var width = document.getElementById(id).offsetWidth + 'px';
-        var height = document.getElementById(id).offsetHeight + 'px';
-        var bottom = 10 * 40;
-        if (className == "field-grid") {
-            var right = 10 * 40;
-            var elTop = document.getElementById(id).offsetTop - document.getElementById("topleft").offsetTop - 1;
-            var elLeft = document.getElementById(id).offsetLeft - document.getElementById("topleft").offsetLeft - 1;
-        } else if (className == "selection-grid-layer") {
-            var right = 6 * 40;
-            var elTop = document.getElementById(id).offsetTop - document.getElementById("topleftlayer").offsetTop - 1;
-            var elLeft = document.getElementById(id).offsetLeft - document.getElementById("topleftlayer").offsetLeft - 1;
-        }
-        var elWidthRotated = document.getElementById(id).offsetHeight;
-        var elHeightRotated = document.getElementById(id).offsetWidth;
-
-        var overlap = checkOverlap(elLeft, elWidthRotated, elTop, elHeightRotated, -1, className);
-
-        if (((elTop + elHeightRotated) <= bottom) && ((elLeft + elWidthRotated) <= right) && !overlap) {
-            document.getElementById(id).style.width = height;
-            document.getElementById(id).style.height = width;
-
-            boatId = parseInt(id[4]) - 1;
-
-            boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
-            boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+                boatsPixel[boatId][2] = boatsPixel[boatId][1] + parseInt(height, 10);
+                boatsPixel[boatId][4] = boatsPixel[boatId][3] + parseInt(width, 10);
+            }
         }
     }
 }
@@ -239,8 +258,6 @@ function CheckForStartGame() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log("CheckForStartGame");
             var message = "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown;
-            console.log(message);
-            alert(message);
         },
         success: function (result) {
             if (result == true) {
@@ -263,8 +280,6 @@ function CheckForChanges() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log("CheckForChanges");
             var message = "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown;
-            console.log(message);
-            alert(message);
         },
         success: function (result) {
             if (result != undefined && result != null) {

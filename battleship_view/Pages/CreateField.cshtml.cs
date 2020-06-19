@@ -37,7 +37,6 @@ namespace battleship_view
         {
         }
 
-
         public void OnTopicMessageReceived(string message)
         {
             Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
@@ -91,7 +90,7 @@ namespace battleship_view
             sender.SendReadyUpMessage();
         }
 
-        public IActionResult OnGetStartCheck()
+        public ActionResult OnGetStartCheck()
         {
             return new JsonResult(start);
         }
