@@ -101,5 +101,10 @@ namespace battleship_view
             Dummy dummy = new Dummy();
             StaticResources.user = StaticResources.user == null ? dummy.GetDummyPlayer() : StaticResources.user;
         }
+
+        public ActionResult OnGetChangeChecker()
+        {
+            return new JsonResult(StaticResources.PlayerList);
+        }
     }
 }

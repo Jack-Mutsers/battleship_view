@@ -155,6 +155,9 @@ namespace battleship_view
                 TimerHandler.StopTimer();
                 player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
                 StaticResources.log.winner = player.name;
+
+                string message = player.name + " has won the game";
+                WriteMessageToLog(message);
             }
 
             if (player.PlayerId == StaticResources.user.PlayerId)
