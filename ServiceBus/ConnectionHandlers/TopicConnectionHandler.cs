@@ -74,14 +74,15 @@ namespace ServiceBus.ConnectionHandlers
                 await _TopicHandler.CompleteMessageAsync(message.SystemProperties.LockToken);
 
                 Transfer transfer = JsonConvert.DeserializeObject<Transfer>(val);
-
                 ServiceBusLog log = transfer.serviceBusLog;
+                ServiceBusLog lastLog = StaticResources.sevicebusLogs.Last();
 
                 var result = StaticResources.sevicebusLogs.Where(sbl => sbl.playerId == log.playerId && sbl.SendTime == log.SendTime).FirstOrDefault();
 
-                if (result == null)
+                DateTime date = DateTime.Now;
+                if (result == null && (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19)))
                 {
-                    StaticResources.sevicebusLogs.Add(result);
+                    StaticResources.sevicebusLogs.Add(log);
                     
                     // send message to the MessageReceived event
                     MessageReceived(val);
