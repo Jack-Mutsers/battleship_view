@@ -105,6 +105,8 @@ namespace battleship_view.Logic
 
                 if (p.PlayerId == StaticResources.user.PlayerId)
                     StaticResources.log.MyTurn = true;
+                else
+                    StaticResources.log.MyTurn = false;
 
                 TimerHandler.startOfTurn = DateTime.Now;
             }

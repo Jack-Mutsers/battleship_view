@@ -274,8 +274,12 @@ namespace battleship_view
         {
             if (StaticResources.user.GameOver == false)
             {
-                StaticResources.user.GameOver = true;
-                sender.SendSurrenderMessage();
+                DateTime date = DateTime.Now;
+                if (StaticResources.log.MyTurn && TimerHandler.startOfTurn < date.AddSeconds(-2))
+                {
+                    StaticResources.user.GameOver = true;
+                    sender.SendSurrenderMessage();
+                }
             }
         }
 
