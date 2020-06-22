@@ -153,7 +153,7 @@ namespace battleship_view.Logic
             }
         }
 
-        public static async void ResetData()
+        public static async Task ResetData()
         {
             await program.topic.DisconnectFromTopic();
 

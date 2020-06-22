@@ -99,5 +99,15 @@ namespace battleship_view.Logic
 
             }
         }
+
+        public static void ResetHandler()
+        {
+            StopTimer();
+            activated = false;
+            old = 0;
+            timer = null;
+            startOfTurn = new DateTime();
+            Time = 0;
+        }
     }
 }
