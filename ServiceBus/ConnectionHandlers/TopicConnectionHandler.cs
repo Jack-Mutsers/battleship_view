@@ -75,12 +75,23 @@ namespace ServiceBus.ConnectionHandlers
 
                 Transfer transfer = JsonConvert.DeserializeObject<Transfer>(val);
                 ServiceBusLog log = transfer.serviceBusLog;
-                ServiceBusLog lastLog = StaticResources.sevicebusLogs.Last();
+
+                bool ok = true;
+                if (StaticResources.sevicebusLogs.Count() > 0)
+                {
+                    ServiceBusLog lastLog = StaticResources.sevicebusLogs.Last();
+
+                    ok = false;
+                    DateTime date = DateTime.Now;
+                    if (StaticResources.startGame == false || (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19)))
+                    {
+                        ok = true;
+                    }
+                }
 
                 var result = StaticResources.sevicebusLogs.Where(sbl => sbl.playerId == log.playerId && sbl.SendTime == log.SendTime).FirstOrDefault();
 
-                DateTime date = DateTime.Now;
-                if (result == null && (StaticResources.startGame == false || (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19))))
+                if (result == null && ok)
                 {
                     StaticResources.sevicebusLogs.Add(log);
                     
