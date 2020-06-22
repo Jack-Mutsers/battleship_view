@@ -78,7 +78,6 @@ namespace ServiceBus.ServiceBusHandlers
         public async Task DisconnectAsync()
         {
             await _queueClient.CloseAsync();
-            _queueClient = null;
             await Task.CompletedTask;
         }
     }

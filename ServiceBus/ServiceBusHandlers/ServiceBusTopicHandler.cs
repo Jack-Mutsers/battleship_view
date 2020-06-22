@@ -94,7 +94,6 @@ namespace ServiceBus.ServiceBusHandlers
         public async Task DisconnectAsync()
         {
             await topicClient.CloseAsync();
-            topicClient = null;
             await Task.CompletedTask;
         }
     }
