@@ -159,7 +159,7 @@ namespace battleship_view
 
             if (count == 1)
             {
-                TimerHandler.StopTimer();
+                TimerHandler.ResetHandler();
                 player = StaticResources.PlayerList.FirstOrDefault(Speler => Speler.GameOver == false);
                 StaticResources.log.winner = player.name;
 

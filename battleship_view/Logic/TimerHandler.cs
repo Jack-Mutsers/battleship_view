@@ -11,6 +11,7 @@ namespace battleship_view.Logic
     public static class TimerHandler
     {
         private static bool activated { get; set; } = false;
+        private static bool secondPast { get; set; } = false;
         private static int old { get; set; } = 0;
         private static Timer timer;
         public static DateTime startOfTurn { get; set; } = new DateTime();
@@ -33,6 +34,8 @@ namespace battleship_view.Logic
             {
                 timer.Start();
             }
+            
+            activated = true;
         }
 
         public static void StopTimer()
@@ -41,6 +44,8 @@ namespace battleship_view.Logic
             {
                 timer.Stop();
             }
+
+            activated = false;
         }
 
         public static void ResetTime()
@@ -53,22 +58,25 @@ namespace battleship_view.Logic
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            int time = int.Parse(DateTime.Now.ToString("ss"));
-            if (time > TimerHandler.old || (TimerHandler.old > 0 && time == 0))
+            if (activated)
             {
-                activated = false;
-                TimerHandler.old = time;
-            }
-
-            if (activated == false)
-            {
-                activated = true;
-                ++Time;
-                StaticResources.log.Time = 21 - Time;
-                Console.WriteLine("The time is: "+Time);
-                if (Time >= 20)
+                int time = int.Parse(DateTime.Now.ToString("ss"));
+                if (time > TimerHandler.old || (TimerHandler.old > 0 && time == 0))
                 {
-                    TimerHandler.ResetTime();
+                    secondPast = false;
+                    TimerHandler.old = time;
+                }
+
+                if (secondPast == false)
+                {
+                    secondPast = true;
+                    ++Time;
+                    StaticResources.log.Time = 21 - Time;
+                    Console.WriteLine("The time is: "+Time);
+                    if (Time >= 20)
+                    {
+                        TimerHandler.ResetTime();
+                    }
                 }
             }
         }
@@ -109,9 +117,9 @@ namespace battleship_view.Logic
         public static void ResetHandler()
         {
             StopTimer();
-            activated = false;
-            old = 0;
             timer = null;
+            secondPast = false;
+            old = 0;
             startOfTurn = new DateTime();
             Time = 0;
         }

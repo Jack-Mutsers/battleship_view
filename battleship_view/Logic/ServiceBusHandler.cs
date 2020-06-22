@@ -157,10 +157,10 @@ namespace battleship_view.Logic
         {
             await program.topic.DisconnectFromTopic();
 
-            if (StaticResources.user.type == PlayerType.Host)
-            {
-                await program.DeleteTopic();
-            }
+            //if (StaticResources.user.type == PlayerType.Host)
+            //{
+            //    await program.DeleteTopic();
+            //}
 
             await program.QueueListner.DisconnectFromQueue();
 
