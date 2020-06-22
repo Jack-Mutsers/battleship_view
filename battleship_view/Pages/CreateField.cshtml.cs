@@ -25,11 +25,12 @@ namespace battleship_view
             set { StaticResources.startGame = value; }
         }
 
-        public void OnGet()
+        public async void OnGet()
         {
             if(StaticResources.lobbyStarted == false && ServiceBusHandler.program != null)
             {
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+                await ServiceBusHandler.program.DeleteListnerQueue();
                 StaticResources.lobbyStarted = true;
             }
 

@@ -93,7 +93,9 @@ namespace battleship_view.Logic
                             await program.QueueWriter.SendQueueMessageAsync(line, MessageType.Response);
 
                             // disconnect from the writer queue
-                            //program.QueueWriter.DisconnectFromQueue();
+                            await program.QueueWriter.DisconnectFromQueue();
+
+                            program.QueueListner.ConnectToQueue();
 
                             // create new player message, so everyone in the game can update their player list
                             NewPlayerMessage newPlayerMessage = new NewPlayerMessage();
@@ -129,9 +131,7 @@ namespace battleship_view.Logic
                         // store service bus topic data in program
                         program.CreateTopicConnection(response.topicData);
 
-                        await program.QueueListner.DisconnectFromQueue();
-
-                        program.DeleteListnerQueue();
+                        await program.DeleteListnerQueue();
                     }
                 }
             }

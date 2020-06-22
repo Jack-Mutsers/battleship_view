@@ -29,12 +29,18 @@ namespace battleship_view.Logic
 
         public static void StartTimer()
         {
-            timer.Start();
+            if (timer != null)
+            {
+                timer.Start();
+            }
         }
 
         public static void StopTimer()
         {
-            timer.Stop();
+            if (timer != null)
+            {
+                timer.Stop();
+            }
         }
 
         public static void ResetTime()
