@@ -162,6 +162,8 @@ namespace battleship_view.Logic
                 await program.DeleteTopic();
             }
 
+            await program.QueueListner.DisconnectFromQueue();
+
             program = null;
         }
     }

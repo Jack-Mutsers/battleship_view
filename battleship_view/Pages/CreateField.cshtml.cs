@@ -30,7 +30,13 @@ namespace battleship_view
             if(StaticResources.lobbyStarted == false && ServiceBusHandler.program != null)
             {
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
-                await ServiceBusHandler.program.DeleteListnerQueue();
+
+                if (StaticResources.user.type == PlayerType.Host)
+                {
+                    await ServiceBusHandler.program.DeleteListnerQueue();
+                }
+                
+                
                 StaticResources.lobbyStarted = true;
             }
 

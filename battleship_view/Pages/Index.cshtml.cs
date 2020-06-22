@@ -26,8 +26,9 @@ namespace battleship_view.Pages
             {
                 TimerHandler.ResetHandler();
                 await ServiceBusHandler.ResetData();
-                StaticResources.ResetData();
             }
+            
+            StaticResources.ResetData();
         }
     }
 }
