@@ -63,56 +63,62 @@ namespace battleship_view
 
         public void OnTopicMessageReceived(string message)
         {
-            Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
-
-            if (transfer.type == MessageType.Action)
+            var result = StaticResources.sevicebusLogs.Where(sbl => sbl == message).FirstOrDefault();
+            if (result == null)
             {
-                GameAction action = JsonConvert.DeserializeObject<GameAction>(transfer.message);
-                Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == action.playerId).First();
+                StaticResources.sevicebusLogs.Add(message);
 
-                if (action.action == PlayerAction.shoot)
+                Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
+
+                if (transfer.type == MessageType.Action)
                 {
-                    if (action.coordinates.field == StaticResources.user.orderNumber)
+                    GameAction action = JsonConvert.DeserializeObject<GameAction>(transfer.message);
+                    Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == action.playerId).First();
+
+                    if (action.action == PlayerAction.shoot)
                     {
-                        // shot is directed at my field
+                        if (action.coordinates.field == StaticResources.user.orderNumber)
+                        {
+                            // shot is directed at my field
 
-                        bool hit = StaticResources.field.CheckForHit(action.coordinates);
-                        bool gameOver = StaticResources.field.CheckForGameOver();
+                            bool hit = StaticResources.field.CheckForHit(action.coordinates);
+                            bool gameOver = StaticResources.field.CheckForGameOver();
 
-                        sender.SendHitResponseMessage(action.coordinates, hit, gameOver, action.playerId);
+                            sender.SendHitResponseMessage(action.coordinates, hit, gameOver, action.playerId);
+                        }
+
+                        // reset timer and increase turn
+                        TimerHandler.ResetTime();
                     }
-                    
+
+                }
+
+                if (transfer.type == MessageType.Surrender)
+                {
+                    var settings = new JsonSerializerSettings()
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    };
+                    SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message, settings);
+                    Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == response.playerId).First();
+
+                    // enter code here to display surrender message in log
+                    string logEntry = "{player} has surrendered";
+                    logEntry = logEntry.Replace("{player}", player.name);
+                    WriteMessageToLog(logEntry);
+
+                    // start gameover function
+                    HandleGameOver(response.playerId, response.field);
                     // reset timer and increase turn
                     TimerHandler.ResetTime();
                 }
 
-            }
-
-            if (transfer.type == MessageType.Surrender)
-            {
-                var settings = new JsonSerializerSettings()
+                if (transfer.type == MessageType.GameResponse)
                 {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                SurrenderResponse response = JsonConvert.DeserializeObject<SurrenderResponse>(transfer.message, settings);
-                Player player = StaticResources.PlayerList.Where(Speler => Speler.PlayerId == response.playerId).First();
+                    GameResponse response = JsonConvert.DeserializeObject<GameResponse>(transfer.message);
 
-                // enter code here to display surrender message in log
-                string logEntry = "{player} has surrendered";
-                logEntry = logEntry.Replace("{player}", player.name);
-                WriteMessageToLog(logEntry);
-
-                // start gameover function
-                HandleGameOver(response.playerId, response.field);
-                // reset timer and increase turn
-                TimerHandler.ResetTime();
-            }
-
-            if (transfer.type == MessageType.GameResponse)
-            {
-                GameResponse response = JsonConvert.DeserializeObject<GameResponse>(transfer.message);
-
-                HandleHitResponse(response);
+                    HandleHitResponse(response);
+                }
             }
         }
 

@@ -66,17 +66,8 @@ namespace ServiceBus.ConnectionHandlers
                 // close recieved message
                 await _TopicHandler.CompleteMessageAsync(message.SystemProperties.LockToken);
 
-                Transfer transfer = JsonConvert.DeserializeObject<Transfer>(val);
-
-                var result = StaticResources.sevicebusLogs.Where(sbl => sbl == val).FirstOrDefault();
-
-                if (result == null)
-                {
-                    StaticResources.sevicebusLogs.Add(val);
-                    
-                    // send message to the MessageReceived event
-                    MessageReceived(val);
-                }
+                // send message to the MessageReceived event
+                MessageReceived(val);
             }
         }
 
