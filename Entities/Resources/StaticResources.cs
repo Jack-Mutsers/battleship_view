@@ -27,5 +27,20 @@ namespace Entities.Resources
             //new Player() { PlayerId = 3, name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
             //new Player() { PlayerId = 4, name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
         };
+
+        public static void ResetData()
+        {
+            user = null;
+            PlayerList = new List<Player>();
+            sessionCode = "";
+            field = null;
+            log = new ChangeLog();
+            startLobby = false;
+            startGame = false;
+            lobbyStarted = false;
+            records = new HighscoreRecords();
+            sevicebusLogs = new List<string>();
+            lastSendMessage = "";
+        }
     }
 }

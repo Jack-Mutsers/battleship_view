@@ -3,6 +3,7 @@ using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
 using Newtonsoft.Json;
+using ServiceBus.Manipulators;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -152,5 +153,12 @@ namespace battleship_view.Logic
             }
         }
 
+        public static async void ResetData()
+        {
+            await program.topic.DisconnectFromTopic();
+            await program.DeleteTopic();
+
+            program = null;
+        }
     }
 }

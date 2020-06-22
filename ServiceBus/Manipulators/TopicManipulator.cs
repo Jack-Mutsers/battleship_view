@@ -67,7 +67,7 @@ namespace ServiceBus.Manipulators
             return true;
         }
 
-        public static async void DeleteTopic(string topicName)
+        public static async Task DeleteTopic(string topicName)
         {
             string connectionString = ServiceBusData.ConnectionString;
             var managementClient = new ManagementClient(connectionString);

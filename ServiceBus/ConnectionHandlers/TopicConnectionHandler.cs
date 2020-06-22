@@ -71,5 +71,10 @@ namespace ServiceBus.ConnectionHandlers
             }
         }
 
+        public async Task DisconnectFromTopic()
+        {
+            await _TopicHandler.DisconnectAsync();
+            await Task.CompletedTask;
+        }
     }
 }

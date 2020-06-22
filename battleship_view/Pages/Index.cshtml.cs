@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using battleship_view.Logic;
+using Entities.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -19,7 +21,11 @@ namespace battleship_view.Pages
 
         public void OnGet()
         {
-
+            if(ServiceBusHandler.program != null)
+            {
+                ServiceBusHandler.ResetData();
+                StaticResources.ResetData();
+            }
         }
     }
 }

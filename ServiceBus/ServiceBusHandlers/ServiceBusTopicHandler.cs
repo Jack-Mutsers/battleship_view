@@ -90,5 +90,12 @@ namespace ServiceBus.ServiceBusHandlers
             Console.WriteLine($"- Executing Action: {context.Action}");
             return Task.CompletedTask;
         }
+
+        public async Task DisconnectAsync()
+        {
+            await topicClient.CloseAsync();
+            topicClient = null;
+            await Task.CompletedTask;
+        }
     }
 }

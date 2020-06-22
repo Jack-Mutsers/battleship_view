@@ -79,5 +79,12 @@ namespace ServiceBus
 
             QueueManipulator.DeleteQueue(queueName);
         }
+
+        public async Task DeleteTopic()
+        {
+            string topicName = topic.TopicData.topic;
+
+            await TopicManipulator.DeleteTopic(topicName);
+        }
     }
 }
