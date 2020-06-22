@@ -33,7 +33,7 @@ function CheckForChanges() {
             }
         },
         complete: function () {
-            //setTimeout(CheckForChanges, 1000);
+            setTimeout(CheckForChanges, 1000);
         }
     });
 }

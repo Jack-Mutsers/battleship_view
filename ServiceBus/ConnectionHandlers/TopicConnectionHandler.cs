@@ -43,17 +43,10 @@ namespace ServiceBus.ConnectionHandlers
 
         public async void SendTopicMessage(string message, MessageType type)
         {
-            ServiceBusLog serviceBusLog = new ServiceBusLog()
-            {
-                playerId = StaticResources.user.PlayerId,
-                SendTime = DateTime.Now
-            };
-
             // create trasfer model to differentiate between message types
             Transfer transfer = new Transfer();
             transfer.message = message;
             transfer.type = type;
-            transfer.serviceBusLog = serviceBusLog;
 
             // convert trasfer model to string for transfere
             string line = JsonConvert.SerializeObject(transfer);
@@ -74,26 +67,12 @@ namespace ServiceBus.ConnectionHandlers
                 await _TopicHandler.CompleteMessageAsync(message.SystemProperties.LockToken);
 
                 Transfer transfer = JsonConvert.DeserializeObject<Transfer>(val);
-                ServiceBusLog log = transfer.serviceBusLog;
 
-                bool ok = true;
-                if (StaticResources.sevicebusLogs.Count() > 0)
+                var result = StaticResources.sevicebusLogs.Where(sbl => sbl == val).FirstOrDefault();
+
+                if (result == null)
                 {
-                    ServiceBusLog lastLog = StaticResources.sevicebusLogs.Last();
-
-                    ok = false;
-                    DateTime date = DateTime.Now;
-                    if (StaticResources.startGame == false || (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19)))
-                    {
-                        ok = true;
-                    }
-                }
-
-                var result = StaticResources.sevicebusLogs.Where(sbl => sbl.playerId == log.playerId && sbl.SendTime == log.SendTime).FirstOrDefault();
-
-                if (result == null && ok)
-                {
-                    StaticResources.sevicebusLogs.Add(log);
+                    StaticResources.sevicebusLogs.Add(val);
                     
                     // send message to the MessageReceived event
                     MessageReceived(val);

@@ -29,7 +29,6 @@ namespace battleship_view
 
         public async void OnGet()
         {
-            StaticResources.sevicebusLogs = new List<ServiceBusLog>();
             TimerHandler.SetTimer();
             TimerHandler.StartTimer();
             if (StaticResources.PlayerList.Count() == 0)
