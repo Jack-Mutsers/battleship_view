@@ -13,6 +13,7 @@ namespace battleship_view.Logic
         private static bool activated { get; set; } = false;
         private static int old { get; set; } = 0;
         private static Timer timer;
+        public static DateTime startOfTurn { get; set; } = new DateTime();
 
         public static int Time { get; set; } = 0;
 
@@ -90,6 +91,8 @@ namespace battleship_view.Logic
 
                 if (p.PlayerId == StaticResources.user.PlayerId)
                     StaticResources.log.MyTurn = true;
+
+                TimerHandler.startOfTurn = DateTime.Now;
             }
             catch (Exception ex)
             {

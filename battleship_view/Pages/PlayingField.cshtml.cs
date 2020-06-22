@@ -281,7 +281,8 @@ namespace battleship_view
 
         public ActionResult OnPostShoot([FromBody]Coordinate coordinates)
         {
-            if (StaticResources.log.MyTurn)
+            DateTime date = DateTime.Now;
+            if (StaticResources.log.MyTurn && TimerHandler.startOfTurn < date.AddSeconds(-2))
             {
                 StaticResources.log.MyTurn = false;
                 StaticResources.records.shots += 1; //highscores bijhouden
