@@ -80,7 +80,7 @@ namespace ServiceBus.ConnectionHandlers
                 var result = StaticResources.sevicebusLogs.Where(sbl => sbl.playerId == log.playerId && sbl.SendTime == log.SendTime).FirstOrDefault();
 
                 DateTime date = DateTime.Now;
-                if (result == null && (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19)))
+                if (result == null && (StaticResources.startGame == false || (lastLog.playerId != log.playerId || lastLog.SendTime < date.AddSeconds(-19))))
                 {
                     StaticResources.sevicebusLogs.Add(log);
                     
