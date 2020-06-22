@@ -156,7 +156,11 @@ namespace battleship_view.Logic
         public static async void ResetData()
         {
             await program.topic.DisconnectFromTopic();
-            await program.DeleteTopic();
+
+            if (StaticResources.user.type == PlayerType.Host)
+            {
+                await program.DeleteTopic();
+            }
 
             program = null;
         }
