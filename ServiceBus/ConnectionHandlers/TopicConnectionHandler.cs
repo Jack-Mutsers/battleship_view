@@ -1,10 +1,12 @@
 ﻿using Entities.DataModels;
 using Entities.Enums;
 using Entities.Models;
+using Entities.Resources;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
 using ServiceBus.ServiceBusHandlers;
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,10 +43,17 @@ namespace ServiceBus.ConnectionHandlers
 
         public async void SendTopicMessage(string message, MessageType type)
         {
+            ServiceBusLog serviceBusLog = new ServiceBusLog()
+            {
+                playerId = StaticResources.user.PlayerId,
+                SendTime = DateTime.Now
+            };
+
             // create trasfer model to differentiate between message types
             Transfer transfer = new Transfer();
             transfer.message = message;
             transfer.type = type;
+            transfer.serviceBusLog = serviceBusLog;
 
             // convert trasfer model to string for transfere
             string line = JsonConvert.SerializeObject(transfer);
@@ -64,8 +73,19 @@ namespace ServiceBus.ConnectionHandlers
                 // close recieved message
                 await _TopicHandler.CompleteMessageAsync(message.SystemProperties.LockToken);
 
-                // send message to the MessageReceived event
-                MessageReceived(val);
+                Transfer transfer = JsonConvert.DeserializeObject<Transfer>(val);
+
+                ServiceBusLog log = transfer.serviceBusLog;
+
+                var result = StaticResources.sevicebusLogs.Where(sbl => sbl.playerId == log.playerId && sbl.SendTime == log.SendTime).FirstOrDefault();
+
+                if (result == null)
+                {
+                    StaticResources.sevicebusLogs.Add(result);
+                    
+                    // send message to the MessageReceived event
+                    MessageReceived(val);
+                }
             }
         }
 

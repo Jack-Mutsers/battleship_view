@@ -11,6 +11,6 @@ namespace Entities.Models
         public QueueData QueueData { get; set; }
         public string message { get; set; }
         public MessageType type { get; set; }
-
+        public ServiceBusLog serviceBusLog { get; set; }
     }
 }
