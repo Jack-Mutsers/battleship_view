@@ -19,6 +19,7 @@ namespace Entities.Resources
         public static bool lobbyStarted { get; set; } = false;
         public static bool gameCompleted { get; set; } = false;
         public static HighscoreRecords records { get; set; } = new HighscoreRecords();
+        public static List<string> sevicebusQueueLogs { get; set; } = new List<string>();
         public static List<string> sevicebusLogs { get; set; } = new List<string>();
         public static string lastSendMessage { get; set; } = "";
 
@@ -40,6 +41,7 @@ namespace Entities.Resources
             startGame = false;
             lobbyStarted = false;
             records = new HighscoreRecords();
+            sevicebusQueueLogs = new List<string>();
             sevicebusLogs = new List<string>();
             lastSendMessage = "";
         }

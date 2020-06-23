@@ -61,11 +61,21 @@ namespace battleship_view
 
         public void OnQueueMessageReceived(string message)
         {
-            Transfer transfer = JsonConvert.DeserializeObject<Transfer>(message);
+            Transfer transferObject = JsonConvert.DeserializeObject<Transfer>(message);
 
-            if (transfer.type == MessageType.JoinRequest)
+            int count = StaticResources.sevicebusQueueLogs.Where(sql => sql == message).Count();
+
+            bool accept = true;
+            if (transferObject.type == MessageType.JoinRequest && count > 0)
+                accept = false;
+
+            if (accept)
             {
-                ServiceBusHandler.HandleQueueMessage(message);
+                if (transferObject.type == MessageType.JoinRequest)
+                {
+                    StaticResources.sevicebusQueueLogs.Add(message);
+                    ServiceBusHandler.HandleQueueMessage(message);
+                }
             }
         }
 
@@ -87,7 +97,8 @@ namespace battleship_view
             else if (transfer.type == MessageType.LeaveLobby)
             {
                 Player player = JsonConvert.DeserializeObject<Player>(transfer.message);
-                StaticResources.PlayerList.Remove(player);
+                int index = StaticResources.PlayerList.FindIndex(p => p.PlayerId == player.PlayerId);
+                StaticResources.PlayerList.RemoveAt(index);
 
                 MessageSender messageSender = new MessageSender();
                 messageSender.SendNewPlayerMessage();
