@@ -13,6 +13,8 @@
         });
 
         $("#playerTable").removeClass("hidden");
+        $("#btnLeave").removeClass("hidden");
+        $("#btnJoin").addClass("hidden");
         CheckForChanges();
     }
 }
