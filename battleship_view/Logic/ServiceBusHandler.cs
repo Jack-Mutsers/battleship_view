@@ -97,15 +97,8 @@ namespace battleship_view.Logic
 
                             program.QueueListner.ConnectToQueue();
 
-                            // create new player message, so everyone in the game can update their player list
-                            NewPlayerMessage newPlayerMessage = new NewPlayerMessage();
-                            newPlayerMessage.playerList = players;
-
-                            // convert the NewPlayerMessage model to a JsonString
-                            line = JsonConvert.SerializeObject(newPlayerMessage);
-
-                            // send the new player message
-                            program.topic.SendTopicMessage(line, MessageType.NewPlayer);
+                            MessageSender messageSender = new MessageSender();
+                            messageSender.SendNewPlayerMessage()
                         }
 
                     }
@@ -165,6 +158,11 @@ namespace battleship_view.Logic
             await program.QueueListner.DisconnectFromQueue();
 
             program = null;
+        }
+
+        public static void SendPlayerListRequest()
+        {
+            program.topic.SendTopicMessage("", MessageType.PlayerListRequest);
         }
     }
 }

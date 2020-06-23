@@ -79,6 +79,11 @@ namespace battleship_view
                 sessionCode = StaticResources.sessionCode;
                 players = StaticResources.PlayerList;
             }
+            else if (transfer.type == MessageType.PlayerListRequest)
+            {
+                MessageSender messageSender = new MessageSender();
+                messageSender.SendNewPlayerMessage();
+            }
         }
 
         public ActionResult OnGetChangeChecker()
