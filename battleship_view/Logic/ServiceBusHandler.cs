@@ -67,24 +67,23 @@ namespace battleship_view.Logic
                         {
                             // set the player order, by increasing the playerCount before assigning it to the ordernumber
                             bool inUSe = true;
+                            int orderNumber = 1;
                             while (inUSe == true)
                             {
-                                playerCount += 1;
+                                orderNumber += 1;
 
-                                if (playerCount > 4)
-                                    playerCount = 2;
-
-                                int count = StaticResources.PlayerList.Where(p=>p.orderNumber == playerCount).Count();
+                                int count = StaticResources.PlayerList.Where(p=>p.orderNumber == orderNumber).Count();
 
                                 if (count == 0)
                                     inUSe = false;
                             }
 
-                            source.orderNumber = playerCount;
+                            source.orderNumber = orderNumber;
 
                             // add new player to the player list
-                            List<Player> players = StaticResources.PlayerList;
-                            players.Add(source);
+                            StaticResources.PlayerList.Add(source);
+
+                            StaticResources.PlayerList = StaticResources.PlayerList.OrderBy(p => p.orderNumber).ToList();
 
                             // create response model
                             SessionResponse response = new SessionResponse();
@@ -94,7 +93,7 @@ namespace battleship_view.Logic
                             {
                                 TopicConnectionString = program.topic.TopicData.TopicConnectionString, // get newly created topic connection string
                                 topic = program.topic.TopicData.topic, // get newly created topic name
-                                subscription = subscription[playerCount] // assign subscription to the new player
+                                subscription = subscription[orderNumber] // assign subscription to the new player
                             };
 
                             // convert the response model to a JsonString
