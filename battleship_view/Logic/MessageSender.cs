@@ -109,5 +109,20 @@ namespace battleship_view.Logic
             // send the new player message
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.NewPlayer);
         }
+
+        public void SendLeaveLobbyMessage()
+        {
+            Player player = StaticResources.user;
+
+            if (player.GameOver == false && StaticResources.startGame == true) 
+            {
+                SendSurrenderMessage();
+            }
+
+            string line = JsonConvert.SerializeObject(StaticResources.user);
+
+            // send the leave message
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.LeaveLobby);
+        }
     }
 }

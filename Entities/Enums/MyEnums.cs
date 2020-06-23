@@ -27,7 +27,8 @@ namespace Entities.Enums
         NewPlayer,
         Surrender,
         StartGame,
-        PlayerListRequest
+        PlayerListRequest,
+        LeaveLobby
     }
 
     // define alle availible subscriptions

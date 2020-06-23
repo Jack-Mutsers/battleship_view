@@ -84,6 +84,14 @@ namespace battleship_view
                 MessageSender messageSender = new MessageSender();
                 messageSender.SendNewPlayerMessage();
             }
+            else if (transfer.type == MessageType.LeaveLobby)
+            {
+                Player player = JsonConvert.DeserializeObject<Player>(transfer.message);
+                StaticResources.PlayerList.Remove(player);
+
+                MessageSender messageSender = new MessageSender();
+                messageSender.SendNewPlayerMessage();
+            }
         }
 
         public ActionResult OnGetChangeChecker()

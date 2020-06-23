@@ -24,6 +24,12 @@ namespace battleship_view.Pages
         {
             if(ServiceBusHandler.program != null)
             {
+                if (StaticResources.PlayerList.Count() > 0 && StaticResources.gameCompleted == false)
+                {
+                    MessageSender messageSender = new MessageSender();
+                    messageSender.SendLeaveLobbyMessage();
+                }
+
                 TimerHandler.ResetHandler();
                 await ServiceBusHandler.ResetData();
             }

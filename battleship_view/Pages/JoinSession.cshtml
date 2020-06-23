@@ -32,24 +32,8 @@
                     <input id="lobbycode-input" type="text" />
                 </div>
                 <div class="join-container">
-                    <button onclick="JoinSession();" class="join">Join lobby</button>
-                </div>
-            </div>
-
-
-            <div id="lobby" class="left-side">
-                <div id="username" class="field">
-                    <p>
-                        Username:
-                    </p>
-                </div>
-                <div id="lobbycode" class="field">
-                    <p>
-                        Lobbycode:
-                    </p>
-                </div>
-                <div class="leave-container">
-                    <a class="nav-link text-dark leave" asp-area="" asp-page="/JoinSession">Leave lobby</a>
+                    <button id="btnJoin" onclick="JoinSession();" class="join">Join lobby</button>
+                    <button id="btnLeave" class="hidden" onclick="LeaveSession();">Leave lobby</button>
                 </div>
             </div>
 

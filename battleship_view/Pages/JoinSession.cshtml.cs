@@ -102,5 +102,12 @@ namespace battleship_view
         {
             ServiceBusHandler.SendPlayerListRequest(); 
         }
+
+        public void OnGetLeaveSession()
+        {
+            MessageSender messageSender = new MessageSender();
+            messageSender.SendLeaveLobbyMessage();
+            StaticResources.PlayerList = new List<Player>();
+        }
     }
 }

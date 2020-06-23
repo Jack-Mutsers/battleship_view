@@ -66,7 +66,21 @@ namespace battleship_view.Logic
                         if (playerCount < 4 && exists == 0)
                         {
                             // set the player order, by increasing the playerCount before assigning it to the ordernumber
-                            source.orderNumber = ++playerCount;
+                            bool inUSe = true;
+                            while (inUSe == true)
+                            {
+                                playerCount += 1;
+
+                                if (playerCount > 4)
+                                    playerCount = 2;
+
+                                int count = StaticResources.PlayerList.Where(p=>p.orderNumber == playerCount).Count();
+
+                                if (count == 0)
+                                    inUSe = false;
+                            }
+
+                            source.orderNumber = playerCount;
 
                             // add new player to the player list
                             List<Player> players = StaticResources.PlayerList;

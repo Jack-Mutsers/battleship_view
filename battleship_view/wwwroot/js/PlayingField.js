@@ -239,3 +239,19 @@ function UpdateTurn(myTurn, Turnnr) {
     var test = "#player" + Turnnr;
     $(test).addClass("activePlayer");
 }
+
+function FinishGame() {
+    $.ajax({
+        type: "GET",
+        url: "JoinSession?handler=FinishGame",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        complete: function () {
+            window.location.href = "/index";
+        }
+    });
+}
+
+

@@ -36,7 +36,6 @@ namespace battleship_view
                     await ServiceBusHandler.program.DeleteListnerQueue();
                 }
                 
-                
                 StaticResources.lobbyStarted = true;
             }
 
