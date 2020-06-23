@@ -97,5 +97,10 @@ namespace battleship_view
         {
             return new JsonResult(start);
         }
+
+        public void OnGetRequestNewPlayerList()
+        {
+            ServiceBusHandler.SendPlayerListRequest(); 
+        }
     }
 }

@@ -65,3 +65,13 @@ function CheckForStartGame() {
     });
 }
 
+$(document).on("click", "#RefreshPlayerListBtn", function () {
+    $.ajax({
+        type: "GET",
+        url: "JoinSession?handler=RequestNewPlayerList",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        }
+    });
+});
