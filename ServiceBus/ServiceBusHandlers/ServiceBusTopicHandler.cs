@@ -27,7 +27,7 @@ namespace ServiceBus.ServiceBusHandlers
         {
             try
             {
-                if (message != StaticResources.lastSendMessage)
+                if (message != StaticResources.lastSendMessage || StaticResources.startGame == false)
                 {
                     StaticResources.lastSendMessage = message;
 

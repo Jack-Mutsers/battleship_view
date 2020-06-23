@@ -98,7 +98,7 @@ namespace battleship_view.Logic
                             program.QueueListner.ConnectToQueue();
 
                             MessageSender messageSender = new MessageSender();
-                            messageSender.SendNewPlayerMessage()
+                            messageSender.SendNewPlayerMessage();
                         }
 
                     }
