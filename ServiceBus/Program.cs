@@ -35,6 +35,11 @@ namespace ServiceBus
 
         public async Task CreateQueueWriter(PlayerType playerType, QueueData queueData = null)
         {
+            if (StaticResources.user.type == PlayerType.Host)
+            {
+                await QueueListner.DisconnectFromQueue();
+            }
+
             if (QueueWriter != null)
             {
                 await QueueWriter.DisconnectFromQueue();
@@ -73,11 +78,20 @@ namespace ServiceBus
             return true;
         }
 
-        public void DeleteListnerQueue()
+        public async Task DeleteListnerQueue()
         {
+            await QueueListner.DisconnectFromQueue();
+
             string queueName = QueueListner.QueueData.queueName;
 
             QueueManipulator.DeleteQueue(queueName);
+        }
+
+        public async Task DeleteTopic()
+        {
+            string topicName = topic.TopicData.topic;
+
+            await TopicManipulator.DeleteTopic(topicName);
         }
     }
 }

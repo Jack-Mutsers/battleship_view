@@ -18,18 +18,30 @@ namespace battleship_view
     public class CreateFieldModel : PageModel
     {
         public List<Player> players { get; set; } = StaticResources.PlayerList;
+        public bool TestEviroment { get; set; } = false;
 
         private bool start { 
             get { return StaticResources.startGame; } 
             set { StaticResources.startGame = value; }
         }
 
-        public void OnGet()
+        public async void OnGet()
         {
             if(StaticResources.lobbyStarted == false && ServiceBusHandler.program != null)
             {
                 ServiceBusHandler.program.topic.MessageReceived += OnTopicMessageReceived;
+
+                if (StaticResources.user.type == PlayerType.Host)
+                {
+                    await ServiceBusHandler.program.DeleteListnerQueue();
+                }
+                
                 StaticResources.lobbyStarted = true;
+            }
+
+            if (StaticResources.lobbyStarted == false)
+            {
+                TestEviroment = true;
             }
         }
 

@@ -3,6 +3,7 @@ using Entities.Enums;
 using Entities.Models;
 using Entities.Resources;
 using Newtonsoft.Json;
+using ServiceBus.Manipulators;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,11 +66,24 @@ namespace battleship_view.Logic
                         if (playerCount < 4 && exists == 0)
                         {
                             // set the player order, by increasing the playerCount before assigning it to the ordernumber
-                            source.orderNumber = ++playerCount;
+                            bool inUSe = true;
+                            int orderNumber = 1;
+                            while (inUSe == true)
+                            {
+                                orderNumber += 1;
+
+                                int count = StaticResources.PlayerList.Where(p=>p.orderNumber == orderNumber).Count();
+
+                                if (count == 0)
+                                    inUSe = false;
+                            }
+
+                            source.orderNumber = orderNumber;
 
                             // add new player to the player list
-                            List<Player> players = StaticResources.PlayerList;
-                            players.Add(source);
+                            StaticResources.PlayerList.Add(source);
+
+                            StaticResources.PlayerList = StaticResources.PlayerList.OrderBy(p => p.orderNumber).ToList();
 
                             // create response model
                             SessionResponse response = new SessionResponse();
@@ -79,7 +93,7 @@ namespace battleship_view.Logic
                             {
                                 TopicConnectionString = program.topic.TopicData.TopicConnectionString, // get newly created topic connection string
                                 topic = program.topic.TopicData.topic, // get newly created topic name
-                                subscription = subscription[playerCount] // assign subscription to the new player
+                                subscription = subscription[orderNumber] // assign subscription to the new player
                             };
 
                             // convert the response model to a JsonString
@@ -92,17 +106,12 @@ namespace battleship_view.Logic
                             await program.QueueWriter.SendQueueMessageAsync(line, MessageType.Response);
 
                             // disconnect from the writer queue
-                            //program.QueueWriter.DisconnectFromQueue();
+                            await program.QueueWriter.DisconnectFromQueue();
 
-                            // create new player message, so everyone in the game can update their player list
-                            NewPlayerMessage newPlayerMessage = new NewPlayerMessage();
-                            newPlayerMessage.playerList = players;
+                            program.QueueListner.ConnectToQueue();
 
-                            // convert the NewPlayerMessage model to a JsonString
-                            line = JsonConvert.SerializeObject(newPlayerMessage);
-
-                            // send the new player message
-                            program.topic.SendTopicMessage(line, MessageType.NewPlayer);
+                            MessageSender messageSender = new MessageSender();
+                            messageSender.SendNewPlayerMessage();
                         }
 
                     }
@@ -128,9 +137,7 @@ namespace battleship_view.Logic
                         // store service bus topic data in program
                         program.CreateTopicConnection(response.topicData);
 
-                        await program.QueueListner.DisconnectFromQueue();
-
-                        program.DeleteListnerQueue();
+                        await program.DeleteListnerQueue();
                     }
                 }
             }
@@ -152,5 +159,23 @@ namespace battleship_view.Logic
             }
         }
 
+        public static async Task ResetData()
+        {
+            await program.topic.DisconnectFromTopic();
+
+            //if (StaticResources.user.type == PlayerType.Host)
+            //{
+            //    await program.DeleteTopic();
+            //}
+
+            await program.QueueListner.DisconnectFromQueue();
+
+            program = null;
+        }
+
+        public static void SendPlayerListRequest()
+        {
+            program.topic.SendTopicMessage("", MessageType.PlayerListRequest);
+        }
     }
 }

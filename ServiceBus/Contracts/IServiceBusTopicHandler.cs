@@ -12,5 +12,6 @@ namespace ServiceBus
     {
         Task SendMessagesAsync(string message);
         Task CompleteMessageAsync(string lockToken);
+        Task DisconnectAsync();
     }
 }

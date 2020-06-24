@@ -97,5 +97,17 @@ namespace battleship_view
         {
             return new JsonResult(start);
         }
+
+        public void OnGetRequestNewPlayerList()
+        {
+            ServiceBusHandler.SendPlayerListRequest(); 
+        }
+
+        public void OnGetLeaveSession()
+        {
+            MessageSender messageSender = new MessageSender();
+            messageSender.SendLeaveLobbyMessage();
+            StaticResources.PlayerList = new List<Player>();
+        }
     }
 }

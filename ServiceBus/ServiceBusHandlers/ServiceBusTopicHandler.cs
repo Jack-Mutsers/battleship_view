@@ -1,5 +1,7 @@
-﻿using Microsoft.Azure.ServiceBus;
+﻿using Entities.Resources;
+using Microsoft.Azure.ServiceBus;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,12 +27,17 @@ namespace ServiceBus.ServiceBusHandlers
         {
             try
             {
-                // Create a new message to send to the topic.
-                var encodedMessage = new Message(Encoding.UTF8.GetBytes(message));
-                //encodedMessage.SessionId = sessionCode;
+                if (message != StaticResources.lastSendMessage || StaticResources.startGame == false)
+                {
+                    StaticResources.lastSendMessage = message;
 
-                // Send the message to the topic.
-                await topicClient.SendAsync(encodedMessage);
+                    // Create a new message to send to the topic.
+                    var encodedMessage = new Message(Encoding.UTF8.GetBytes(message));
+                    //encodedMessage.SessionId = sessionCode;
+
+                    // Send the message to the topic.
+                    await topicClient.SendAsync(encodedMessage);
+                }
             }
             catch (Exception exception)
             {
@@ -82,6 +89,12 @@ namespace ServiceBus.ServiceBusHandlers
             Console.WriteLine($"- Entity Path: {context.EntityPath}");
             Console.WriteLine($"- Executing Action: {context.Action}");
             return Task.CompletedTask;
+        }
+
+        public async Task DisconnectAsync()
+        {
+            await topicClient.CloseAsync();
+            await Task.CompletedTask;
         }
     }
 }

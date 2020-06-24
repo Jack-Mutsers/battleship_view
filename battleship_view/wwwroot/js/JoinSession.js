@@ -13,6 +13,8 @@
         });
 
         $("#playerTable").removeClass("hidden");
+        $("#btnLeave").removeClass("hidden");
+        $("#btnJoin").addClass("hidden");
         CheckForChanges();
     }
 }
@@ -64,4 +66,30 @@ function CheckForStartGame() {
         }
     });
 }
+
+$(document).on("click", "#RefreshPlayerListBtn", function () {
+    $.ajax({
+        type: "GET",
+        url: "JoinSession?handler=RequestNewPlayerList",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        }
+    });
+});
+
+function LeaveSession() {
+    $.ajax({
+        type: "GET",
+        url: "JoinSession?handler=LeaveSession",
+        contentType: 'application/json; charset=utf-8',
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+        },
+        complete: function () {
+            window.location.href = "/index";
+        }
+    });
+}
+
 

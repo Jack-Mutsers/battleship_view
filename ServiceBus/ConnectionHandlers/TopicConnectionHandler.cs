@@ -1,10 +1,12 @@
 ﻿using Entities.DataModels;
 using Entities.Enums;
 using Entities.Models;
+using Entities.Resources;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
 using ServiceBus.ServiceBusHandlers;
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,5 +71,10 @@ namespace ServiceBus.ConnectionHandlers
             }
         }
 
+        public async Task DisconnectFromTopic()
+        {
+            await _TopicHandler.DisconnectAsync();
+            await Task.CompletedTask;
+        }
     }
 }

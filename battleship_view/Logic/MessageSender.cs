@@ -96,5 +96,33 @@ namespace battleship_view.Logic
 
             ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.ReadyUp);
         }
+
+        public void SendNewPlayerMessage()
+        {
+            // create new player message, so everyone in the game can update their player list
+            NewPlayerMessage newPlayerMessage = new NewPlayerMessage();
+            newPlayerMessage.playerList = StaticResources.PlayerList;
+
+            // convert the NewPlayerMessage model to a JsonString
+            string line = JsonConvert.SerializeObject(newPlayerMessage);
+
+            // send the new player message
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.NewPlayer);
+        }
+
+        public void SendLeaveLobbyMessage()
+        {
+            Player player = StaticResources.user;
+
+            if (player.GameOver == false && StaticResources.startGame == true) 
+            {
+                SendSurrenderMessage();
+            }
+
+            string line = JsonConvert.SerializeObject(StaticResources.user);
+
+            // send the leave message
+            ServiceBusHandler.program.topic.SendTopicMessage(line, MessageType.LeaveLobby);
+        }
     }
 }

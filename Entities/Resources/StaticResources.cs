@@ -17,7 +17,11 @@ namespace Entities.Resources
         public static bool startLobby { get; set; } = false;
         public static bool startGame { get; set; } = false;
         public static bool lobbyStarted { get; set; } = false;
+        public static bool gameCompleted { get; set; } = false;
         public static HighscoreRecords records { get; set; } = new HighscoreRecords();
+        public static List<string> sevicebusQueueLogs { get; set; } = new List<string>();
+        public static List<string> sevicebusLogs { get; set; } = new List<string>();
+        public static string lastSendMessage { get; set; } = "";
 
         public static List<Player> dummyPlayers = new List<Player>(){
             new Player() { PlayerId = 1, name = "Zoë", ready = true, orderNumber = 1, type = PlayerType.Host },
@@ -25,5 +29,21 @@ namespace Entities.Resources
             //new Player() { PlayerId = 3, name = "Martin", ready = true, orderNumber = 3, type = PlayerType.Guest },
             //new Player() { PlayerId = 4, name = "Maikel", ready = true, orderNumber = 4, type = PlayerType.Guest }
         };
+
+        public static void ResetData()
+        {
+            user = null;
+            PlayerList = new List<Player>();
+            sessionCode = "";
+            field = null;
+            log = new ChangeLog();
+            startLobby = false;
+            startGame = false;
+            lobbyStarted = false;
+            records = new HighscoreRecords();
+            sevicebusQueueLogs = new List<string>();
+            sevicebusLogs = new List<string>();
+            lastSendMessage = "";
+        }
     }
 }

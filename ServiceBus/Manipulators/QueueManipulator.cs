@@ -32,7 +32,7 @@ namespace ServiceBus.Manipulators
             // Configure Topic Settings.
             QueueDescription qd = new QueueDescription(queueName);
             qd.MaxSizeInMB = 5120;
-            qd.DefaultMessageTimeToLive = new TimeSpan(0, 1, 0);
+            qd.DefaultMessageTimeToLive = new TimeSpan(0, 0, 20);
 
             var managementClient = new ManagementClient(connectionString);
 
