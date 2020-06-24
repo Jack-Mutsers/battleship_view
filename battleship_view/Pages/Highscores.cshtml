@@ -7,17 +7,17 @@
     <link rel="stylesheet" type="text/css" href="~/css/Highscores.css">
     <script type="text/javascript" src="~/js/Highscore.js"></script>
 
-<div class="container">
-    <main role="main" class="pb-3">
-        
-        <body>
-            @Html.AntiForgeryToken()
-            <h1 class="title-page">Highscores</h1>
+<main role="main" class="pb-3">
+    <div class="container">
 
-            <div class="column side">
-                <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
+        @Html.AntiForgeryToken()
+        <h1 class="title-page">Highscores</h1>
+
+        <div class="row">
+            <div class="col-md-1">
+            <a id="back" class="btn btn-outline-dark" asp-area="" onclick="window.history.go(-1); return false;">Back</a>
             </div>
-            <div class="column middle">
+            <div class="col-md-8">
                 <table>
                     <thead>
                         <tr>
@@ -35,12 +35,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column side">
+            <div class="col-md-3">
                 <select id="FilterField">
                     <option value="shots">Shots</option>
                     <option value="hits">Hits</option>
                     <option value="hit_streak">Hit Streak</option>
-                    <option value="boats_sunk">Boats Sunk</option>
                 </select>
                 <select id="FilterDirection">
                     <option value="asc">Asc</option>
@@ -50,7 +49,6 @@
                 <button id="ResetButton">Reset filters</button>
                 <input type="text" placeholder="search player name" id="searchBox" />
             </div>
-        </body>
-
-    </main>
-</div>
+        </div>
+    </div>
+</main>
