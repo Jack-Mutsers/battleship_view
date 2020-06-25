@@ -27,8 +27,10 @@
     function SetHighscores(Highscores) {
         //console.log(Highscores);
         var html = Highscores.length > 0 ? "" : '<td colspan="6" class="table_center">No highscores found</td>';
+        var count = 0;
         $.each(Highscores, function (key, val) {
-            html += '<tr><td class="table_center">' + val.id +
+            count++;
+            html += '<tr><td class="table_center">' + count +
                 '</td><td class="table_center">' + val.player.name +
                 '</td><td class="table_center">' + val.shots +
                 '</td><td class="table_center">' + val.hits +
